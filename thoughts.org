@@ -1,0 +1,9 @@
+* Goals
+
+- To create a Wisp-like language hosted on JavaScript
+- Data is JSON
+- Auto-currying
+
+* TODOs
+** TODO Create currying machinery and wire into namespace
+** TODO Implement ~{a | ...}~ reader that creates a ~["'fn" ["'a"] ...]~ structure.
