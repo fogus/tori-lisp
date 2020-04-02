@@ -1,0 +1,10 @@
+{
+ "name":        "torilisp",
+ "description": "an ersatz lisp for little birds",
+ "author":      "fogus",
+ "version":     "0.0.1",
+ "dependencies": {
+   "immutable": "4.0.0-rc.9"
+ }
+}
+
