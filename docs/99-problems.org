@@ -1,0 +1,25 @@
+#+TITLE:     99 ToriLisp Problems
+#+AUTHOR:    Fogus
+#+LANGUAGE:  en
+
+* 99 Problems
+
+This document is an implementation of the [[https://sites.google.com/site/prologsite/prolog-problems][99 Prolog Problems]] for ToriLisp.
+
+** TODO 1.01 Find the last element of a list.
+
+#+name: p1_01
+#+begin_src lisp :tangle 99-problems.lisp :noweb yes
+(last [1 2 3])
+
+;=> 3
+#+end_src
+
+** TODO 1.02 Find the last but one element of a list.
+
+#+name: p1_02
+#+begin_src lisp :tangle 99-problems.lisp :noweb yes
+(last (last [1 2 3]))
+
+;=> 2
+#+end_src
