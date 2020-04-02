@@ -1,8 +1,9 @@
 * Goals
 
-- To create a Wisp-like language hosted on JavaScript
+- To create a Misp-like language hosted on JavaScript
 - Data is JSON
 - Auto-currying
+- Some Clojure-esque syntax adoption
 
 * TODOs
 ** TODO Create currying machinery and wire into namespace
