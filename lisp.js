@@ -11,26 +11,23 @@
     }
   }
 
-  var read_fun_literal = function(input, list) {
-    var params = [];
+  var read_bindings = function(input, list) {
+    var binds = {};
     var has_args = true;
   
     while(has_args) {
       var token = input.shift();
 
-      if (token !== undefined) {
-	params.push(mangle(token));
-      } else if (token === "|") {
-	has_args = false;
-      }
-      else {
-	throw new Error("Unknown form in function literal: " + token);
+      if (token === "|") {
+        has_args = false;
+      } else if (token !== undefined) {
+        binds[mangle(token)] = null;
+      } else {
+        throw new Error("Unknown form in function literal: " + token);
       }
     }
 
-//    list.push(params);
-    
-    return params;
+    return binds;
   }
     
   var reader = function(input, list) {
@@ -46,11 +43,13 @@
       } else if (token === ")") {
         return list;
       } else if (token === "{") {
-	list.push("'λ");
-	list.push(reader(input, list));
+        list.push("'λ");
+        list.push(reader(input, list));
         return reader(input, list);
       } else if (token === "}") {
         return list;
+      } else if (token === "|") {
+        return read_bindings(input, list);
       } else {
         return reader(input, list.concat(mangle(token)));
       }
@@ -63,8 +62,10 @@
                    if (i % 2 === 0) { // not in string
                      return x.replace(/\(/g, ' ( ')
                        .replace(/\)/g, ' ) ')
-		       .replace(/\{/g, ' { ')
-		       .replace(/\}/g, ' } ');
+                       .replace(/\{/g, ' { ')
+                       .replace(/\}/g, ' } ')
+                       .replace(/\|/g, ' | ')
+                       .replace(/\|/g, ' | ');
                    } else { // in string
                      return x.replace(/ /g, "!whitespace!");
                    }
