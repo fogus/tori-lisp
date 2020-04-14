@@ -13,18 +13,18 @@
 
   var read_quotation = function(input, list) {
     var binds = {};
-    var has_args = true;
+    var has_elems = true;
     var index = 0;
 
-    while(has_args) {
+    while(has_elems) {
       var token = input.shift();
 
       if (token === "|") {
-        has_args = false;
+        has_elems = false;
       } else if (token !== undefined) {
         binds[index++] = mangle(token);
       } else {
-        throw new Error("Unknown form in function literal: " + token);
+        throw new Error("Unknown form in quotation: " + token);
       }
     }
 
