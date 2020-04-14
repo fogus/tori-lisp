@@ -12,16 +12,16 @@
   }
 
   var read_bindings = function(input, list) {
-    var binds = {};
+    var binds = [];
     var has_args = true;
-  
+
     while(has_args) {
       var token = input.shift();
 
       if (token === "|") {
         has_args = false;
       } else if (token !== undefined) {
-        binds[mangle(token)] = null;
+        binds.push(mangle(token));
       } else {
         throw new Error("Unknown form in function literal: " + token);
       }
