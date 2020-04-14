@@ -11,7 +11,7 @@
     }
   }
 
-  var read_bindings = function(input, list) {
+  var read_quotation = function(input, list) {
     var binds = {};
     var has_args = true;
     var index = 0;
@@ -50,7 +50,7 @@
       } else if (token === "}") {
         return list;
       } else if (token === "|") {
-        return read_bindings(input, list);
+        return read_quotation(input, list);
       } else {
         return reader(input, list.concat(mangle(token)));
       }
