@@ -31,7 +31,7 @@
     return binds;
   }
     
-  var reader = function(input, list) {
+  var reader = function(input, list, qdepth = 0) {
     if (list === undefined) {
       return reader(input, []);
     } else {
@@ -51,6 +51,10 @@
         return list;
       } else if (token === "|") {
         return read_quotation(input, list);
+      } else if (token === "'") {
+        list.push("'quote");
+        list.push(reader(input, list));
+        return list;
       } else {
         return reader(input, list.concat(mangle(token)));
       }
@@ -66,7 +70,7 @@
                        .replace(/\{/g, ' { ')
                        .replace(/\}/g, ' } ')
                        .replace(/\|/g, ' | ')
-                       .replace(/\|/g, ' | ');
+                       .replace(/\'/g, " ' ");
                    } else { // in string
                      return x.replace(/ /g, "!whitespace!");
                    }
