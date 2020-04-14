@@ -53,7 +53,7 @@
         return read_quotation(input, list);
       } else if (token === "'") {
         list.push("'quote");
-        list.push(reader(input, list));
+        list.push(reader(input, []));
         return list;
       } else {
         return reader(input, list.concat(mangle(token)));
