@@ -12,8 +12,9 @@
   }
 
   var read_bindings = function(input, list) {
-    var binds = [];
+    var binds = {};
     var has_args = true;
+    var index = 0;
 
     while(has_args) {
       var token = input.shift();
@@ -21,7 +22,7 @@
       if (token === "|") {
         has_args = false;
       } else if (token !== undefined) {
-        binds.push(mangle(token));
+        binds[index++] = mangle(token);
       } else {
         throw new Error("Unknown form in function literal: " + token);
       }
