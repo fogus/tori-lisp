@@ -11,6 +11,23 @@
     }
   }
 
+  var toString = Object.prototype.toString;
+
+  var garner_type = function(obj) {
+    return toString.call(obj);
+  };
+
+  var _eval = function(env, form) {
+    var type = garner_type(form);
+    
+    if (type == "[object Number]") {
+      return form;
+    }
+    else {
+      return ["something", "else"];
+    }
+  }
+  
   var read_quotation = function(input, list) {
     var binds = {};
     var has_elems = true;
@@ -131,7 +148,10 @@
 
   exports.lisp = {
     read: _read,
+    evil: _eval,
+    core: {},
     defun: defun,
+    t: garner_type,
     Thunk: Thunk,
     make_thunk : make_thunk
   };
