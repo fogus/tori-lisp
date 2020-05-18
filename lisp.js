@@ -1,4 +1,8 @@
 ;(function(exports) {
+  var sym = function(token) {
+    return "'" + token;
+  }
+
   var mangle = function(token) {
     if (!isNaN(parseFloat(token))) {
       return parseFloat(token);
@@ -7,24 +11,61 @@
       return token.slice(1, -1);
     }
     else {
-      return "'" + token;
+      return sym(token);
     }
   }
 
+  var PARENT_ID = "'_PARENT";
+  
+  var lookup = function(env, id) {
+    if (id in env) {
+      console.log("context");
+      return env[id];
+    } else if (PARENT_ID in env) {
+      console.log("parent");
+      return lookup(env[PARENT_ID], id);
+    }
+    console.log(id + " not set in " + Object.keys(env));
+  };
+
+  var CORE = {
+    "'a" : 42,
+    "'_PARENT" : {"'b": 9}
+  };
+  
   var toString = Object.prototype.toString;
 
   var garner_type = function(obj) {
     return toString.call(obj);
   };
 
-  var is_number = function (form) {
+  var is_number = function (env, form) {
     return garner_type(form) == "[object Number]";
+  }
+  
+  var is_string = function (env, form) {
+    return garner_type(form) == "[object String]";
+  }
+
+  var is_symbol = function (env, form) {
+    if (is_string(env, form)) {
+      return form.charAt(0) == "'";
+    }
+    else {
+      return false;
+    }
   }
   
   var _eval = function(env, form) {
     var type = garner_type(form);
     
-    if (is_number(form)) {
+    if (is_symbol(env, form)) {
+      return lookup(env, form);
+    }
+    else if (is_number(env, form)) {
+      return form;
+    }
+    else if (is_string(env, form)) {
       return form;
     }
     else {
@@ -153,7 +194,7 @@
   exports.lisp = {
     read: _read,
     evil: _eval,
-    core: {},
+    core: CORE,
     defun: defun,
     t: garner_type,
     Thunk: Thunk,
