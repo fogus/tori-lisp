@@ -17,10 +17,14 @@
     return toString.call(obj);
   };
 
+  var is_number = function (form) {
+    return garner_type(form) == "[object Number]";
+  }
+  
   var _eval = function(env, form) {
     var type = garner_type(form);
     
-    if (type == "[object Number]") {
+    if (is_number(form)) {
       return form;
     }
     else {
