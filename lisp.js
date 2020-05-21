@@ -33,7 +33,10 @@
   };
 
   var SPECIAL_FORMS = {
-    "'self": function(env, form) { return form; }
+    "'self": function(env, form) { return form; },
+    "'if": function(env, form) {
+      return _eval(env, form[1]) ? _eval(env, form[2]) : _eval(env, form[3]);
+    }
   };
   
   var CORE = {
