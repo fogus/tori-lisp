@@ -53,17 +53,18 @@
       return false;
     }
   }
-  
+
+  var is_self_evaluating = function (env, form) {
+    return is_number(env, form) || is_string(env, form);
+  }
+    
   var _eval = function(env, form) {
     var type = garner_type(form);
     
     if (is_symbol(env, form)) {
       return lookup(env, form);
     }
-    else if (is_number(env, form)) {
-      return form;
-    }
-    else if (is_string(env, form)) {
+    else if (is_self_evaluating(env, form)) {
       return form;
     }
     else {
