@@ -19,10 +19,8 @@
   
   var lookup = function(env, id) {
     if (id in env) {
-      console.log("context");
       return env[id];
     } else if (PARENT_ID in env) {
-      console.log("parent");
       return lookup(env[PARENT_ID], id);
     }
     console.log(id + " not set in " + Object.keys(env));
