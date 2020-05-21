@@ -10,6 +10,12 @@
     else if (token[0] === '"' && token.slice(-1) === '"') {
       return token.slice(1, -1);
     }
+    else if (token == "#t") {
+      return true;
+    }
+    else if (token == "#f") {
+      return false;
+    }
     else {
       return sym(token);
     }
@@ -44,10 +50,14 @@
     return garner_type(form) == "[object Number]";
   }
   
-  var is_string = function (env, form) {
+  var is_string = function(env, form) {
     return garner_type(form) == "[object String]";
   }
 
+  var is_bool = function(env, form) {
+    return garner_type(form) == "[object Boolean]";
+  }
+  
   var is_call = function(env, form) {
     return garner_type(form) == "[object Array]";
   }
@@ -62,7 +72,9 @@
   }
 
   var is_self_evaluating = function (env, form) {
-    return is_number(env, form) || is_string(env, form);
+    return is_number(env, form)
+      || is_string(env, form)
+      || is_bool(env, form);
   }
 
   var evlis = function(env, form) {
