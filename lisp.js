@@ -26,9 +26,11 @@
     console.log(id + " not set in " + Object.keys(env));
   };
 
+  var SPECIAL_FORMS = {
+  };
+  
   var CORE = {
-    "'a" : 42,
-    "'_PARENT" : {"'b": 9}
+    "'a" : 42
   };
   
   var toString = Object.prototype.toString;
@@ -61,6 +63,15 @@
   var is_self_evaluating = function (env, form) {
     return is_number(env, form) || is_string(env, form);
   }
+
+  var evlis = function(env, form) {
+    if ((form.length > 0) && (form[0] in SPECIAL_FORMS)) {
+      return SPECIAL_FORMS[form[0]](form, env);
+    }
+    else {
+      return [form[0], "...", env];
+    }
+  }
     
   var _eval = function(env, form) {
     var type = garner_type(form);
@@ -72,7 +83,7 @@
       return form;
     }
     else if (is_call(env, form)) {
-      return [form[0], "..."];
+      return evlis(env, form);
     }
   }
   
