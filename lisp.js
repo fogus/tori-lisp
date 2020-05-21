@@ -27,6 +27,7 @@
   };
 
   var SPECIAL_FORMS = {
+    "'self": function(env, form) { return form; }
   };
   
   var CORE = {
@@ -65,11 +66,13 @@
   }
 
   var evlis = function(env, form) {
-    if ((form.length > 0) && (form[0] in SPECIAL_FORMS)) {
-      return SPECIAL_FORMS[form[0]](form, env);
+    var head = form[0];
+    
+    if ((form.length > 0) && (head in SPECIAL_FORMS)) {
+      return SPECIAL_FORMS[form[0]](env, form);
     }
     else {
-      return [form[0], "...", env];
+      return [head, "...", env];
     }
   }
     
