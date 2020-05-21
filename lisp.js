@@ -45,6 +45,10 @@
     return garner_type(form) == "[object String]";
   }
 
+  var is_call = function(env, form) {
+    return garner_type(form) == "[object Array]";
+  }
+  
   var is_symbol = function (env, form) {
     if (is_string(env, form)) {
       return form.charAt(0) == "'";
@@ -67,8 +71,8 @@
     else if (is_self_evaluating(env, form)) {
       return form;
     }
-    else {
-      return ["something", "else"];
+    else if (is_call(env, form)) {
+      return [form[0], "..."];
     }
   }
   
