@@ -21,6 +21,17 @@
     }
   }
 
+  var part = function(n, array) {
+    var i, j;
+    var res = [];
+
+    for (i = 0, j = array.length; i < j; i += n) {
+      res.push(array.slice(i, i+n));
+    }
+
+    return res;
+  }
+
   var PARENT_ID = "'_PARENT";
   
   var lookup = function(env, id) {
@@ -235,6 +246,7 @@
   exports.lisp = {
     read: _read,
     evil: _eval,
+    p: part,
     core: CORE,
     defun: defun,
     t: garner_type,
