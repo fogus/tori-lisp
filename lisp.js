@@ -48,7 +48,9 @@
       return _eval(env, form[1]) ? _eval(env, form[2]) : _eval(env, form[3]);
     },
     "'let": function(env, form) {
-      var scope = form[1].reduce(function (acc, pair) {
+      var binds = part(2, form[1]);
+
+      var scope = binds.reduce(function (acc, pair) {
         acc[pair[0]] = _eval(env, pair[1]);
         return acc;
       }, {"'_PARENT": env});
