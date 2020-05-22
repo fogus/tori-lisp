@@ -33,14 +33,23 @@
   };
 
   var SPECIAL_FORMS = {
-    "'self": function(env, form) { return form; },
     "'if": function(env, form) {
       return _eval(env, form[1]) ? _eval(env, form[2]) : _eval(env, form[3]);
+    },
+    "'let": function(env, form) {
+      var scope = form[1].reduce(function (acc, pair) {
+        acc[pair[0]] = _eval(env, pair[1]);
+        return acc;
+      }, {"'_PARENT": env});
+
+      return _eval(scope, form[2]);
     }
   };
   
   var CORE = {
-    "'a" : 42
+    "'first": 1,
+    "'rest":  2,
+    "'head":  3
   };
   
   var toString = Object.prototype.toString;
