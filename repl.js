@@ -1,10 +1,10 @@
-var repl = require("repl");
-var L = require("./lisp").lisp;
+const repl = require("repl");
+var 鳥 = require("./lisp").lisp;
 
 repl.start({
   prompt: "鳥 ",
   eval: function(cmd, context, filename, callback) {
-    var ret = L.evil(L.core, L.read(cmd));
+    var ret = 鳥.evil(L.core, 鳥.read(cmd));
     callback(null, ret);
   }
 });
