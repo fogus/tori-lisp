@@ -246,6 +246,7 @@
   }
 
   exports.lisp = {
+    VERSION: "0.0.5",
     read: _read,
     evil: _eval,
     p: part,
