@@ -109,7 +109,7 @@
       return SPECIAL_FORMS[form[0]](env, form);
     }
     else {
-      return [head, "...", env];
+      return [head, "'...", env];
     }
   }
     
