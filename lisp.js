@@ -60,7 +60,7 @@
   };
   
   var CORE = {
-    "'first": 1,
+    "'first": function(seq) { return seq[0] },
     "'rest":  2,
     "'head":  3
   };
@@ -86,6 +86,10 @@
   var is_call = function(env, form) {
     return garner_type(form) == "[object Array]";
   }
+
+  var is_fun = function(env, form) {
+    return garner_type(form) == "[object Function]";
+  }
   
   var is_symbol = function (env, form) {
     if (is_string(env, form)) {
@@ -109,6 +113,9 @@
       return SPECIAL_FORMS[form[0]](env, form);
     }
     else {
+      var fn = _eval(env, head);
+
+      if (
       return [head, "'...", env];
     }
   }
