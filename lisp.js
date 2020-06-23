@@ -62,7 +62,8 @@
   var CORE = {
     "'first": function(seq) { return seq[0] },
     "'rest":  2,
-    "'head":  3
+    "'head":  3,
+    "'LIST":  [1,2,3]
   };
   
   var toString = Object.prototype.toString;
@@ -114,11 +115,10 @@
     }
     else {
       var fn = _eval(env, head);
-      console.log(is_fun(fn));
 
       if (is_fun(env, fn)) {
 	var args = form.slice(1).map(e => _eval(env, e));
-	return ["<" + head.substr(1) + ">", args, env];
+	return fn.apply(undefined, args);
       }
       else {
 	throw new Error("Non-function found in head of array: " + head);
