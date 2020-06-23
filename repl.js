@@ -7,7 +7,7 @@ console.log("Starting tori-lisp v" + 鳥.VERSION + "...");
 process.argv.slice(2).forEach(function(infile) {
     var src = fs.readFileSync(infile, "utf8");
     console.log("...loading " + infile);
-    console.log(鳥.read(src));
+    console.log(鳥.read("(do " + src + ")"));
 });
 console.log("done\n");
 
