@@ -117,7 +117,8 @@
       console.log(is_fun(fn));
 
       if (is_fun(env, fn)) {
-	return ["<" + head.substr(1) + ">", "'...", env];
+	var args = form.slice(1).map(e => _eval(env, e));
+	return ["<" + head.substr(1) + ">", args, env];
       }
       else {
 	throw new Error("Non-function found in head of array: " + head);
