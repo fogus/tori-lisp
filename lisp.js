@@ -120,7 +120,7 @@
 	return ["<" + head.substr(1) + ">", "'...", env];
       }
       else {
-	return [head, "'...", env];
+	throw new Error("Non-function found in head of array: " + head);
       }
     }
   }
