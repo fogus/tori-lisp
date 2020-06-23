@@ -114,9 +114,14 @@
     }
     else {
       var fn = _eval(env, head);
+      console.log(is_fun(fn));
 
-      if (
-      return [head, "'...", env];
+      if (is_fun(env, fn)) {
+	return ["<" + head.substr(1) + ">", "'...", env];
+      }
+      else {
+	return [head, "'...", env];
+      }
     }
   }
     
