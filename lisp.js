@@ -12,6 +12,10 @@
     return [elem].concat(seq);
   };
 
+  var _array = function(arr, from) {
+    return Array.prototype.slice.call(arr, from || 0);
+  };
+  
   var mangle = function(token) {
     if (!isNaN(parseFloat(token))) {
       return parseFloat(token);
@@ -30,25 +34,21 @@
     }
   }
 
-  var autoCurry = (function () {
-    var toArray = function toArray(arr, from) {
-      return Array.prototype.slice.call(arr, from || 0);
-    };
-	
+  var auto_curry = (function () {
     var curry = function curry(fn /* variadic number of args */) {
-      var args = toArray(arguments, 1);
+      var args = _array(arguments, 1);
       return function curried() {
-        return fn.apply(this, args.concat(toArray(arguments)));
+        return fn.apply(this, args.concat(_array(arguments)));
       };
     };
     
-    return function autoCurry(fn, numArgs) {
+    return function auto_curry(fn, numArgs) {
       numArgs = numArgs || fn.length;
-      return function autoCurried() {
+      return function curried() {
         if (arguments.length < numArgs) {
           return numArgs - arguments.length > 0 ?
-            autoCurry(curry.apply(this, [fn].concat(toArray(arguments))), numArgs - arguments.length) :
-            curry.apply(this, [fn].concat(toArray(arguments)));
+            auto_curry(curry.apply(this, [fn].concat(_array(arguments))), numArgs - arguments.length) :
+            curry.apply(this, [fn].concat(_array(arguments)));
         }
         else {
           return fn.apply(this, arguments);
@@ -136,7 +136,7 @@
     "'λ": function(env, form) {
       var params = garner_bindings(env, _second(form));
 
-      var ret =  autoCurry(function() {
+      var ret =  auto_curry(function() {
 	var args = arguments;
 	var context = params.reduce(function(ctx, param, index) {
 	  ctx[param] = args[index];
