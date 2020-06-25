@@ -120,7 +120,7 @@
         return acc;
       }, {"'_PARENT": env});
 
-      return _eval(scope, form[2]);
+      return _eval(scope, form[2]); // TODO doify 
     },
     "'def": function(env, form) {
       var bind = _rest(form);
@@ -147,7 +147,7 @@
 	return _eval(context, doify(_rest(_rest(form))));
       }, params.length);
 
-      return doify(_rest(_rest(form)));
+      return ret;
     }
   };
   
@@ -313,7 +313,6 @@
     VERSION: "0.0.5",
     read: _read,
     evil: _eval,
-    p: part,
     core: CORE,
   };
 })(typeof exports === 'undefined' ? this : exports);
