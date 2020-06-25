@@ -149,9 +149,9 @@
       var params = garner_bindings(env, _second(form));
       var body   = doify(_rest(_rest(form)));
 
-      var ret =  auto_curry(procedure(env, params, body), params.length);
+      if (params.length < 2) return procedure(env, params, body);
 
-      return ret;
+      return auto_curry(procedure(env, params, body), params.length);
     }
   };
   
