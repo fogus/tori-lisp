@@ -3,9 +3,10 @@
     return "'" + token;
   }
 
-  var _first = function(seq) { return seq[0] };
-  var _rest  = function(seq) { return seq.slice(1) };
-  var _head  = function(seq) { return [seq[0]]; };
+  var _first  = function(seq) { return seq[0] };
+  var _second = function(seq) { return seq[1] };
+  var _rest   = function(seq) { return seq.slice(1) };
+  var _head   = function(seq) { return [seq[0]]; };
 
   var mangle = function(token) {
     if (!isNaN(parseFloat(token))) {
@@ -62,7 +63,15 @@
       return _eval(scope, form[2]);
     },
     "'def": function(env, form) {
-      return _rest(form);
+      var bind = _rest(form);
+      var name = _first(bind);
+
+      if (!is_symbol(env, name)) throw new Error("Non-symbol found in LHS of `def` form: " + name);
+      
+      var val  = _eval(env, _second(bind));
+
+      env[name] = val;
+      return val;
     }
   };
   
