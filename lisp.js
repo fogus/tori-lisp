@@ -127,6 +127,8 @@
       var name = _first(bind);
 
       if (!is_symbol(env, name)) throw new Error("Non-symbol found in LHS of `def` form: " + name);
+
+      console.log(form);
       
       var val  = _eval(env, _second(bind));
 
@@ -202,6 +204,8 @@
 
   var evlis = function(env, form) {
     var head = form[0];
+
+    console.log(">>>> " + head);
     
     if ((form.length > 0) && (head in SPECIAL_FORMS)) {
       return SPECIAL_FORMS[form[0]](env, form);
