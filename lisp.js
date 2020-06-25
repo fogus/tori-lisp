@@ -7,6 +7,10 @@
   var _second = function(seq) { return seq[1] };
   var _rest   = function(seq) { return seq.slice(1) };
   var _head   = function(seq) { return [seq[0]]; };
+  // TODO curry this
+  var _cons   = function(elem, seq) {
+    return [elem].concat(seq);
+  };
 
   var mangle = function(token) {
     if (!isNaN(parseFloat(token))) {
@@ -79,6 +83,10 @@
     }
   }
 
+  var doify = function(form) {
+    return _cons("'do", form);
+  }
+  
   var PARENT_ID = "'_PARENT";
   
   var lookup = function(env, id) {
@@ -118,7 +126,7 @@
     "'λ": function(env, form) {
       var params = garner_bindings(env, _second(form));
 
-      return autoCurry(function() {
+      var ret =  autoCurry(function() {
 	var args = arguments;
 	var context = params.reduce(function(ctx, param, index) {
 	  ctx[param] = args[index];
@@ -128,6 +136,8 @@
 	context[PARENT_ID] = env;
 	return _eval(context, doify(_rest(_rest(form))));
       }, params.length);
+
+      return doify(_rest(_rest(form)));
     }
   };
   
@@ -135,6 +145,7 @@
     "'first": _first,
     "'rest":  _rest,
     "'head":  _head,
+    "'cons":  _cons,
     "'LIST":  [1,2,3]
   };
   
