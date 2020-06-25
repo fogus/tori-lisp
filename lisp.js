@@ -42,7 +42,12 @@
       return binds;
     }
     else {
-      return "it's a map";
+      var keys = [];
+      for (var key in binds) {
+	keys.push(key);
+      }
+      
+      return keys.map(index => binds[index]);
     }
   }
 
@@ -244,57 +249,11 @@
     return reader(tokenize(s));
   };
 
-  var Thunk = function() {
-  } 
-
-  var make_thunk = function(body, expected, got) {
-    var t = new Thunk();
-    t.body = body;
-    t.expected = expected;
-    t.got = got;
-
-    return t;
-  }
-
-  Thunk.prototype.apply = function() {
-    var args  = Array.prototype.slice.call(arguments);
-    var all_args = this.got.concat(args[1]);
-
-    if (all_args.length < this.expected) {
-      return make_thunk(this.body, this.expected, all_args);
-    }
-    else if (all_args.length > this.expected) {
-      throw new Error("Invalid arity: " + args.length);
-    }
-
-
-    return this.body.apply(null, all_args);
-  }
-
-  function defun(body, expected) {
-    return function() {
-      var args = Array.prototype.slice.call(arguments);
-
-      if (args.length < expected) {
-        return make_thunk(body, expected, args);
-      }
-      else if (args.length > expected) {
-        throw new Error("Invalid arity: " + args.length);
-      }
-
-      return body.apply(null, args);
-    }
-  }
-
   exports.lisp = {
     VERSION: "0.0.5",
     read: _read,
     evil: _eval,
     p: part,
     core: CORE,
-    defun: defun,
-    t: garner_type,
-    Thunk: Thunk,
-    make_thunk : make_thunk
   };
 })(typeof exports === 'undefined' ? this : exports);
