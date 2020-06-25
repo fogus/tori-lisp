@@ -37,6 +37,15 @@
     return res;
   }
 
+  var garner_bindings = function(env, binds) {
+    if (is_seq(env, binds)) {
+      return binds;
+    }
+    else {
+      return "it's a map";
+    }
+  }
+
   var PARENT_ID = "'_PARENT";
   
   var lookup = function(env, id) {
@@ -72,6 +81,9 @@
 
       env[name] = val;
       return val;
+    },
+    "'λ": function(env, form) {
+      return garner_bindings(env, _second(form));
     }
   };
   
@@ -100,7 +112,7 @@
     return garner_type(form) == "[object Boolean]";
   }
   
-  var is_call = function(env, form) {
+  var is_seq = function(env, form) {
     return garner_type(form) == "[object Array]";
   }
 
@@ -151,7 +163,7 @@
     else if (is_self_evaluating(env, form)) {
       return form;
     }
-    else if (is_call(env, form)) {
+    else if (is_seq(env, form)) {
       return evlis(env, form);
     }
   }
