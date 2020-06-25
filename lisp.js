@@ -3,15 +3,6 @@
     return "'" + token;
   }
 
-  var _first  = function(seq) { return seq[0] };
-  var _second = function(seq) { return seq[1] };
-  var _rest   = function(seq) { return seq.slice(1) };
-  var _head   = function(seq) { return [seq[0]]; };
-  // TODO curry this
-  var _cons   = function(elem, seq) {
-    return [elem].concat(seq);
-  };
-
   var _array = function(arr, from) {
     return Array.prototype.slice.call(arr, from || 0);
   };
@@ -34,6 +25,19 @@
     }
   }
 
+  var procedure = function(env, params, body) {
+    return function() {
+      var args = arguments;
+      var context = params.reduce(function(ctx, param, index) {
+	ctx[param] = args[index];
+	return ctx;
+      }, {});
+      
+      context[PARENT_ID] = env;
+      return _eval(context, body);
+    }
+  }
+  
   var auto_curry = (function () {
     var curry = function curry(fn /* variadic number of args */) {
       var args = _array(arguments, 1);
@@ -57,6 +61,14 @@
     };
     
   }());
+
+  var _first  = function(seq) { return seq[0] };
+  var _second = function(seq) { return seq[1] };
+  var _rest   = function(seq) { return seq.slice(1) };
+  var _head   = function(seq) { return [seq[0]]; };
+  var _cons   = auto_curry(function(elem, seq) {
+    return [elem].concat(seq);
+  }, 2);
   
   var part = function(n, array) {
     var i, j;
@@ -135,17 +147,9 @@
     },
     "'λ": function(env, form) {
       var params = garner_bindings(env, _second(form));
+      var body   = doify(_rest(_rest(form)));
 
-      var ret =  auto_curry(function() {
-	var args = arguments;
-	var context = params.reduce(function(ctx, param, index) {
-	  ctx[param] = args[index];
-	  return ctx;
-	}, {});
-
-	context[PARENT_ID] = env;
-	return _eval(context, doify(_rest(_rest(form))));
-      }, params.length);
+      var ret =  auto_curry(procedure(env, params, body), params.length);
 
       return ret;
     }
