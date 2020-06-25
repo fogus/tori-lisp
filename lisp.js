@@ -3,6 +3,10 @@
     return "'" + token;
   }
 
+  var _first = function(seq) { return seq[0] };
+  var _rest  = function(seq) { return seq.slice(1) };
+  var _head  = function(seq) { return [seq[0]]; };
+
   var mangle = function(token) {
     if (!isNaN(parseFloat(token))) {
       return parseFloat(token);
@@ -56,13 +60,16 @@
       }, {"'_PARENT": env});
 
       return _eval(scope, form[2]);
+    },
+    "'def": function(env, form) {
+      return _rest(form);
     }
   };
   
   var CORE = {
-    "'first": function(seq) { return seq[0] },
-    "'rest":  2,
-    "'head":  3,
+    "'first": _first,
+    "'rest":  _rest,
+    "'head":  _head,
     "'LIST":  [1,2,3]
   };
   
