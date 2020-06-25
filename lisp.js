@@ -128,8 +128,6 @@
 
       if (!is_symbol(env, name)) throw new Error("Non-symbol found in LHS of `def` form: " + name);
 
-      console.log(form);
-      
       var val  = _eval(env, _second(bind));
 
       env[name] = val;
@@ -205,8 +203,6 @@
   var evlis = function(env, form) {
     var head = form[0];
 
-    console.log(">>>> " + head);
-    
     if ((form.length > 0) && (head in SPECIAL_FORMS)) {
       return SPECIAL_FORMS[form[0]](env, form);
     }
@@ -254,7 +250,8 @@
       }
     }
 
-    return binds;
+    list.push(binds);
+    return list;
   }
     
   var reader = function(input, list, qdepth = 0) {
@@ -270,13 +267,15 @@
       } else if (token === ")") {
         return list;
       } else if (token === "{") {
-        list.push("'λ");
-        list.push(reader(input, list));
+	var lbody = reader(input, []);
+	lbody = _cons("'λ", lbody);
+        list.push(lbody);
         return reader(input, list);
       } else if (token === "}") {
         return list;
       } else if (token === "|") {
-        return read_quotation(input, list);
+        read_quotation(input, list);
+	return reader(input, list);
       } else if (token === "'") {
         list.push("'quote");
         list.push(reader(input, []));
