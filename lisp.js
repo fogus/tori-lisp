@@ -118,7 +118,16 @@
     "'λ": function(env, form) {
       var params = garner_bindings(env, _second(form));
 
-      return auto
+      return autoCurry(function() {
+	var args = arguments;
+	var context = params.reduce(function(ctx, param, index) {
+	  ctx[param] = args[index];
+	  return ctx;
+	}, {});
+
+	context[PARENT_ID] = env;
+	return _eval(context, doify(_rest(_rest(form))));
+      }, params.length);
     }
   };
   
