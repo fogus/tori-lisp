@@ -43,8 +43,7 @@
       return function autoCurried() {
         if (arguments.length < numArgs) {
           return numArgs - arguments.length > 0 ?
-            autoCurry(curry.apply(this, [fn].concat(toArray(arguments))),
-                      numArgs - arguments.length) :
+            autoCurry(curry.apply(this, [fn].concat(toArray(arguments))), numArgs - arguments.length) :
             curry.apply(this, [fn].concat(toArray(arguments)));
         }
         else {
@@ -117,7 +116,9 @@
       return val;
     },
     "'λ": function(env, form) {
-      return garner_bindings(env, _second(form));
+      var params = garner_bindings(env, _second(form));
+
+      return auto
     }
   };
   
