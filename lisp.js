@@ -99,6 +99,16 @@
   };
 
   var SPECIAL_FORMS = {
+    "'do": function(env, form) {
+      var ret = null;
+      var body = _rest(form);
+
+      for (var i = 0; i < body.length; i++) {
+	ret = _eval(env, body[i]);
+      }
+
+      return ret;
+    },
     "'if": function(env, form) {
       return _eval(env, form[1]) ? _eval(env, form[2]) : _eval(env, form[3]);
     },
