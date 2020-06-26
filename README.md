@@ -8,7 +8,7 @@ A code painting.
 
 Run the ToriLisp REPL in a command shell with:
 
-    node repl.js
+    node repl.js core.lisp
 
 ToriLisp (TL) programs consists of expressions. The simplest expressions are things like numbers and strings, which evaluate to themselves.
 
