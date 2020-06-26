@@ -112,7 +112,7 @@
 
   var SPECIAL_FORMS = {
     "'quote": function(env, form) {
-      return _second(form);z
+      return _second(form);
     },
     "'do": function(env, form) {
       var ret = null;
