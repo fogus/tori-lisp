@@ -111,6 +111,9 @@
   };
 
   var SPECIAL_FORMS = {
+    "'quote": function(env, form) {
+      return _second(form);z
+    },
     "'do": function(env, form) {
       var ret = null;
       var body = _rest(form);
@@ -160,7 +163,7 @@
     "'rest":  _rest,
     "'head":  _head,
     "'cons":  _cons,
-    "'LIST":  [1,2,3]
+    "'nil":   []
   };
   
   var toString = Object.prototype.toString;
