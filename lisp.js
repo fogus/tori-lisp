@@ -6,6 +6,13 @@
   var _array = function(arr, from) {
     return Array.prototype.slice.call(arr, from || 0);
   };
+
+  var flip = function(fn) {
+    return function(first, second) {
+      var rest = [].slice.call(arguments, 2)
+      return fn.apply(null, [second, first].concat(rest))
+    }
+  }
   
   var mangle = function(token) {
     if (!isNaN(parseFloat(token))) {
@@ -158,14 +165,6 @@
     }
   };
   
-  var CORE = {
-    "'first": _first,
-    "'rest":  _rest,
-    "'head":  _head,
-    "'cons":  _cons,
-    "'nil":   []
-  };
-  
   var toString = Object.prototype.toString;
 
   var garner_type = function(obj) {
@@ -208,25 +207,27 @@
   }
 
   var evlis = function(env, form) {
-    var head = form[0];
+    var op = form[0];
 
-    if ((form.length > 0) && (head in SPECIAL_FORMS)) {
+    if ((form.length > 0) && (op in SPECIAL_FORMS)) {
       return SPECIAL_FORMS[form[0]](env, form);
     }
     else {
-      var fn = _eval(env, head);
+      var fn = _eval(env, op);
 
       if (is_fun(env, fn)) {
 	var args = form.slice(1).map(e => _eval(env, e));
 	return fn.apply(undefined, args);
       }
       else {
-	throw new Error("Non-function found in head of array: " + head);
+	throw new Error("Non-function found in head of array: " + op);
       }
     }
   }
     
   var _eval = function(env, form) {
+    if (env === undefined) return _eval(CORE, form);
+    
     var type = garner_type(form);
     
     if (is_symbol(env, form)) {
@@ -284,8 +285,9 @@
         read_quotation(input, list);
 	return reader(input, list);
       } else if (token === "'") {
-        list.push("'quote");
-        list.push(reader(input, []));
+	var qbody = reader(input, []);
+	qbody = _cons("'quote", qbody);
+        list.push(qbody);
         return list;
       } else {
         return reader(input, list.concat(mangle(token)));
@@ -316,13 +318,26 @@
   };
 
   var _read = function(s) {
+    // TODO this doesn't work properly when called from the REPL
+    // I believe there's a bug in the reader around strings.
     return reader(tokenize(s));
   };
 
+  var CORE = {
+    "'first": _first,
+    "'rest":  _rest,
+    "'head":  _head,
+    "'cons":  _cons,
+    "'read":  _read,
+    "'eval":  flip(_eval),
+    "'nil":   []
+  };
+  
   exports.lisp = {
     VERSION: "0.0.5",
     read: _read,
     evil: _eval,
+    read: _read,
     core: CORE,
   };
 })(typeof exports === 'undefined' ? this : exports);
