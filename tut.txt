@@ -1,0 +1,34 @@
+[This is a brief tutorial on Tori-Lisp, an ersatz Lisp for little
+birds. No familiarity with Lisp or Lisp-like languages is
+presumed.]
+
+TL programs consist of expressions. The simplest expressions are
+things like numbers and strings, which evaluate to themselves.
+
+鳥>  25
+;;=> 25
+
+鳥>  "foo"
+;;=> 'foo'
+
+There's an important detail about TL that bears mentioning at this
+time. That is, the language is hosted on the JavaScript programming
+language and thus "bottoms-out" at JavaScript data-types and
+structures. Therefore, the TL console will always display its
+results as JavaScript types and indeed, the evaluation engine of
+the language operates on and with JavaScript types and functions.
+
+
+
+鳥> 
+
+鳥> 
+鳥> 
+鳥> 
+鳥> 
+鳥> 
+鳥> 
+鳥> 
+鳥> 
+鳥> 
+鳥> 
