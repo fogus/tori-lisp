@@ -53,15 +53,18 @@
       };
     };
     
-    return function auto_curry(fn, numArgs) {
-      numArgs = numArgs || fn.length;
+    return function auto_curry(fn, expectedArgs) {
+      expectedArgs = expectedArgs || fn.length;
       return function curried() {
-        if (arguments.length < numArgs) {
-          return numArgs - arguments.length > 0 ?
-            auto_curry(curry.apply(this, [fn].concat(_array(arguments))), numArgs - arguments.length) :
+        if (arguments.length < expectedArgs) {
+          return expectedArgs - arguments.length > 0 ?
+            auto_curry(curry.apply(this, [fn].concat(_array(arguments))), expectedArgs - arguments.length) :
             curry.apply(this, [fn].concat(_array(arguments)));
         }
-        else {
+        else if (arguments.length > expectedArgs) {
+	  throw new Error("Too many arguments to function: expected " + expectedArgs + ", got " + arguments.length);
+	}
+	else {
           return fn.apply(this, arguments);
         }
       };

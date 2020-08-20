@@ -30,7 +30,16 @@ programs can be as complex as you want:
     鳥>  (+ (+ 1 2) (+ 3 (+ 4 5)))
     ;;=> 15 
 
-    鳥> 
+Unlike many Lisps, TL functions always expect a fixed number of 
+arguments. For example, the `+` function shown above expects to
+receive 2 arguments and if it receives too many then and error
+occurs:
+
+    鳥>  (+ 1 2 3)
+    ;;=> Error: Too many arguments to function: expected 2, got 3
+
+
+
     鳥> 
     鳥> 
     鳥> 
