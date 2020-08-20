@@ -1,15 +1,15 @@
 [This is a brief tutorial on Tori-Lisp, an ersatz Lisp for little
-birds. No familiarity with Lisp or Lisp-like languages is
+birds. A passing familiarity with Lisp and Lisp-like languages is
 presumed.]
 
 TL programs consist of expressions. The simplest expressions are
 things like numbers and strings, which evaluate to themselves.
 
-鳥>  25
-;;=> 25
+    鳥>  25
+    ;;=> 25
 
-鳥>  "foo"
-;;=> 'foo'
+    鳥>  "foo"
+    ;;=> 'foo'
 
 There's an important detail about TL that bears mentioning at this
 time. That is, the language is hosted on the JavaScript programming
@@ -18,17 +18,33 @@ structures. Therefore, the TL console will always display its
 results as JavaScript types and indeed, the evaluation engine of
 the language operates on and with JavaScript types and functions.
 
+TL is like most Lisp-like languages in that the list form
+represents a function call:
 
+    鳥>  (+ 1 2)
+    ;;=> 3
 
-鳥> 
+Since expression and evaluation are both defined recursively, 
+programs can be as complex as you want:
 
-鳥> 
-鳥> 
-鳥> 
-鳥> 
-鳥> 
-鳥> 
-鳥> 
-鳥> 
-鳥> 
-鳥> 
+    鳥>  (+ (+ 1 2) (+ 3 (+ 4 5)))
+    ;;=> 15 
+
+    鳥> 
+    鳥> 
+    鳥> 
+    鳥> 
+    鳥> 
+    鳥> 
+    鳥> 
+    鳥> 
+    鳥>
+    鳥>
+    鳥>
+    鳥>
+    鳥>
+    鳥>
+    鳥>
+    鳥>
+    鳥>
+	

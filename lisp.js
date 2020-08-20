@@ -76,6 +76,10 @@
   var _cons   = auto_curry(function(elem, seq) {
     return [elem].concat(seq);
   }, 2);
+
+  var _plus   = auto_curry(function(l, r) {
+    return l + r;
+  }, 2);
   
   var part = function(n, array) {
     var i, j;
@@ -330,7 +334,8 @@
     "'cons":  _cons,
     "'read":  _read,
     "'eval":  flip(_eval),
-    "'nil":   []
+    "'nil":   [],
+    "'+":     _plus
   };
   
   exports.lisp = {
