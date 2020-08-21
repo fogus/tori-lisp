@@ -38,8 +38,29 @@ occurs:
     鳥>  (+ 1 2 3)
     ;;=> Error: Too many arguments to function: expected 2, got 3
 
+However, if you supply fewer arguments than a function expects then
+a new function will be reurned:
+
+    鳥>  (+ 1)
+    ;;=> [Function: curried]
+
+Functions in TL are "curried" by default. This means that when a 
+function is called it might return another function that expects to 
+receive the remainder of its expected arguments. Once all of the 
+expected arguments are recieved the function is executed and a 
+result returned.
+
+    鳥>  ((+ 1) 2)
+    ;;=> 3
 
 
+
+    鳥>  
+    鳥>  
+    鳥>  
+    鳥>  
+    鳥>  
+    鳥>  
     鳥> 
     鳥> 
     鳥> 
@@ -47,13 +68,6 @@ occurs:
     鳥> 
     鳥> 
     鳥> 
-    鳥>
-    鳥>
-    鳥>
-    鳥>
-    鳥>
-    鳥>
-    鳥>
-    鳥>
-    鳥>
+    鳥> 
+    鳥> 
 	
