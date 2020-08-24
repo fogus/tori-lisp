@@ -216,6 +216,8 @@
   var evlis = function(env, form) {
     var op = form[0];
 
+    console.log("<" + op + ">" + typeof(op));
+        
     if ((form.length > 0) && (op in SPECIAL_FORMS)) {
       return SPECIAL_FORMS[form[0]](env, form);
     }
@@ -294,8 +296,13 @@
       } else if (token === "'") {
 	var qbody = reader(input, []);
 	qbody = _cons("'quote", qbody);
-        list.push(qbody);
-        return list;
+	if (list.length > 0) {
+          list.push(qbody);
+          return list;
+	}
+	else {
+	  return qbody;
+	}
       } else {
         return reader(input, list.concat(mangle(token)));
       }
