@@ -216,8 +216,6 @@
   var evlis = function(env, form) {
     var op = form[0];
 
-    console.log("<" + op + ">" + typeof(op));
-        
     if ((form.length > 0) && (op in SPECIAL_FORMS)) {
       return SPECIAL_FORMS[form[0]](env, form);
     }
@@ -270,6 +268,15 @@
     list.push(binds);
     return list;
   }
+
+  var toS = function(obj) {
+    if (is_seq({}, obj)) {
+      return "[" + obj.map(toS) + "]";
+    }
+    else {
+      return "" + obj;
+    }
+  }
     
   var reader = function(input, list, qdepth = 0) {
     if (list === undefined) {
@@ -294,8 +301,9 @@
         read_quotation(input, list);
 	return reader(input, list);
       } else if (token === "'") {
-	var qbody = reader(input, []);
-	qbody = _cons("'quote", qbody);
+	var qb = (list.length > 0) ? reader(input, []) : [reader(input, [])];
+	var qbody = _cons("'quote", qb);
+
 	if (list.length > 0) {
           list.push(qbody);
           return list;

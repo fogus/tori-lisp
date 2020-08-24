@@ -66,15 +66,26 @@ If we give foo the value 13, it will return 13 when evaluated:
 	;;=> 13
 
 You can turn off evaluation by putting a single quote character
-before an expression.  So `'foo` returns the symbol `foo`.
+before an expression.  So `'foo` returns the JavaScript equivalent
+to a TL symbol `"'foo"`.
 
     鳥>  'foo
-	;;=> foo
+	;;=> "'foo"
+
+Particularly observant readers may be wondering how we got away
+with using `foo` as the first argument to `def`.  If the arguments 
+are evaluated left to right, why didn't this cause an error when 
+`foo` was evaluated?  There are some operators that violate the usual
+evaluation rule, and `def` is one of them.  Its first argument isn't
+evaluated.
+
+    鳥>  (+ 1 2)
+	;;=> 3
+    鳥>  '(+ 1 2)
+	;;=> ["'+", 1, 2]
 
 
 
-    鳥>  
-    鳥>  
     鳥>  
     鳥> 
     鳥> 
