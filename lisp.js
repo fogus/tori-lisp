@@ -359,12 +359,72 @@
     "'nil":   [],
     "'+":     _plus
   };
+
+  var Rdr = function(str = null) {
+    this.raw = str;
+    this.index = 0;
+    this.length = 0;
+    this.sexpr = [];
+
+    if (src) {
+      this.sexpr = this.read_sexpr();
+    }
+  };
+
+  Rdr.read_sexpr = function(src = null) {
+    if (src) {
+      this.raw = src;
+      this.length = this.raw.length;
+      this.index = 0;
+    }
+
+    var token = this.read_token();
+    var expr = null;
+
+    
+  }
+
+  function tokenize ( s, parsers, deftok ) {
+    var m, r, l, cnt, t, tokens = [];
+    while ( s ) {
+      t = null;
+      m = s.length;
+      for ( var key in parsers ) {
+	r = parsers[ key ].exec( s );
+	// try to choose the best match if there are several
+	// where "best" is the closest to the current starting point
+	if ( r && ( r.index < m ) ) {
+          t = {
+            token: r[ 0 ],
+            type: key,
+            matches: r.slice( 1 )
+          }
+          m = r.index;
+	}
+      }
+      if ( m ) {
+	// there is text between last token and currently 
+	// matched token - push that out as default or "unknown"
+	tokens.push({
+          token : s.substr( 0, m ),
+          type  : deftok || 'unknown'
+	});
+      }
+      if ( t ) {
+	// push current token onto sequence
+	tokens.push( t ); 
+      }
+      s = s.substr( m + (t ? t.token.length : 0) );
+    }
+    return tokens;
+  }
   
   exports.lisp = {
     VERSION: "0.0.5",
     read: _read,
     evil: _eval,
     read: _read,
+    tokenize: tokenize,
     core: CORE,
   };
 })(typeof exports === 'undefined' ? this : exports);
