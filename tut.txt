@@ -84,9 +84,18 @@ evaluated.
     鳥>  '(+ 1 2)
 	;;=> ["'+", 1, 2]
 
+The first expression returns the number 3.  The second, because it
+was quoted, returns a JS array consisting of the string `"'+` and the 
+numbers 1 and 2. The use of the pattern `"'symbol"` is the way that
+symbols are encoded in TL.
 
+You can build up TL lists with `cons`, which returns a list with a new
+element on the front:
 
     鳥>  
+
+
+
     鳥> 
     鳥> 
     鳥> 

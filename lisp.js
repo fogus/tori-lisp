@@ -68,8 +68,7 @@
           return fn.apply(this, arguments);
         }
       };
-    };
-    
+    };   
   }());
 
   var _first  = function(seq) { return seq[0] };
@@ -301,11 +300,16 @@
         read_quotation(input, list);
 	return reader(input, list);
       } else if (token === "'") {
+	console.log(" " + token);
+	console.log(" " + input);
 	var qb = (list.length > 0) ? reader(input, []) : [reader(input, [])];
+	console.log("> " + toS(qb));
 	var qbody = _cons("'quote", qb);
-
+	console.log(">> " + toS(qbody));
+	
 	if (list.length > 0) {
           list.push(qbody);
+	  console.log(">>> " + toS(list));	  
           return list;
 	}
 	else {
