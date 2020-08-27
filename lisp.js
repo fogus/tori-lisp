@@ -384,7 +384,7 @@
     
   }
 
-  function tokenize ( s, parsers, deftok ) {
+  function tokenizer ( s, parsers, deftok ) {
     var m, r, l, cnt, t, tokens = [];
     while ( s ) {
       t = null;
@@ -424,7 +424,8 @@
     read: _read,
     evil: _eval,
     read: _read,
-    tokenize: tokenize,
+    tokenize1: tokenize,
+    tokenize2: tokenizer,
     core: CORE,
   };
 })(typeof exports === 'undefined' ? this : exports);

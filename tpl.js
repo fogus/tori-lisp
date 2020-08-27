@@ -7,12 +7,13 @@ var 鳥 = require("./lisp").lisp;
 const writer = (obj) => ";;=> " + util.inspect(obj, writer.options);
 writer.options = { ...util.inspect.defaultOptions, showProxy: true, colors: true };
 
-console.log("Starting tori-lisp reader v" + 鳥.VERSION + "...");
+console.log("Starting tori-lisp tokenizer v" + 鳥.VERSION + "...");
 
 repl.start({
-  prompt: "鳥r>  ",
+  prompt: "鳥t>  ",
   eval: function(cmd, context, filename, callback) {
-    var ret = 鳥.read(cmd, { word:/\w+/, whitespace:/\s+/, punctuation:/[^\w\s]/ }, 'invalid');
+    var ret = {"1" : 鳥.tokenize1(cmd, { word:/\w+/, whitespace:/\s+/, punctuation:/[^\w\s]/ }, 'invalid'),
+	       "2" : 鳥.tokenize2(cmd, { word:/\w+/, whitespace:/\s+/, punctuation:/[^\w\s]/ }, 'invalid')};
     callback(null, ret);
   },
   writer: writer
