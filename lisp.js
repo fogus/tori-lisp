@@ -366,6 +366,7 @@
     this.length = 0;
     this.sexpr = [];
     this.SPECIAL = ['(', ')'];
+    this.CONTEXT = {};
 
     if (str) {
       this.sexpr = this.read_sexpr();
@@ -388,7 +389,19 @@
   Rdr.prototype.read_token = function() {
     if (this.index >= this.length) return null;
 
+    console.log(">> " + garner_type(this.current()));
+    
     if (this.SPECIAL.includes(this.current())) {
+      return this.current();
+    }
+    else if(is_string(this.CONTEXT, this.current())) {
+      var token = this.current();
+
+      if (token.charAt(0) === '"') {
+	this.next();
+	return token.slice(1, token.length - 1);
+      }
+      
       return this.current();
     }
 
@@ -397,6 +410,10 @@
 
   Rdr.prototype.current = function() {
     return this.raw[this.index];
+  }
+
+  Rdr.prototype.next = function() {
+    return this.index += 1;
   }
   
   function tokenizer ( s, parsers, deftok ) {
