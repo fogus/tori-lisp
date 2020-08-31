@@ -396,6 +396,8 @@
     }
     else if(is_string(this.CONTEXT, this.current())) {
       var token = this.current();
+      this.next();
+      return mangle(token);
 
       if (token.charAt(0) === '"') {
 	this.next();
