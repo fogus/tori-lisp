@@ -366,22 +366,22 @@
     this.length = 0;
     this.sexpr = [];
 
-    if (src) {
+    if (str) {
       this.sexpr = this.read_sexpr();
     }
   };
 
-  Rdr.read_sexpr = function(src = null) {
+  Rdr.prototype.read_sexpr = function(src=null) {
     if (src) {
       this.raw = src;
       this.length = this.raw.length;
       this.index = 0;
     }
 
-    var token = this.read_token();
+//    var token = this.read_token();
     var expr = null;
 
-    
+    return "FOO";
   }
 
   function tokenizer ( s, parsers, deftok ) {
@@ -424,6 +424,7 @@
     read: _read,
     evil: _eval,
     read: _read,
+    Rdr: Rdr,
     tokenize1: tokenize,
     tokenize2: tokenizer,
     core: CORE,

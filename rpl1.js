@@ -7,7 +7,7 @@ var 鳥 = require("./lisp").lisp;
 const writer = (obj) => ";;=> " + util.inspect(obj, writer.options);
 writer.options = { ...util.inspect.defaultOptions, showProxy: true, colors: true };
 
-console.log("Starting tori-lisp reader v" + 鳥.VERSION + "...");
+console.log("Starting old tori-lisp reader v" + 鳥.VERSION + "...");
 
 repl.start({
   prompt: "鳥r>  ",
