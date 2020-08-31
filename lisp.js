@@ -365,6 +365,7 @@
     this.index = 0;
     this.length = 0;
     this.sexpr = [];
+    this.SPECIAL = ['(', ')'];
 
     if (str) {
       this.sexpr = this.read_sexpr();
@@ -373,17 +374,31 @@
 
   Rdr.prototype.read_sexpr = function(src=null) {
     if (src) {
-      this.raw = src;
+      this.raw = tokenize(src);
       this.length = this.raw.length;
       this.index = 0;
     }
 
-//    var token = this.read_token();
+    var token = this.read_token();
     var expr = null;
 
-    return "FOO";
+    return token;
   }
 
+  Rdr.prototype.read_token = function() {
+    if (this.index >= this.length) return null;
+
+    if (this.SPECIAL.includes(this.current())) {
+      return this.current();
+    }
+
+    return null;
+  }
+
+  Rdr.prototype.current = function() {
+    return this.raw[this.index];
+  }
+  
   function tokenizer ( s, parsers, deftok ) {
     var m, r, l, cnt, t, tokens = [];
     while ( s ) {
