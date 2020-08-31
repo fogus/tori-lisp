@@ -398,16 +398,7 @@
       var token = this.current();
       this.next();
       return mangle(token);
-
-      if (token.charAt(0) === '"') {
-	this.next();
-	return token.slice(1, token.length - 1);
-      }
-      
-      return this.current();
     }
-
-    return null;
   }
 
   Rdr.prototype.current = function() {
