@@ -383,7 +383,9 @@
     var token = this.read_token();
     var expr = null;
 
-    if ((token === ')') || (token === '}')) throw new Error("Unexpected closing bracket '" + token + "'");
+    if ((token === ')') || (token === '}')) {
+      throw new Error("Unexpected closing bracket '" + token + "'");
+    }
 
     if (token === '(') {
       expr = [];
@@ -413,6 +415,44 @@
       sexpr = this.read_sexpr();
       expr.push(sexpr);
       return expr;
+    }
+    else if (token === '{') {
+      var fn = ["'λ"];
+      var params = [];
+      var expr = params;
+      var body = [];
+      var hasParams = false;
+
+      token = this.read_token();
+
+      while (token !== '}') {
+	if (token === '(') {
+	  this.prev();
+	  expr.push(this.read_sexpr());
+	}
+	else if (token === null) {
+	  throw new Error("Invalid end of s-expression!");
+	}
+	else if (token === "'|") {
+	  hasParams = true;
+	  expr = body;
+	}
+	else {
+	  this.prev();
+	  expr.push(this.read_sexpr());
+	}
+
+	token = this.read_token();
+      }
+
+      if (hasParams) {
+	fn.push(params);
+        return fn.concat(body);
+      }
+      else {
+	fn.push([]);
+        return fn.concat(params);
+      }	
     }
     
     return token;
