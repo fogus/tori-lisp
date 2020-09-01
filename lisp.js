@@ -389,7 +389,23 @@
       expr = [];
 
       token = this.read_token();
-      
+
+      while (token !== ')') {
+	if (token === '(') {
+	  this.prev();
+	  expr.push(this.read_sexpr());
+	}
+	else if (token === null) {
+	  throw new Error("Invalid end of s-expression!");
+	}
+	else {
+	  expr.push(token);
+	}
+
+	token = this.read_token();
+      }
+
+      return expr;
     }
     
     return token;
@@ -420,6 +436,10 @@
 
   Rdr.prototype.next = function() {
     return this.index += 1;
+  }
+
+  Rdr.prototype.prev = function() {
+    return this.index -= 1;
   }
   
   function tokenizer ( s, parsers, deftok ) {
