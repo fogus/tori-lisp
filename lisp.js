@@ -383,6 +383,10 @@
     var token = this.read_token();
     var expr = null;
 
+    if (token === ')') throw new Error("Unexpected right paren");
+
+    
+    
     return token;
   }
 
