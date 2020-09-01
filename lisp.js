@@ -385,7 +385,12 @@
 
     if (token === ')') throw new Error("Unexpected right paren");
 
-    
+    if (token === '(') {
+      expr = [];
+
+      token = this.read_token();
+      
+    }
     
     return token;
   }
@@ -393,16 +398,20 @@
   Rdr.prototype.read_token = function() {
     if (this.index >= this.length) return null;
 
-    console.log(">> " + garner_type(this.current()));
-    
+    var ret = null;
+
     if (this.SPECIAL.includes(this.current())) {
-      return this.current();
+      ret = this.current();
+      this.next();
+      return ret;
     }
     else if(is_string(this.CONTEXT, this.current())) {
-      var token = this.current();
+      ret = this.current();
       this.next();
-      return mangle(token);
+      return mangle(ret);
     }
+
+    return null;
   }
 
   Rdr.prototype.current = function() {
