@@ -399,12 +399,19 @@
 	  throw new Error("Invalid end of s-expression!");
 	}
 	else {
-	  expr.push(token);
+	  this.prev();
+	  expr.push(this.read_sexpr());
 	}
 
 	token = this.read_token();
       }
 
+      return expr;
+    }
+    else if (token === "'") {
+      expr = ["'quote"];
+      sexpr = this.read_sexpr();
+      expr.push(sexpr);
       return expr;
     }
     
@@ -416,7 +423,7 @@
 
     var ret = null;
 
-    if (this.SPECIAL.includes(this.current())) {
+    if (this.SPECIAL.includes(this.current())) {      
       ret = this.current();
       this.next();
       return ret;
@@ -424,6 +431,9 @@
     else if(is_string(this.CONTEXT, this.current())) {
       ret = this.current();
       this.next();
+
+      if (ret === "'") return "'";
+      
       return mangle(ret);
     }
 
