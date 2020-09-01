@@ -365,7 +365,7 @@
     this.index = 0;
     this.length = 0;
     this.sexpr = [];
-    this.SPECIAL = ['(', ')'];
+    this.SPECIAL = ['(', ')', '{', '}'];
     this.CONTEXT = {};
 
     if (str) {
@@ -383,7 +383,7 @@
     var token = this.read_token();
     var expr = null;
 
-    if (token === ')') throw new Error("Unexpected right paren");
+    if ((token === ')') || (token === '}')) throw new Error("Unexpected closing bracket '" + token + "'");
 
     if (token === '(') {
       expr = [];
