@@ -294,6 +294,8 @@
     "'+":     _plus
   };
 
+  /* Lisp reader */
+  
   var Rdr = function(str = null) {
     this.raw = str;
     this.index = 0;
