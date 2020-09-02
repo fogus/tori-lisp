@@ -1,1 +1,1 @@
-(def id {|thing| thing})
+(def id {thing | thing})
