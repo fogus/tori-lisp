@@ -230,7 +230,7 @@
       }
     }
   }
-    
+  
   var _eval = function(env, form) {
     if (env === undefined) return _eval(CORE, form);
     
@@ -247,27 +247,6 @@
     }
   }
   
-  var read_quotation = function(input, list) {
-    var binds = {};
-    var has_elems = true;
-    var index = 0;
-
-    while(has_elems) {
-      var token = input.shift();
-
-      if (token === "|") {
-        has_elems = false;
-      } else if (token !== undefined) {
-        binds[index++] = mangle(token);
-      } else {
-        throw new Error("Unknown form in quotation: " + token);
-      }
-    }
-
-    list.push(binds);
-    return list;
-  }
-
   var toS = function(obj) {
     if (is_seq({}, obj)) {
       return "[" + obj.map(toS) + "]";
@@ -276,71 +255,27 @@
       return "" + obj;
     }
   }
-    
-  var reader = function(input, list, qdepth = 0) {
-    if (list === undefined) {
-      return reader(input, []);
-    } else {
-      var token = input.shift();
-      if (token === undefined) {
-        return list.pop();
-      } else if (token === "(") {
-        list.push(reader(input, []));
-        return reader(input, list);
-      } else if (token === ")") {
-        return list;
-      } else if (token === "{") {
-	var lbody = reader(input, []);
-	lbody = _cons("'λ", lbody);
-        list.push(lbody);
-        return reader(input, list);
-      } else if (token === "}") {
-        return list;
-      } else if (token === "|") {
-        read_quotation(input, list);
-	return reader(input, list);
-      } else if (token === "'") {
-	console.log(" " + token);
-	console.log(" " + input);
-	var qb = (list.length > 0) ? reader(input, []) : [reader(input, [])];
-	console.log("> " + toS(qb));
-	var qbody = _cons("'quote", qb);
-	console.log(">> " + toS(qbody));
-	
-	if (list.length > 0) {
-          list.push(qbody);
-	  console.log(">>> " + toS(list));	  
-          return list;
-	}
-	else {
-	  return qbody;
-	}
-      } else {
-        return reader(input, list.concat(mangle(token)));
-      }
-    }
-  };
 
   var tokenize = function(input) {
     return input.split('"')
-                .map(function(x, i) {
-                   if (i % 2 === 0) { // not in string
-                     return x.replace(/\(/g, ' ( ')
-                       .replace(/\)/g, ' ) ')
-                       .replace(/\{/g, ' { ')
-                       .replace(/\}/g, ' } ')
-                       .replace(/\|/g, ' | ')
-                       .replace(/\'/g, " ' ");
-                   } else { // in string
-                     return x.replace(/ /g, "!whitespace!");
-                   }
-                 })
-                .join('"')
-                .trim()
-                .split(/\s+/)
-                .map(function(x) {
-                  return x.replace(/!whitespace!/g, " ");
-                });
+      .map(function(x, i) {
+        if (i % 2 === 0) { // not in string
+          return x.replace(/\(/g, ' ( ')
+            .replace(/\)/g, ' ) ')
+            .replace(/\{/g, ' { ')
+            .replace(/\}/g, ' } ')
+            .replace(/\|/g, ' | ')
+            .replace(/\'/g, " ' ");
+        } else { // in string
+          return x.replace(/ /g, "!whitespace!");
+        }
+      })
+      .join('"')
+      .trim()
+      .split(/\s+/)
+      .map(function(x) {
+        return x.replace(/!whitespace!/g, " ");
+      });
   };
 
   var _read = function(s) {
@@ -527,7 +462,7 @@
   }
   
   exports.lisp = {
-    VERSION: "0.0.5",
+    VERSION: "0.1.0",
     read: _read,
     evil: _eval,
     read: _read,
