@@ -344,9 +344,8 @@
   };
 
   var _read = function(s) {
-    // TODO this doesn't work properly when called from the REPL
-    // I believe there's a bug in the reader around strings.
-    return reader(tokenize(s));
+    var rdr = new Rdr();
+    return rdr.read_sexpr(s);
   };
 
   var CORE = {
