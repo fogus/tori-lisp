@@ -95,8 +95,16 @@ element on the front:
     鳥>  (cons 'f '(a b))
 	;;=> [ "'f", "'a", "'b" ]
 
+It doesn't change the original list:
 
-
+    鳥> (def x '(a b))
+    ;=> [ "'a", "'b" ]
+	
+    鳥> (cons 'f x)
+    ;;=> [ "'f", "'a", "'b" ]
+	
+    鳥> x
+    ;=> [ "'a", "'b" ]
 
     鳥> 
     鳥> 
