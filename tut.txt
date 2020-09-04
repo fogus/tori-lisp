@@ -106,9 +106,22 @@ It doesn't change the original list:
     鳥> x
     ;=> [ "'a", "'b" ]
 
-    鳥> 
-    鳥> 
-    鳥> 
+The empty list is represented by the symbol `nil`, which is defined
+to evaluate to itself.  So to make a list of one element you say:
+
+    鳥> (cons 'a nil)
+	;;=> [ "'a" ]
+
+You can take lists apart with car and cdr, which return the first
+element and everything but the first element respectively:
+
+    鳥>  (first '(a b c))
+	;;=> "'a"
+	
+    鳥>  (rest '(a b c))
+	;;=> ["'b", "'c"]
+
+	
     鳥> 
     鳥> 
     鳥> 
