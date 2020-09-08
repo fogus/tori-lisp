@@ -121,7 +121,14 @@ element and everything but the first element respectively:
     鳥>  (rest '(a b c))
 	;;=> ["'b", "'c"]
 
-	
+Additionally, TL provides a `head` function to take apart a list by 
+returning a list of the first element:
+
+    鳥>  (head '(a b c))
+    ;;=> [ "'a" ]
+
+
+
     鳥> 
     鳥> 
     鳥> 
