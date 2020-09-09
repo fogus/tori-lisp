@@ -127,10 +127,23 @@ returning a list of the first element:
     鳥>  (head '(a b c))
     ;;=> [ "'a" ]
 
+We've already seen some functions: `+`, `cons`, `first`, `rest`, and `head`.  
+You can define new ones with def, which takes a symbol to use as the name, a 
+list of symbols representing the parameters, and then zero or more expressions 
+called the body.  When the function is called, those expressions will be 
+evaluated in order with the symbols in the body temporarily set ("bound") to 
+the corresponding argument. Whatever the last expression returns will be 
+returned as the value of the call.
+
+Here's a function that takes two numbers and returns their average:
+
+    鳥>  (def average {x y | (/ (+ x y) 2)})
+    ;;=> [Function: curried]
+    鳥>  (average 2 4)
+    ;;=> 3
 
 
-    鳥> 
-    鳥> 
+
     鳥> 
     鳥> 
     鳥> 

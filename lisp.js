@@ -82,6 +82,10 @@
   var _plus   = auto_curry(function(l, r) {
     return l + r;
   }, 2);
+
+  var _div   = auto_curry(function(l, r) {
+    return l / r;
+  }, 2);
   
   var part = function(n, array) {
     var i, j;
@@ -291,7 +295,8 @@
     "'read":  _read,
     "'eval":  flip(_eval),
     "'nil":   [],
-    "'+":     _plus
+    "'+":     _plus,
+    "'/":     _div    
   };
 
   /* Lisp reader */
@@ -432,7 +437,6 @@
     VERSION: "0.1.0",
     read: _read,
     evil: _eval,
-    read: _read,
     Rdr: Rdr,
     core: CORE,
   };
