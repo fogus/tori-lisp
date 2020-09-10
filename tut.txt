@@ -142,7 +142,9 @@ Here's a function that takes two numbers and returns their average:
     鳥>  (average 2 4)
     ;;=> 3
 
-
+From the definition above you'll notice that TL uses a literal syntax for
+functions of the form `{args | body}`. This is sugar for the more conventional
+`(λ (x y) (/ (+ x y) 2))` form.
 
     鳥> 
     鳥> 
