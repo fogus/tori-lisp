@@ -33,7 +33,7 @@
   }
 
   var procedure = function(env, params, body) {
-    return function() {
+    var fn = function() {
       var args = arguments;
       var context = params.reduce(function(ctx, param, index) {
 	ctx[param] = args[index];
@@ -43,6 +43,10 @@
       context[PARENT_ID] = env;
       return _eval(context, body);
     }
+
+    fn.body   = body;
+    fn.params = params;
+    return fn;
   }
   
   var auto_curry = (function () {
@@ -86,7 +90,15 @@
   var _div   = auto_curry(function(l, r) {
     return l / r;
   }, 2);
-  
+
+  var _body = function(fn) {
+    return _rest(fn.body);
+  }
+
+  var _params = function(fn) {
+    return fn.params;
+  }
+
   var part = function(n, array) {
     var i, j;
     var res = [];
@@ -288,15 +300,17 @@
   };
 
   var CORE = {
-    "'first": _first,
-    "'rest":  _rest,
-    "'head":  _head,
-    "'cons":  _cons,
-    "'read":  _read,
-    "'eval":  flip(_eval),
-    "'nil":   [],
-    "'+":     _plus,
-    "'/":     _div    
+    "'first":  _first,
+    "'rest":   _rest,
+    "'head":   _head,
+    "'cons":   _cons,
+    "'body":   _body,
+    "'params": _params,    
+    "'read":   _read,
+    "'eval":   flip(_eval),
+    "'nil":    [],
+    "'+":      _plus,
+    "'/":      _div    
   };
 
   /* Lisp reader */
@@ -434,7 +448,7 @@
   }
   
   exports.lisp = {
-    VERSION: "0.1.0",
+    VERSION: "0.1.1",
     read: _read,
     evil: _eval,
     Rdr: Rdr,
