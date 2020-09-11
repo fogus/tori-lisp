@@ -46,6 +46,7 @@
 
     fn.body   = body;
     fn.params = params;
+
     return fn;
   }
   
@@ -59,9 +60,11 @@
     
     return function auto_curry(fn, expectedArgs) {
       expectedArgs = expectedArgs || fn.length;
-      return function curried() {
+      var ret =  function curried() {
+	var remaining = expectedArgs - arguments.length;
+	
         if (arguments.length < expectedArgs) {
-          return expectedArgs - arguments.length > 0 ?
+          return remaining > 0 ?
             auto_curry(curry.apply(this, [fn].concat(_array(arguments))), expectedArgs - arguments.length) :
             curry.apply(this, [fn].concat(_array(arguments)));
         }
@@ -72,7 +75,12 @@
           return fn.apply(this, arguments);
         }
       };
-    };   
+
+      ret.body   = fn.body;
+      ret.params = fn.params; // TODO: calculate the remaining args and only return those.
+      
+      return ret;
+    };
   }());
 
   var _first  = function(seq) { return seq[0] };
@@ -304,8 +312,8 @@
     "'rest":   _rest,
     "'head":   _head,
     "'cons":   _cons,
-    "'body":   _body,
-    "'params": _params,    
+    "'meta/body":   _body,
+    "'meta/params": _params,    
     "'read":   _read,
     "'eval":   flip(_eval),
     "'nil":    [],

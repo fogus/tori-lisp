@@ -152,10 +152,19 @@ What's the strange-looking object returned as the value of the `def`
 expression?  That's what a function looks like.  In TL, as in most
 Lisps, functions are a data type, just like numbers or strings.
 
+Indeed, user-defined functions can be inspected at runtime:
+
+	鳥>  (meta/body average)
+	;;=> [ [ "'/", [ "'+", "'x", "'y" ], 2 ] ]
+	
+	鳥>  (meta/params average)
+	;;=> [ "'x", "'y" ]
+
+This capability will come in handy later in the tutorial but for now we can
+proceed.
 
 
-    鳥> 
-    鳥> 
+
     鳥> 
     鳥> 
     鳥> 
