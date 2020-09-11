@@ -144,8 +144,28 @@ Here's a function that takes two numbers and returns their average:
 
 From the definition above you'll notice that TL uses a literal syntax for
 functions of the form `{args | body}`. This is sugar for the more conventional
-`(λ (x y) (/ (+ x y) 2))` form.
+`(λ (x y) (/ (+ x y) 2))` form. In either case, the body of the function consists 
+of one expression, (/ (+ x y) 2). It's common for functions to consist of one 
+expression; in purely functional code (code with no side-effects) they always do.
 
+What's the strange-looking object returned as the value of the `def`
+expression?  That's what a function looks like.  In TL, as in most
+Lisps, functions are a data type, just like numbers or strings.
+
+
+
+    鳥> 
+    鳥> 
+    鳥> 
+    鳥> 
+    鳥> 
+    鳥> 
+    鳥> 
+    鳥> 
+    鳥> 
+    鳥> 
+    鳥> 
+    鳥> 
     鳥> 
     鳥> 
     鳥> 
