@@ -242,6 +242,14 @@
     if ((form.length > 0) && (op in SPECIAL_FORMS)) {
       return SPECIAL_FORMS[form[0]](env, form);
     }
+    else if (is_string(env, op)) {
+      var args = _rest(form);
+
+      if (args.length === 1) 
+	return op.charAt(_second(form));
+      else
+	return op.slice.apply(op, args);
+    }
     else {
       var fn = _eval(env, op);
 

@@ -180,8 +180,21 @@ data types like symbols and strings: you can't print them out in a
 way that could be read back in.  The reason is that the function 
 could be a closure; displaying closures is a tricky problem.
 
+In TL, data structures can be used wherever functions are, and
+they behave as functions from indices to whatever's stored there.
+So to get the first element of a string you say:
 
-    鳥> 
+    鳥>  ("foo" 0)
+    ;;=> 'f'
+
+Or to get a slice of the string you can use:
+
+    鳥>  ("foo" 0 2)
+    ;;=> 'fo'
+
+
+
+    鳥>
     鳥> 
     鳥> 
     鳥> 
