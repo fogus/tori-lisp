@@ -175,6 +175,10 @@ So when you evaluate all three expressions and pass the values of
 the second and third to the value of the first, you pass 2 and 4
 to a function that returns averages, and the result is 3.
 
+There's one thing you can't do with functions that you can do with
+data types like symbols and strings: you can't print them out in a
+way that could be read back in.  The reason is that the function 
+could be a closure; displaying closures is a tricky problem.
 
 
     鳥> 
