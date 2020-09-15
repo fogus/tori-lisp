@@ -163,6 +163,18 @@ Indeed, user-defined functions can be inspected at runtime:
 This capability will come in handy later in the tutorial but for now we can
 proceed.
 
+Of course you can use a literal function wherever you could use
+a symbol whose value is one, e.g.
+
+    鳥>  ({x y | (/ (+ x y) 2)} 2 4)
+    ;;=> 3
+
+This expression has three elements, `{x y | (/ (+ x y) 2)}`, which
+yields a function that returns averages, and the numbers 2 and 4.
+So when you evaluate all three expressions and pass the values of
+the second and third to the value of the first, you pass 2 and 4
+to a function that returns averages, and the result is 3.
+
 
 
     鳥> 
