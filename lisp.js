@@ -99,6 +99,10 @@
     return l / r;
   }, 2);
 
+  var _mult   = auto_curry(function(l, r) {
+    return l * r;
+  }, 2);
+  
   var _body = function(fn) {
     return _rest(fn.body);
   }
@@ -242,7 +246,7 @@
     if ((form.length > 0) && (op in SPECIAL_FORMS)) {
       return SPECIAL_FORMS[form[0]](env, form);
     }
-    else if (is_string(env, op)) {
+    else if (!is_symbol(env,op) && is_string(env, op)) {
       var args = _rest(form);
 
       if (args.length === 1) 
@@ -326,6 +330,7 @@
     "'eval":   flip(_eval),
     "'nil":    [],
     "'+":      _plus,
+    "'*":      _mult,    
     "'/":      _div    
   };
 
