@@ -3,6 +3,8 @@
     return "'" + token;
   }
 
+  var CRLF = sym("crlf");
+  
   var _array = function(arr, from) {
     return Array.prototype.slice.call(arr, from || 0);
   };
@@ -91,18 +93,36 @@
     return [elem].concat(seq);
   }, 2);
 
-  var _plus   = auto_curry(function(l, r) {
+  var _plus = auto_curry(function(l, r) {
     return l + r;
   }, 2);
 
-  var _div   = auto_curry(function(l, r) {
+  var _div = auto_curry(function(l, r) {
     return l / r;
   }, 2);
 
-  var _mult   = auto_curry(function(l, r) {
+  var _mult = auto_curry(function(l, r) {
     return l * r;
   }, 2);
-  
+
+  /** I/O functions **/
+  var _out = function(to) {
+    var rest = [].slice.call(arguments, 1);
+    var ret = true;
+
+    for (var elem of rest) {
+      if(elem.valueOf() == CRLF) {
+	ret = to.call(this, "\n");
+      }
+      else {
+	ret = to.call(this, elem);
+      }
+    }
+
+    return ret;
+  }
+
+  /** Meta functions **/
   var _body = function(fn) {
     return _rest(fn.body);
   }
@@ -329,6 +349,9 @@
     "'read":   _read,
     "'eval":   flip(_eval),
     "'nil":    [],
+    "'out":    _out,
+    "'<c>":    process.stdout.write.bind(process.stdout),
+    "'crlf":   CRLF,
     "'+":      _plus,
     "'*":      _mult,    
     "'/":      _div    
