@@ -192,6 +192,19 @@ Or to get a slice of the string you can use:
     鳥>  ("foo" 0 2)
     ;;=> 'fo'
 
+There is one commonly used operator for establishing temporary
+variables, namely `let`.
+
+    鳥>  (let (x 1) 
+           (+ x (* x 2)))
+    ;;=> 3
+
+To bind multiple variables, just add more pairs to the `let`.
+
+    鳥>  (let (x 3 y 4)
+           (+ (* x 2) (* y 2)))
+    ;;=> 14
+
 
 
     鳥>
