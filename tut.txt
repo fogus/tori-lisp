@@ -205,6 +205,13 @@ To bind multiple variables, just add more pairs to the `let`.
            (+ (* x 2) (* y 2)))
     ;;=> 14
 
+So far we've only had things printed out implicity as a result of
+evaluating them.  The standard way to print things out in the middle
+of evaluation is with `out`. It takes multiple arguments, the first 
+being the "port" to print to and the rest that print in order.
+
+Here's a variant of average that tells us what its arguments were:
+
 
 
     鳥>
