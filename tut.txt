@@ -212,9 +212,21 @@ being the "port" to print to and the rest that print in order.
 
 Here's a variant of average that tells us what its arguments were:
 
+    鳥> (def average 
+	      {x y | (do (out <c> "my args were: " x " and " y crlf) 
+		             (/ (+ x y) 2))})
+    ;;=> [Function: curried]
+	
+    鳥>  (average 100 200)
+    my args were: 100 and 200
+    ;;=> 150
 
+A couple of points to note about the call to `out` is that the first 
+argument is the "port" that the rest of the arguments are written to.
+In the case of the call above, the argument `<c>` means that the
+print happens to the console (i.e. stdout). Also, the argument `crlf`
+indiactes that a newline should be printed.
 
-    鳥>
     鳥> 
     鳥> 
     鳥> 

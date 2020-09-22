@@ -115,7 +115,7 @@
 	ret = to.call(this, "\n");
       }
       else {
-	ret = to.call(this, elem);
+	ret = to.call(this, toS(elem));
       }
     }
 
