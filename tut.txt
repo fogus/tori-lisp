@@ -255,6 +255,10 @@ than `nil`, `false`, or `undefined` would serve just as well.
     鳥> (odd? 2)
     ;;=> false
 
+If the third argument to `if` is missing the result is `undefined`.
+
+    鳥>  (if #f 1)
+    ;;=> undefined
 
 
 
