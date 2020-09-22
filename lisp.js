@@ -177,7 +177,7 @@
   var existy = function(val) { return val != null; };
   
   var truthy = function(val) {
-    return (val !== false) && (val.length !== 0) && existy(val);
+    return (val !== false) && existy(val) && (val.length !== 0);
   }
   
   var SPECIAL_FORMS = {
@@ -349,23 +349,26 @@
   };
 
   var CORE = {
-    "'first":  _first,
-    "'rest":   _rest,
-    "'head":   _head,
-    "'cons":   _cons,
-    "'meta/body":   _body,
-    "'meta/params": _params,    
-    "'read":   _read,
-    "'eval":   flip(_eval),
-    "'nil":    [],
-    "'out":    _out,
-    "'<c>":    process.stdout.write.bind(process.stdout),
-    "'crlf":   CRLF,
-    "'+":      _plus,
-    "'*":      _mult,    
-    "'/":      _div,
-    "'even?":  _evenp,
-    "'odd?":   _oddp
+    "'first":  	  _first,
+    "'rest":   	  _rest,
+    "'head":   	  _head,
+    "'cons":   	  _cons,
+    "'meta/body	  ":   _body,
+    "'meta/para	  ms": _params,    
+    "'read":   	  _read,
+    "'eval":   	  flip(_eval),
+    "'nil":       [],
+    "'true":      true,
+    "'false":     false,
+    "'undefined": undefined,
+    "'out":    	  _out,
+    "'<c>":    	  process.stdout.write.bind(process.stdout),
+    "'crlf":   	  CRLF,
+    "'+":      	  _plus,
+    "'*":      	  _mult,    
+    "'/":      	  _div,
+    "'even?":  	  _evenp,
+    "'odd?":   	  _oddp
   };
 
   /* Lisp reader */
