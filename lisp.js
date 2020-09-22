@@ -105,6 +105,9 @@
     return l * r;
   }, 2);
 
+  var _oddp  = function(n) { return (n % 2) > 0 };
+  var _evenp = function(n) { return (n % 2) === 0 };
+  
   /** I/O functions **/
   var _out = function(to) {
     var rest = [].slice.call(arguments, 1);
@@ -354,7 +357,9 @@
     "'crlf":   CRLF,
     "'+":      _plus,
     "'*":      _mult,    
-    "'/":      _div    
+    "'/":      _div,
+    "'even?":  _evenp,
+    "'odd?":   _oddp
   };
 
   /* Lisp reader */
@@ -492,7 +497,7 @@
   }
   
   exports.lisp = {
-    VERSION: "0.1.1",
+    VERSION: "0.2.0",
     read: _read,
     evil: _eval,
     Rdr: Rdr,

@@ -225,7 +225,9 @@ A couple of points to note about the call to `out` is that the first
 argument is the "port" that the rest of the arguments are written to.
 In the case of the call above, the argument `<c>` means that the
 print happens to the console (i.e. stdout). Also, the argument `crlf`
-indiactes that a newline should be printed.
+indicates that a newline should be printed.
+
+
 
     鳥> 
     鳥> 
