@@ -242,8 +242,20 @@ conventionally used to represent falsity as well as the empty list.
 
     鳥>  (if nil 'a 'b)
 	;;=> "'b"
+	
     鳥>  nil
 	;;=> []
+
+The symbol `#t` is often used to represent truth, but any value other 
+than `nil`, `false`, or `undefined` would serve just as well.
+
+    鳥> (odd? 1)
+    ;;=> true
+	
+    鳥> (odd? 2)
+    ;;=> false
+
+
 
 
     鳥> 
