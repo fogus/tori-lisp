@@ -174,6 +174,12 @@
     console.log(id + " not set in " + Object.keys(env));
   };
 
+  var existy = function(val) { return val != null; };
+  
+  var truthy = function(val) {
+    return (val !== false) && (val.length !== 0) && existy(val);
+  }
+  
   var SPECIAL_FORMS = {
     "'quote": function(env, form) {
       return _second(form);
@@ -189,7 +195,7 @@
       return ret;
     },
     "'if": function(env, form) {
-      return _eval(env, form[1]) ? _eval(env, form[2]) : _eval(env, form[3]);
+      return truthy(_eval(env, form[1])) ? _eval(env, form[2]) : _eval(env, form[3]);
     },
     "'let": function(env, form) {
       var binds = part(2, form[1]);

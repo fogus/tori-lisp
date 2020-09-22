@@ -227,10 +227,25 @@ In the case of the call above, the argument `<c>` means that the
 print happens to the console (i.e. stdout). Also, the argument `crlf`
 indicates that a newline should be printed.
 
+The standard conditional operator is `if`.  Like `def`, it doesn't
+evaluate all of its arguments.  When given three arguments, it evaluates
+the first, and if that returns `true`, it returns the value of the
+second, otherwise the value of the third:
+
+    鳥>  (if (odd? 1) 'a 'b)
+    ;;=> "'a"
+    鳥>  (if (even? 1) 'a 'b)
+    ;;=> "'b"
+
+Returning `true` means returning anything except `nil`.  `nil` is
+conventionally used to represent falsity as well as the empty list.
+
+    鳥>  (if nil 'a 'b)
+	;;=> "'b"
+    鳥>  nil
+	;;=> []
 
 
-    鳥> 
-    鳥> 
     鳥> 
     鳥> 
     鳥> 
