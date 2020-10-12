@@ -260,9 +260,27 @@ If the third argument to `if` is missing the result is `undefined`.
     鳥>  (if #f 1)
     ;;=> undefined
 
+Each argument to if is a single expression, so if you want to do
+multiple things depending on the result of a test, combine them
+into one expression with `do`.
+
+    鳥>  (do (out <c> "hello" crlf) (+ 2 3))
+    hello
+    ;;=> 5
+
+If you just want several expressions to be evaluated when some
+condition is true, you could say
+
+    鳥>  (if #t
+           (do 1
+             2))
+    ;;=> 2
+
+As shown, the last expression in the `do` block is the return value of 
+the block itself.
 
 
-    鳥> 
+
     鳥> 
     鳥> 
     鳥> 
