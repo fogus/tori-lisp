@@ -264,7 +264,8 @@ Each argument to if is a single expression, so if you want to do
 multiple things depending on the result of a test, combine them
 into one expression with `do`.
 
-    鳥>  (do (out <c> "hello" crlf) (+ 2 3))
+    鳥>  (do (out <c> "hello" crlf) 
+	         (+ 2 3))
     hello
     ;;=> 5
 
@@ -279,9 +280,13 @@ condition is true, you could say
 As shown, the last expression in the `do` block is the return value of 
 the block itself.
 
+    鳥>  (and nil 
+	       (out <c> "you'll never see this"))
+    ;;=> []
 
 
-    鳥> 
+
+
     鳥> 
     鳥> 
     鳥> 

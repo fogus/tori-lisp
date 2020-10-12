@@ -107,6 +107,24 @@
 
   var _oddp  = function(n) { return (n % 2) > 0 };
   var _evenp = function(n) { return (n % 2) === 0 };
+
+  var _len   = function(thing) {
+    if (existy(thing)) { // && existy(thing.length)) {
+      return thing.length || thing.params.length;
+    }
+
+    return undefined;
+  }
+  
+  var _no    = function(thing) {
+    if (existy(thing) && existy(thing.length)) {
+      return thing.length === 0;
+    }
+
+    if (is_bool(null, thing)) return !thing;
+
+    return false;
+  };
   
   /** I/O functions **/
   var _out = function(to) {
@@ -225,7 +243,18 @@
       if (params.length < 2) return procedure(env, params, body);
 
       return auto_curry(procedure(env, params, body), params.length);
-    }
+    },
+    "'and": function(env, form) {
+      var args = _rest(form);
+      var ret = true;
+
+      for (var i=0; i < args.length; i++) {
+	ret = _eval(env, args[i]);
+	if (!truthy(ret)) return ret;
+      }
+	
+      return ret;
+    }  
   };
   
   var toString = Object.prototype.toString;
@@ -243,7 +272,7 @@
   }
 
   var is_bool = function(env, form) {
-    return garner_type(form) == "[object Boolean]";
+    return form === true || form === false || (garner_type(form) == "[object Boolean]");
   }
   
   var is_seq = function(env, form) {
@@ -368,7 +397,9 @@
     "'*":      	  _mult,    
     "'/":      	  _div,
     "'even?":  	  _evenp,
-    "'odd?":   	  _oddp
+    "'odd?":   	  _oddp,
+    "'len":       _len,
+    "'no":        _no
   };
 
   /* Lisp reader */
