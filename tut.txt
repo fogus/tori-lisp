@@ -315,9 +315,18 @@ on more than lists like strings and even functions.
     鳥>  (len +)
 	;;=> 2
 
+The standard comparison operator is `is?`, which returns `true` if its
+arguments are identical or, if lexemes (i.e. strings and symbols), have the 
+same characters.
 
-
-
+	鳥>  (is? 'a 'a)
+	;;=> true
+	鳥>  (is? "foo" "foo")
+	;;=> true
+	鳥>  (let (x '(a)) (is? x x))
+	;;=> true
+	鳥>  (is? '(a) '(a))
+    ;;=> false
 
 
 

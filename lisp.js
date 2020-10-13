@@ -123,6 +123,10 @@
   var _oddp  = function(n) { return (n % 2) > 0 };
   var _evenp = function(n) { return (n % 2) === 0 };
 
+  var _isp = auto_curry(function(l, r) {
+    return l === r;
+  }, 2);
+  
   var _len   = function(thing) {
     if (existy(thing)) {
       return thing.length || thing.params.length;
@@ -414,7 +418,8 @@
     "'even?":  	  _evenp,
     "'odd?":   	  _oddp,
     "'len":       _len,
-    "'no":        _no
+    "'no":        _no,
+    "'is?":       _isp
   };
 
   /* Lisp reader */
@@ -552,7 +557,7 @@
   }
   
   exports.lisp = {
-    VERSION: "0.2.0",
+    VERSION: "0.2.5",
     read: _read,
     evil: _eval,
     Rdr: Rdr,
