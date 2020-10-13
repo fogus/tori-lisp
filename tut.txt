@@ -284,12 +284,43 @@ the block itself.
 	       (out <c> "you'll never see this"))
     ;;=> []
 
+The negation operator is called `no`, a name that also works when
+talking about `nil` as the empty list.  Here's a function to return
+the length of a list:
+
+    鳥>  (def mylen 
+	       (λ (xs)
+             (if (no xs)
+               0
+               (+ 1 (mylen (rest xs))))))
+	;;=> [Function: fn]
+
+If the list is `nil` the function will immediately return 0.  Otherwise
+it returns 1 more than the length of the `rest` of the list.
+
+	鳥>  (mylen nil)
+	;;=> 0
+	鳥>  (mylen '(a b c))
+	;;=> 3
+
+I called it `mylen` because there's already a function called `len` for
+this.  You're welcome to redefine TL functions, but redefining
+`len` this way might break code that depended on it, because `len` works
+on more than lists like strings and even functions.
+
+    鳥>  (len "abc")
+	;;=> 3
+    鳥>  (len {a | a})
+	;;=> 1
+    鳥>  (len +)
+	;;=> 2
 
 
 
-    鳥> 
-    鳥> 
-    鳥> 
+
+
+
+
     鳥> 
     鳥> 
     鳥> 
