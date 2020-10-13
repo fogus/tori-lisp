@@ -9,6 +9,16 @@
     return Array.prototype.slice.call(arr, from || 0);
   };
 
+  var garner_params = function(fn) {  
+    return (fn + '')
+      .replace(/[/][/].*$/mg,'') // strip single-line comments
+      .replace(/\s+/g, '') // strip white space
+      .replace(/[/][*][^/*]*[*][/]/g, '') // strip multi-line comments  
+      .split('){', 1)[0].replace(/^[^(]*[(]/, '') // extract the parameters  
+      .replace(/=[^,]+/g, '') // strip any ES6 defaults  
+      .split(',').filter(Boolean); // split & filter [""]
+  }
+  
   var flip = function(fn) {
     return function(first, second) {
       var rest = [].slice.call(arguments, 2)
@@ -61,14 +71,20 @@
     };
     
     return function auto_curry(fn, expectedArgs) {
+      var params = fn.params || garner_params(fn);
+      var body   = fn.body   || fn;
+      
       expectedArgs = expectedArgs || fn.length;
       var ret =  function curried() {
 	var remaining = expectedArgs - arguments.length;
 	
         if (arguments.length < expectedArgs) {
-          return remaining > 0 ?
-            auto_curry(curry.apply(this, [fn].concat(_array(arguments))), expectedArgs - arguments.length) :
-            curry.apply(this, [fn].concat(_array(arguments)));
+	  if (remaining > 0) {
+	    return auto_curry(curry.apply(this, [fn].concat(_array(arguments))), expectedArgs - arguments.length);
+	  }
+	  else {
+            return curry.apply(this, [fn].concat(_array(arguments)));
+	  }
         }
         else if (arguments.length > expectedArgs) {
 	  throw new Error("Too many arguments to function: expected " + expectedArgs + ", got " + arguments.length);
@@ -78,9 +94,8 @@
         }
       };
 
-      ret.body   = fn.body;
-      ret.params = fn.params; // TODO: calculate the remaining args and only return those.
-      
+      ret.body   = body;
+      ret.params = params; // TODO: calculate the remaining args and only return those.
       return ret;
     };
   }());
@@ -109,7 +124,7 @@
   var _evenp = function(n) { return (n % 2) === 0 };
 
   var _len   = function(thing) {
-    if (existy(thing)) { // && existy(thing.length)) {
+    if (existy(thing)) {
       return thing.length || thing.params.length;
     }
 
