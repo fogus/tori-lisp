@@ -18,6 +18,68 @@
       .replace(/=[^,]+/g, '') // strip any ES6 defaults  
       .split(',').filter(Boolean); // split & filter [""]
   }
+
+  var compareObjects = function(l, r) {
+    if (Array.isArray(l) && Array.isArray(r)) {
+      // a man's array does not look like a girl's array
+      if (l.length !== r.length) return false
+    }
+
+    const keys = Object.keys(l)
+    for (let i = 0; i < keys.length; i++) {
+      const key = keys[i]
+      if (Array.isArray(l[key])) {
+	if (Array.isArray(r[key])) {
+          // a man has an array, a girl has a different array
+          if (!_eqvp(l[key], r[key])) return false
+          // a man may share an array with a girl
+          continue
+	}
+	// a man has an array, a girl does not
+	return false
+      }
+
+      // account for date objects
+      if (l[key] instanceof Date) {
+	if (r[key] instanceof Date) {
+          if (l[key].valueOf() !== r[key].valueOf()) return false
+          continue
+	}
+	return false
+      }
+
+      // account for regexp
+      if (l[key] instanceof RegExp) {
+	if (r[key] instanceof RegExp) {
+          if (l[key].toString() !== r[key].toString()) return false
+          continue
+	}
+	return false
+      }
+
+      if (typeof l[key] === 'object') {
+	if (typeof r[key] === 'object' && !Array.isArray(r[key])) {
+          // a man has an object, a girl has a different object
+          if (!_compare(l[key], r[key])) return false
+          continue
+	}
+	// a man has an object, a girl does not
+	return false
+      }
+      // a man has values that a girl does not share
+      if (l[key] !== r[key]) return false
+    }
+
+    return true
+  }
+  
+  var _eqvp = function(l, r) {
+    if (l && r && ((Array.isArray(l) && Array.isArray(r)) || (typeof l === 'object' && typeof r === 'object')) && (l.length === r.length)) {
+      return compareObjects(l, r)
+    }
+
+    return false
+  }
   
   var flip = function(fn) {
     return function(first, second) {
@@ -295,7 +357,7 @@
   }
   
   var is_seq = function(env, form) {
-    return garner_type(form) == "[object Array]";
+    return Array.isArray(form);
   }
 
   var is_fun = function(env, form) {
@@ -419,7 +481,8 @@
     "'odd?":   	  _oddp,
     "'len":       _len,
     "'no":        _no,
-    "'is?":       _isp
+    "'is?":       _isp,
+    "'eqv?":      _eqvp
   };
 
   /* Lisp reader */
@@ -557,7 +620,7 @@
   }
   
   exports.lisp = {
-    VERSION: "0.2.5",
+    VERSION: "0.3.0",
     read: _read,
     evil: _eval,
     Rdr: Rdr,
