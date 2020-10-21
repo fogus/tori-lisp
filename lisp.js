@@ -296,6 +296,19 @@
     "'if": function(env, form) {
       return truthy(_eval(env, form[1])) ? _eval(env, form[2]) : _eval(env, form[3]);
     },
+    "'cond": function(env, form) {
+      var pairs = part(2, _rest(form));
+      if (pairs[pairs.length - 1].length === 1) throw new Error("cond expects an even number of condition pairs");
+
+      for (var i = 0; i < pairs.length; i++) {
+	var elem = pairs[i];
+	var condition = _eval(env, elem[0]);
+
+	if (truthy(condition)) return _eval(env, elem[1]);
+      };
+      
+      return null;
+    },
     "'let": function(env, form) {
       var binds = part(2, form[1]);
 
@@ -335,7 +348,18 @@
       }
 	
       return ret;
-    }  
+    },
+    "'or": function(env, form) {
+      var args = _rest(form);
+      var ret = false;
+
+      for (var i=0; i < args.length; i++) {
+	ret = _eval(env, args[i]);
+	if (truthy(ret)) return ret;
+      }
+	
+      return ret;
+    }      
   };
   
   var toString = Object.prototype.toString;

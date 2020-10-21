@@ -328,10 +328,21 @@ same characters.
 	鳥>  (is? '(a) '(a))
     ;;=> false
 
+Note that is returns false for two lists with the same elements.
+There's another operator for that, `eqv?` (from equivalent).
 
+    鳥>  (eqv? '(a) '(a))
+	;;=> true
+	
+If you want to test whether something is one of several alternatives,
+you could use `or`.
 
-    鳥> 
-    鳥> 
+    鳥>  (let (x 'c) 
+	       (or (is? x 'a) (is? x 'b) (is? x 'c)))
+	;;=> true
+	
+
+	
     鳥> 
     鳥> 
     鳥> 
