@@ -376,7 +376,7 @@ functions are convenient as arguments.
 
 You can also negate a function by calling `not` on its result.
 
-    鳥>  (map {e | (not (odd? e))} '(1 2 3 4 5 6))
+    鳥>  (map (comp not odd?) '(1 2 3 4 5 6))
 	;;=> [ false, true, false, true, false, true ]
 
 
