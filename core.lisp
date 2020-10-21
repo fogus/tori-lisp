@@ -8,3 +8,9 @@
             (map fn (rest list))))))
 
 (def second (comp first rest))
+
+(def not
+  (λ (x)
+    (cond
+      x false
+      #t #t)))

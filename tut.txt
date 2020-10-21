@@ -374,11 +374,13 @@ functions are convenient as arguments.
     鳥>  (map (comp first rest) '((a b) (c d) (e f)))
 	;;=> [ "'b", "'d", "'f" ]
 
+You can also negate a function by calling `not` on its result.
+
+    鳥>  (map {e | (not (odd? e))} '(1 2 3 4 5 6))
+	;;=> [ false, true, false, true, false, true ]
+
 
 	
-	
-	
-    鳥> 
     鳥> 
     鳥> 
     鳥> 
