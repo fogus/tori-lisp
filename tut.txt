@@ -357,9 +357,39 @@ value.
     ;;=> "'mela"
     鳥>  (translate 'syzygy)
     ;;=> "'che?"
-	
-	
-	
+
+The `map` function takes a function and a list and returns the 
+result of applying the function to successive elements.
+
+	鳥>  (map (+ 10) '(1 2 3))
+	;;=> [ 11, 12, 13 ]
+
+Removing variables is a particularly good way to make programs
+shorter.  An unnecessary variable increases the conceptual load of
+a program by more than just what it adds to the length.
+
+
+
+
+
+    鳥> 
+    鳥> 
+    鳥> 
+    鳥> 
+    鳥> 
+    鳥> 
+    鳥> 
+    鳥> 
+    鳥> 
+    鳥> 
+    鳥> 
+    鳥> 
+    鳥> 
+    鳥> 
+    鳥> 
+    鳥> 
+    鳥> 
+    鳥> 
     鳥> 
     鳥> 
     鳥> 
