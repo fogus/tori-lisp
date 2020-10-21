@@ -6,3 +6,5 @@
       list
       (cons (fn (first list))
             (map fn (rest list))))))
+
+(def second (comp first rest))

@@ -375,7 +375,6 @@ functions are convenient as arguments.
 	;;=> [ "'b", "'d", "'f" ]
 
 
-
 	
 	
 	
