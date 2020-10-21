@@ -368,11 +368,17 @@ Removing variables is a particularly good way to make programs
 shorter.  An unnecessary variable increases the conceptual load of
 a program by more than just what it adds to the length.
 
+You can compose functions using the `comp` function. Composed
+functions are convenient as arguments.
+
+    鳥>  (map (comp first rest) '((a b) (c d) (e f)))
+	;;=> [ "'b", "'d", "'f" ]
 
 
 
-
-    鳥> 
+	
+	
+	
     鳥> 
     鳥> 
     鳥> 

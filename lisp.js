@@ -224,6 +224,8 @@
     return ret;
   }
 
+  var _comp = (...fns) => x => fns.reduceRight((v, f) => f(v), x);
+  
   /** Meta functions **/
   var _body = function(fn) {
     return _rest(fn.body);
@@ -506,7 +508,8 @@
     "'len":       _len,
     "'no":        _no,
     "'is?":       _isp,
-    "'eqv?":      _eqvp
+    "'eqv?":      _eqvp,
+    "'comp":      _comp
   };
 
   /* Lisp reader */

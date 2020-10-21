@@ -6,4 +6,3 @@
       list
       (cons (fn (first list))
             (map fn (rest list))))))
-
