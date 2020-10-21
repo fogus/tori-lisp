@@ -15,6 +15,14 @@
         (cons (first list) (filter fn (rest list)))
         (filter fn (rest list))))))
 
+(def remove
+  (λ (fn list)
+    (if (no list)
+      list
+      (if (fn (first list))
+        (remove fn (rest list))
+        (cons (first list) (remove fn (rest list)))))))      
+
 (def second (comp first rest))
 
 (def not
