@@ -341,9 +341,25 @@ you could use `or`.
 	       (or (is? x 'a) (is? x 'b) (is? x 'c)))
 	;;=> true
 	
-
+The `cond` operator takes alternating expression pairs and returns
+the value of the expression after the first that returns a truthy
+value. 
 	
-    鳥> 
+    鳥>  (def translate 
+           (λ (sym)
+             (cond
+               (is? sym 'apple) 'mela 
+               (is? sym 'onion) 'cipolla
+               #t 'che?)))
+	;;=> [Function: fn]
+	
+    鳥>  (translate 'apple)
+    ;;=> "'mela"
+    鳥>  (translate 'syzygy)
+    ;;=> "'che?"
+	
+	
+	
     鳥> 
     鳥> 
     鳥> 
