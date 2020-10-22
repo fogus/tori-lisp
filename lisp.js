@@ -225,6 +225,7 @@
   }
 
   var _comp = (...fns) => x => fns.reduceRight((v, f) => f(v), x);
+  var _juxt = (...fns) => x => fns.map((f) => f(x));
   
   /** Meta functions **/
   var _body = function(fn) {
@@ -509,7 +510,8 @@
     "'no":        _no,
     "'is?":       _isp,
     "'eqv?":      _eqvp,
-    "'comp":      _comp
+    "'comp":      _comp,
+    "'juxt":      _juxt
   };
 
   /* Lisp reader */
@@ -647,7 +649,7 @@
   }
   
   exports.lisp = {
-    VERSION: "0.3.0",
+    VERSION: "0.3.5",
     read: _read,
     evil: _eval,
     Rdr: Rdr,
