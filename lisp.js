@@ -166,6 +166,7 @@
   var _second = function(seq) { return seq[1] };
   var _rest   = function(seq) { return seq.slice(1) };
   var _head   = function(seq) { return [seq[0]]; };
+  var _last   = function(seq) { return seq[seq.length - 1]; };
   var _cons   = auto_curry(function(elem, seq) {
     return [elem].concat(seq);
   }, 2);
@@ -224,8 +225,20 @@
     return ret;
   }
 
+  /** Combinators **/
+  
   var _comp = (...fns) => x => fns.reduceRight((v, f) => f(v), x);
   var _juxt = (...fns) => x => fns.map((f) => f(x));
+
+  /** Maps **/
+
+  var _hash = function(...elems) {
+    var pairs = part(2, elems);
+
+    if (_last(pairs).length === 1) throw new Error("hash expects an even number of arguments");
+    
+    return new Map(pairs);
+  }
   
   /** Meta functions **/
   var _body = function(fn) {
@@ -489,6 +502,7 @@
     "'first":  	  _first,
     "'rest":   	  _rest,
     "'head":   	  _head,
+    "'last":      _last,
     "'cons":   	  _cons,
     "'meta/body	  ":   _body,
     "'meta/para	  ms": _params,    
@@ -511,7 +525,8 @@
     "'is?":       _isp,
     "'eqv?":      _eqvp,
     "'comp":      _comp,
-    "'juxt":      _juxt
+    "'juxt":      _juxt,
+    "'hash":      _hash
   };
 
   /* Lisp reader */
