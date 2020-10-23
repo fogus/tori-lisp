@@ -192,7 +192,7 @@
   
   var _len   = function(thing) {
     if (existy(thing)) {
-      return thing.length || thing.params.length;
+      return thing.length || thing.size || thing.params.length;
     }
 
     return undefined;
@@ -234,8 +234,10 @@
 
   var _hash = function(...elems) {
     var pairs = part(2, elems);
+    var last  = _last(pairs);
 
-    if (_last(pairs).length === 1) throw new Error("hash expects an even number of arguments");
+    if (!existy(last)) return new Map();
+    if (last.length === 1) throw new Error("hash expects an even number of arguments");
     
     return new Map(pairs);
   }
@@ -252,7 +254,7 @@
   var part = function(n, array) {
     var i, j;
     var res = [];
-
+    
     for (i = 0, j = array.length; i < j; i += n) {
       res.push(array.slice(i, i+n));
     }
