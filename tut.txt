@@ -398,11 +398,22 @@ Another includes `remove`, which does the opposite of `filter`.
 	鳥>  (remove odd? '(1 2 3 4 5 6))
 	;;=> [ 2, 4, 6 ]
 
+Lists can be used to represent a wide variety of data structures,
+but if you want to store key/value pairs efficiently, TL also has
+hash tables.
 
+    鳥>  (def airports (hash))
+	;;=> Map {}
+    鳥>  (def airports2 (set airport "Boston" 'bos))
+	;;=> Map { 'Boston' => "'bos" }
+    鳥>  airports
+    ;;=> Map {}
+    鳥>  airports2
+    ;;=> Map { 'Boston' => "'bos" }
+	
 
-
-    鳥> 
-    鳥> 
+	
+	
     鳥> 
     鳥> 
     鳥> 

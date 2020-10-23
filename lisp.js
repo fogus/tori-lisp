@@ -230,7 +230,7 @@
   var _comp = (...fns) => x => fns.reduceRight((v, f) => f(v), x);
   var _juxt = (...fns) => x => fns.map((f) => f(x));
 
-  /** Maps **/
+  /** Hash Maps **/
 
   var _hash = function(...elems) {
     var pairs = part(2, elems);
@@ -240,6 +240,12 @@
     if (last.length === 1) throw new Error("hash expects an even number of arguments");
     
     return new Map(pairs);
+  }
+
+  var _set = function(target, key, value) {
+    var copy = new Map(target);
+    copy.set(key, value);
+    return copy;
   }
   
   /** Meta functions **/
@@ -528,7 +534,8 @@
     "'eqv?":      _eqvp,
     "'comp":      _comp,
     "'juxt":      _juxt,
-    "'hash":      _hash
+    "'hash":      _hash,
+    "'set":       _set
   };
 
   /* Lisp reader */
