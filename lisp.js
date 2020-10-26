@@ -450,11 +450,15 @@
 	return op.slice.apply(op, args);
     }
     else {
-      var fn = _eval(env, op);
+      var callable = _eval(env, op);
 
-      if (is_fun(env, fn)) {
+      if (is_fun(env, callable)) {
 	var args = form.slice(1).map(e => _eval(env, e));
-	return fn.apply(undefined, args);
+	return callable.apply(undefined, args);
+      }
+      else if (is_hash(env, callable)) {
+	var args = form.slice(1).map(e => _eval(env, e));
+	return Map.prototype.get.apply(callable, args);
       }
       else {
 	throw new Error("Non-function found in head of array: " + op);

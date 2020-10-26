@@ -427,8 +427,11 @@ Retrieving items from a hash map is done via the `get` function.
 	       (get m 'a))
 	;;=> undefined
 
-Like lists and strings, hash tables can be used wherever functions are.
+Like strings, hash tables can be used wherever functions are.
 
+	鳥>  (let (m (hash 'x 1 'y 2)) 
+	       (m 'x))
+	;;=> 1
 
 
 
