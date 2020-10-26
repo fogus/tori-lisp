@@ -247,6 +247,10 @@
     copy.set(key, value);
     return copy;
   }
+
+  var _get = function(target, key) {
+    return target.get(key);
+  }
   
   /** Meta functions **/
   var _body = function(fn) {
@@ -408,6 +412,10 @@
     return Array.isArray(form);
   }
 
+  var is_hash = function(env, form) {
+    return garner_type(form) == "[object Map]";
+  }
+  
   var is_fun = function(env, form) {
     return garner_type(form) == "[object Function]";
   }
@@ -535,7 +543,8 @@
     "'comp":      _comp,
     "'juxt":      _juxt,
     "'hash":      _hash,
-    "'set":       _set
+    "'set":       _set,
+    "'get":       _get
   };
 
   /* Lisp reader */

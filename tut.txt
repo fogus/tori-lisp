@@ -411,10 +411,27 @@ hash tables.
     鳥>  airports2
     ;;=> Map { 'Boston' => "'bos" }
 	
+If you want to create a hash table filled with values, you can use
+the `hash` function passing alternating key/value pairs which returns the 
+corresponding hash table.
+	
+    鳥>  (hash 'x 1 'y 2)
+    ;;=> Map { "'x" => 1, "'y" => 2 }
+	
+Retrieving items from a hash map is done via the `get` function.
 
-	
-	
-    鳥> 
+    鳥>  (let (m (hash 'x 1 'y 2)) 
+	       (get m 'x))
+	;;=> 1
+	鳥>  (let (m (hash 'x 1 'y 2))
+	       (get m 'a))
+	;;=> undefined
+
+Like lists and strings, hash tables can be used wherever functions are.
+
+
+
+
     鳥> 
     鳥> 
     鳥> 
