@@ -433,6 +433,12 @@ Like strings, hash tables can be used wherever functions are.
 	       (m 'x))
 	;;=> 1
 
+    鳥>  (def codes (hash "Boston" 'bos "San Francisco" 'sfo "Paris" 'cdg))
+	;;=> Map {'Boston' => "'bos", 'San Francisco' => "'sfo", 'Paris' => "'cdg" }
+	
+	鳥>  (map codes '("Paris" "Boston" "San Francisco"))
+	;;=> [ "'cdg", "'bos", "'sfo"
+
 
 
     鳥> 
