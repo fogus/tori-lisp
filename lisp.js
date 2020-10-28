@@ -251,6 +251,8 @@
   var _get = function(target, key) {
     return target.get(key);
   }
+
+  var _keys = (hash) => Array.from(hash.keys());
   
   /** Meta functions **/
   var _body = function(fn) {
@@ -548,7 +550,8 @@
     "'juxt":      _juxt,
     "'hash":      _hash,
     "'set":       _set,
-    "'get":       _get
+    "'get":       _get,
+    "'keys":      _keys
   };
 
   /* Lisp reader */
@@ -686,7 +689,7 @@
   }
   
   exports.lisp = {
-    VERSION: "0.3.5",
+    VERSION: "0.4.0",
     read: _read,
     evil: _eval,
     Rdr: Rdr,

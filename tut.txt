@@ -439,7 +439,11 @@ Like strings, hash tables can be used wherever functions are.
 	鳥>  (map codes '("Paris" "Boston" "San Francisco"))
 	;;=> [ "'cdg", "'bos", "'sfo"
 
+The function `keys` returns the keys in a hash table, and `vals` returns
+the values.
 
+	鳥>  (keys codes)
+	;;=> [ 'Boston', 'San Francisco', 'Paris' ]
 
     鳥> 
     鳥> 
