@@ -447,6 +447,10 @@ hash.
 	;;=> [ 'Boston', 'San Francisco', 'Paris' ]
 	鳥>  (vals codes)
     ;;=> [ "'bos", "'sfo", "'cdg" ]
+	鳥>  (pairs codes)
+    ;;=> [ [ 'Boston', "'bos" ], [ 'San Francisco', "'sfo" ], [ 'Paris', "'cdg" ] ]
+
+
 
 
 

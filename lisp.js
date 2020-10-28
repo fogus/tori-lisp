@@ -252,8 +252,9 @@
     return target.get(key);
   }
 
-  var _keys = (hash) => Array.from(hash.keys());
-  var _vals = (hash) => Array.from(hash.values());
+  var _keys  = (hash) => Array.from(hash.keys());
+  var _vals  = (hash) => Array.from(hash.values());
+  var _pairs = (hash) => Array.from(hash.entries());
   
   /** Meta functions **/
   var _body = function(fn) {
@@ -553,7 +554,8 @@
     "'set":       _set,
     "'get":       _get,
     "'keys":      _keys,
-    "'vals":      _vals
+    "'vals":      _vals,
+    "'pairs":     _pairs
   };
 
   /* Lisp reader */
