@@ -253,6 +253,7 @@
   }
 
   var _keys = (hash) => Array.from(hash.keys());
+  var _vals = (hash) => Array.from(hash.values());
   
   /** Meta functions **/
   var _body = function(fn) {
@@ -551,7 +552,8 @@
     "'hash":      _hash,
     "'set":       _set,
     "'get":       _get,
-    "'keys":      _keys
+    "'keys":      _keys,
+    "'vals":      _vals
   };
 
   /* Lisp reader */
