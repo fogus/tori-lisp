@@ -457,10 +457,23 @@ arguments and mushes them into a string:
 	鳥>  (str 99 " bottles of " 'bee '[r])
 	;;=> '99 bottles of bee[r]'
 
+The `push` and `pop` operators treat lists as stacks, pushing a new
+element on the front and popping one off respectively but in a 
+non-destructive way.
+
+    鳥> (def x '(c a b))
+    ;;=> [ "'c", "'a", "'b" ]
+    鳥>  (pop x)
+    ;;=> [ "'a", "'b" ]
+    鳥>  x
+    ;;=> [ "'c", "'a", "'b" ]
+    鳥>  (push x 'f)
+    ;;=> [ "'f", "'c", "'a", "'b" ]
+    鳥>  x
+    ;;=> [ "'c", "'a", "'b" ]
 
 
-
-    鳥> 
+	
     鳥> 
     鳥> 
     鳥> 

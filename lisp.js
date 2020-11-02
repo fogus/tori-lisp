@@ -234,6 +234,16 @@
   var _comp = (...fns) => x => fns.reduceRight((v, f) => f(v), x);
   var _juxt = (...fns) => x => fns.map((f) => f(x));
 
+  /** Array manipulation **/
+
+  var _push = auto_curry(function(ary, elem) {
+    return _cons(elem, ary);
+  }, 2);
+
+  var _pop = function(ary) {
+    return _rest(ary);
+  };
+  
   /** Hash Maps **/
 
   var _hash = function(...elems) {
@@ -563,7 +573,9 @@
     "'keys":      _keys,
     "'vals":      _vals,
     "'pairs":     _pairs,
-    "'str":       _str
+    "'str":       _str,
+    "'push":      _push,
+    "'pop":       _pop
   };
 
   /* Lisp reader */
