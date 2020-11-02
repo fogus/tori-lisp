@@ -451,6 +451,12 @@ hash.
     ;;=> [ [ 'Boston', "'bos" ], [ 'San Francisco', "'sfo" ], [ 'Paris', "'cdg" ] ]
 
 
+The most general way to build strings is `str`, which takes any number of 
+arguments and mushes them into a string:
+
+	鳥>  (str 99 " bottles of " 'bee '[r])
+	;;=> '99 bottles of bee[r]'
+
 
 
 

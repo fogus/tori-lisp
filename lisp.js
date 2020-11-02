@@ -197,6 +197,10 @@
 
     return undefined;
   }
+
+  var _str   = function() {
+    return Array.from(arguments).map(e => toS(e)).join("");
+  }
   
   var _no    = function(thing) {
     if (existy(thing) && existy(thing.length)) {
@@ -490,6 +494,9 @@
     if (is_seq({}, obj)) {
       return "[" + obj.map(toS) + "]";
     }
+    else if (is_symbol({}, obj)) {
+      return obj.substring(1);
+    }
     else {
       return "" + obj;
     }
@@ -555,7 +562,8 @@
     "'get":       _get,
     "'keys":      _keys,
     "'vals":      _vals,
-    "'pairs":     _pairs
+    "'pairs":     _pairs,
+    "'str":       _str
   };
 
   /* Lisp reader */
