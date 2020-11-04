@@ -162,6 +162,10 @@
     };
   }());
 
+  var _apply  = auto_curry(function(fn, args) {
+    return fn.apply(null, args);
+  }, 2);
+  
   var _first  = function(seq) { return seq[0] };
   var _second = function(seq) { return seq[1] };
   var _rest   = function(seq) { return seq.slice(1) };
@@ -566,6 +570,7 @@
   };
 
   var CORE = {
+    "'apply":     _apply,
     "'first":  	  _first,
     "'rest":   	  _rest,
     "'head":   	  _head,

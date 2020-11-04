@@ -491,6 +491,21 @@ judged equal by the comparison function won't change:
     鳥>  (sort {l r | (< (len l) (len r))} '("aa" "bb" "cc"))
 	;;=> [ 'aa', 'bb', 'cc' ]
 	
+To supply a list of arguments to a function, use `apply`:
+
+    鳥>  (apply + '(1 2))
+    ;;=> 3
+
+As will all functions, supplying fewer arguments than a function 
+expects using `apply` will return a curried function.
+
+	鳥>  (apply + '(1))
+	;;=> { [Function: curried] body: [Function: curried], params: [] }
+	鳥>  ((apply + '(1)) 2)
+	;;=> 3
+
+
+
     鳥> 
     鳥> 
     鳥> 
