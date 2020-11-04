@@ -461,7 +461,7 @@ The `push` and `pop` operators treat lists as stacks, pushing a new
 element on the front and popping one off respectively but in a 
 non-destructive way.
 
-    鳥> (def x '(c a b))
+    鳥>  (def x '(c a b))
     ;;=> [ "'c", "'a", "'b" ]
     鳥>  (pop x)
     ;;=> [ "'a", "'b" ]
@@ -478,9 +478,19 @@ the function given as the first argument.
     鳥>  (sort < '(2 9 3 7 5 1))
     ;;=> [ 1, 2, 3, 5, 7, 9 ]
 	
+In practice the things one needs to sort are rarely just lists of
+numbers.  More often you'll need to sort things according to some
+property other than their value, e.g.
+
+    鳥>  (sort {l r | (< (len l) (len r))} '("orange" "pea" "apricot" "apple"))
+	;;=> [ 'pea', 'apple', 'orange', 'apricot' ]
+
+TL's sort is stable, meaning the relative positions of elements
+judged equal by the comparison function won't change:
+
+    鳥>  (sort {l r | (< (len l) (len r))} '("aa" "bb" "cc"))
+	;;=> [ 'aa', 'bb', 'cc' ]
 	
-	
-    鳥> 
     鳥> 
     鳥> 
     鳥> 
