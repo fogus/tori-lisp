@@ -472,9 +472,14 @@ non-destructive way.
     鳥>  x
     ;;=> [ "'c", "'a", "'b" ]
 
+The `sort` function returns a copy of a sequence sorted according to
+the function given as the first argument.
 
+    鳥>  (sort < '(2 9 3 7 5 1))
+    ;;=> [ 1, 2, 3, 5, 7, 9 ]
 	
-    鳥> 
+	
+	
     鳥> 
     鳥> 
     鳥> 

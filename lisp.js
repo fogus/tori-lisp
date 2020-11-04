@@ -175,12 +175,24 @@
     return l + r;
   }, 2);
 
+  var _minus = auto_curry(function(l, r) {
+    return l - r;
+  }, 2);
+  
   var _div = auto_curry(function(l, r) {
     return l / r;
   }, 2);
 
   var _mult = auto_curry(function(l, r) {
     return l * r;
+  }, 2);
+
+  var _lt = auto_curry(function(l, r) {
+    return l < r;
+  }, 2);
+
+  var _gt = auto_curry(function(l, r) {
+    return l > r;
   }, 2);
 
   var _oddp  = function(n) { return (n % 2) > 0 };
@@ -198,6 +210,20 @@
     return undefined;
   }
 
+  var comparator = function(pred) {
+    return function(l, r) {
+      if (pred(l, r)) return -1;
+
+      return 1;
+    };
+  }
+  
+  var _sort = auto_curry(function(pred, ary) {
+    
+    var ret = ary.slice(0).sort(comparator(pred));
+    return ret;
+  }, 2);
+  
   var _str   = function() {
     return Array.from(arguments).map(e => toS(e)).join("");
   }
@@ -557,8 +583,11 @@
     "'<c>":    	  process.stdout.write.bind(process.stdout),
     "'crlf":   	  CRLF,
     "'+":      	  _plus,
+    "'-":      	  _minus,
     "'*":      	  _mult,    
     "'/":      	  _div,
+    "'<":      	  _lt,
+    "'>":      	  _gt,
     "'even?":  	  _evenp,
     "'odd?":   	  _oddp,
     "'len":       _len,
@@ -575,7 +604,8 @@
     "'pairs":     _pairs,
     "'str":       _str,
     "'push":      _push,
-    "'pop":       _pop
+    "'pop":       _pop,
+    "'sort":      _sort
   };
 
   /* Lisp reader */
@@ -713,7 +743,7 @@
   }
   
   exports.lisp = {
-    VERSION: "0.4.0",
+    VERSION: "0.4.5",
     read: _read,
     evil: _eval,
     Rdr: Rdr,
