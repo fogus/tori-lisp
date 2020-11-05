@@ -512,9 +512,27 @@ that bottom out at Lisp primitives. Currently, TL doesn't have macros
 but via the use of currying and light-weight function syntax you can
 create interesting pseudo-syntax structures.
 
+The function `when` is a good example of a TL pseudo-syntax that is
+typically implemented as a macro in most Lisps.
 
+    鳥>  (when {1} {
+	       (out <c> "hello" crlf) 
+		   2
+		   })
+	hello
+	;;=> 2
+	
+The implementation of `when` is pretty simple:
 
-    鳥> 
+    (def when
+	  (λ (condition body)
+	    (if (condition)
+	      (body)
+	      nil)))
+
+The use of the bracketed function syntax allows the deferal of the 
+body of `when` until the conditional part evaluates as truthy.
+	
     鳥> 
     鳥> 
     鳥> 
