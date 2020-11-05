@@ -532,7 +532,16 @@ The implementation of `when` is pretty simple:
 
 The use of the bracketed function syntax allows the deferal of the 
 body of `when` until the conditional part evaluates as truthy.
-	
+
+    鳥>  (when {#f} {
+	       (out <c> "hello" crlf) 
+		   2
+		   })
+	;;=> []
+
+
+
+
     鳥> 
     鳥> 
     鳥> 
