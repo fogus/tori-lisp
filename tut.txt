@@ -504,6 +504,14 @@ expects using `apply` will return a curried function.
 	鳥>  ((apply + '(1)) 2)
 	;;=> 3
 
+Let's take a moment to talk about macros as most Lisps have them. 
+Macros are basically functions that generate code. The code generated 
+by macros is basically fed back into the Lisp interpreter and executed.
+This feature allows programmers to create custom syntaxtic structures 
+that bottom out at Lisp primitives. Currently, TL doesn't have macros
+but via the use of currying and light-weight function syntax you can
+create interesting pseudo-syntax structures.
+
 
 
     鳥> 

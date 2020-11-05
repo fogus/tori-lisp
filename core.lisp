@@ -30,3 +30,14 @@
     (cond
       x false
       #t #t)))
+
+(def when
+  (λ (condition body)
+    (if (condition)
+      (body)
+      nil)))
+
+(def repeat
+  (λ (times body)
+  ))
+      
