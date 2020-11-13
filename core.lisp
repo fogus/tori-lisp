@@ -41,6 +41,13 @@
   (λ (list)
     (reduce {a x | (cons x a)} nil list)))
 
+(def member
+  (λ (test? list)
+     (cond
+       (no list) undefined
+       (test? (first list)) (first list)
+       #t (member test? (rest list)))))
+
 (def second (comp first rest))
 
 (def not
