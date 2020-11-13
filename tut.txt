@@ -539,6 +539,8 @@ body of `when` until the conditional part evaluates as truthy.
 		   })
 	;;=> []
 
+We now know enough TL to read the definitions of some of the
+predefined functions.  Here are a few of the simpler ones.
 
 
 

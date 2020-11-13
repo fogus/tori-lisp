@@ -23,6 +23,12 @@
         (remove fn (rest list))
         (cons (first list) (remove fn (rest list)))))))      
 
+(def append
+  (λ (l r)
+    (if (no l)
+      r
+      (cons (first l) (append (rest l) r)))))
+
 (def second (comp first rest))
 
 (def not
