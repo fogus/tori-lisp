@@ -78,7 +78,7 @@
       return compareObjects(l, r)
     }
 
-    return false
+    return l === r;
   }
   
   var flip = function(fn) {
