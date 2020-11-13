@@ -43,6 +43,10 @@
       (body)
       nil)))
 
+(def abs
+  (λ (n)
+    (if (< n 0) (- 0 n) n)))
+
 (def repeat
   (λ (times body)
   ))
