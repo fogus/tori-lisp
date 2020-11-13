@@ -7,6 +7,14 @@
       (cons (fn (first list))
             (map fn (rest list))))))
 
+(def reduce
+  (λ (fn init list)
+    (if (no list)
+      init
+      (reduce fn 
+              (fn init (first list))
+              (rest list)))))
+
 (def filter
   (λ (fn list)
     (if (no list)
