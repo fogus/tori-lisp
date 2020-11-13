@@ -37,6 +37,10 @@
       r
       (cons (first l) (append (rest l) r)))))
 
+(def reverse
+  (λ (list)
+    (reduce {a x | (cons x a)} nil list)))
+
 (def second (comp first rest))
 
 (def not
