@@ -73,14 +73,6 @@
     return true
   }
   
-  var _eqvp = function(l, r) {
-    if (l && r && ((Array.isArray(l) && Array.isArray(r)) || (typeof l === 'object' && typeof r === 'object')) && (l.length === r.length)) {
-      return compareObjects(l, r)
-    }
-
-    return l === r;
-  }
-  
   var flip = function(fn) {
     return function(first, second) {
       var rest = [].slice.call(arguments, 2)
@@ -164,6 +156,14 @@
 
   var _apply  = auto_curry(function(fn, args) {
     return fn.apply(null, args);
+  }, 2);
+
+  var _eqvp = auto_curry(function(l, r) {
+    if (l && r && ((Array.isArray(l) && Array.isArray(r)) || (typeof l === 'object' && typeof r === 'object')) && (l.length === r.length)) {
+      return compareObjects(l, r)
+    }
+
+    return l === r;
   }, 2);
   
   var _first  = function(seq) { return seq[0] };

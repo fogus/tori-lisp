@@ -48,6 +48,13 @@
        (test? (first list)) (first list)
        #t (member test? (rest list)))))
 
+(def union
+  (λ (l r)
+     (cond
+       (no l) r
+       (member (eqv? (first l)) r) (union (rest l) r)
+       #t (cons (first l) (union (rest l) r)))))
+
 (def second (comp first rest))
 
 (def not
