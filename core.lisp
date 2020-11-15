@@ -55,6 +55,13 @@
        (member (eqv? (first l)) r) (union (rest l) r)
        #t (cons (first l) (union (rest l) r)))))
 
+(def intersection
+  (λ (l r)
+     (cond
+       (no l) nil
+       (member (eqv? (first l)) r) (cons (first l) (intersection (rest l) r))
+       #t (intersection (rest l) r))))
+
 (def second (comp first rest))
 
 (def not
