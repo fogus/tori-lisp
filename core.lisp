@@ -15,6 +15,13 @@
               (fn init (first list))
               (rest list)))))
 
+(def foldr
+  (λ (fn init list)
+    (if (no list)
+      init
+      (fn (first list)
+          (foldr fn init (rest list))))))
+
 (def filter
   (λ (fn list)
     (if (no list)
