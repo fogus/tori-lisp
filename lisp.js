@@ -4,6 +4,7 @@
   }
 
   var CRLF = sym("crlf");
+  var DOC_KEY = sym("__docstring__");
   
   var _array = function(arr, from) {
     return Array.prototype.slice.call(arr, from || 0);
@@ -403,6 +404,12 @@
 
       var val  = _eval(env, _second(bind));
 
+      if (_len(bind) === 3) {
+	if (is_string({}, _last(bind))) {
+	  val[DOC_KEY] = _last(bind);
+	}
+      }
+
       env[name] = val;
       return val;
     },
@@ -610,7 +617,8 @@
     "'str":       _str,
     "'push":      _push,
     "'pop":       _pop,
-    "'sort":      _sort
+    "'sort":      _sort,
+    "'doc":       (obj) => obj[DOC_KEY]
   };
 
   /* Lisp reader */
@@ -748,7 +756,7 @@
   }
   
   exports.lisp = {
-    VERSION: "0.4.5",
+    VERSION: "0.4.8",
     read: _read,
     evil: _eval,
     Rdr: Rdr,

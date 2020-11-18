@@ -1,4 +1,5 @@
-(def id {thing | thing})
+(def id {thing | thing}
+  "Returns whatever it's given, unchanged.")
 
 (def map 
   (λ (fn list)
