@@ -200,6 +200,14 @@
     return l > r;
   }, 2);
 
+  var _lte = auto_curry(function(l, r) {
+    return l <= r;
+  }, 2);
+
+  var _gte = auto_curry(function(l, r) {
+    return l >= r;
+  }, 2);
+  
   var _oddp  = function(n) { return (n % 2) > 0 };
   var _evenp = function(n) { return (n % 2) === 0 };
 
@@ -600,6 +608,8 @@
     "'/":      	  _div,
     "'<":      	  _lt,
     "'>":      	  _gt,
+    "'<=":     	  _lte,
+    "'>=":        _gte,
     "'even?":  	  _evenp,
     "'odd?":   	  _oddp,
     "'len":       _len,

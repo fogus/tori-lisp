@@ -1,6 +1,9 @@
 (def id {thing | thing}
   "Returns whatever it's given, unchanged.")
 
+(def dec {n | (- n 1)})
+(def inc (+ 1))
+
 (def map 
   (λ (fn list)
     (if (no list) 
@@ -84,11 +87,13 @@
       (body)
       nil)))
 
-(def abs
-  (λ (n)
-    (if (< n 0) (- 0 n) n)))
+(def abs {n | (if (< n 0) (- 0 n) n)})
 
 (def repeat
   (λ (times body)
-  ))
+     (if (<= times 0)
+       nil
+       (do
+         (body)
+         (repeat (dec times) body)))))
       
