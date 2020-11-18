@@ -272,7 +272,8 @@
   
   var _comp = (...fns) => x => fns.reduceRight((v, f) => f(v), x);
   var _juxt = (...fns) => x => fns.map((f) => f(x));
-
+  var _pipe = (...fns) => x => fns.reduce((v, f) => f(v), x);
+  
   /** Array manipulation **/
 
   var _push = auto_curry(function(ary, elem) {
@@ -618,6 +619,7 @@
     "'eqv?":      _eqvp,
     "'comp":      _comp,
     "'juxt":      _juxt,
+    "'->":        _pipe,
     "'hash":      _hash,
     "'set":       _set,
     "'get":       _get,

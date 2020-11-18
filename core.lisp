@@ -90,10 +90,9 @@
 (def abs {n | (if (< n 0) (- 0 n) n)})
 
 (def repeat
-  (λ (times body)
+  (λ (times body!)
      (if (<= times 0)
        nil
        (do
-         (body)
-         (repeat (dec times) body)))))
-      
+         (body!)
+         (repeat (dec times) body!)))))
