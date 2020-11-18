@@ -74,6 +74,7 @@
        #t (intersection (rest l) r))))
 
 (def second (comp first rest))
+(def third  (-> rest rest first))
 
 (def not
   (λ (x)
@@ -96,3 +97,4 @@
        (do
          (body!)
          (repeat (dec times) body!)))))
+
