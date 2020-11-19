@@ -98,3 +98,9 @@
          (body!)
          (repeat (dec times) body!)))))
 
+(def take
+  (λ (n list)
+     (if (<= n 0)
+       nil
+       (cons (first list)
+             (take (dec n) (rest list))))))
