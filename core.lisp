@@ -104,3 +104,9 @@
        nil
        (cons (first list)
              (take (dec n) (rest list))))))
+
+(def drop
+  (λ (n list)
+     (if (<= n 0)
+       list
+       (drop (dec n) (rest list)))))
