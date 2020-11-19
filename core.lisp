@@ -110,3 +110,8 @@
      (if (<= n 0)
        list
        (drop (dec n) (rest list)))))
+
+(def split
+  (λ (n list)
+     (cons (take n list)
+           (cons (drop n list) nil))))
