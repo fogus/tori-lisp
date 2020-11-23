@@ -192,6 +192,10 @@
     return l * r;
   }, 2);
 
+  var _mod = auto_curry(function(l, r) {
+    return l % r;
+  }, 2);
+  
   var _lt = auto_curry(function(l, r) {
     return l < r;
   }, 2);
@@ -608,6 +612,7 @@
     "'-":      	    _minus,
     "'*":      	    _mult,    
     "'/":      	    _div,
+    "'mod":         _mod,
     "'<":      	    _lt,
     "'>":      	    _gt,
     "'<=":     	    _lte,
