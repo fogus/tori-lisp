@@ -118,7 +118,9 @@
 
 (def null? {x | (is? x js/null)})
 
-(def zero? {x | (is? x 0)})
-(def pos?  {x | (> x 0)})
-(def neg?  {x | (< x 0)})
+(def zero? {n | (is? n 0)})
+(def pos?  {n | (> n 0)})
+(def neg?  {n | (< n 0)})
 
+(def odd?  {n | (is? (mod n 2) 1)})
+(def even? (comp not odd?))
