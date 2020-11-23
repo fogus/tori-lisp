@@ -115,3 +115,7 @@
   (λ (n list)
      (cons (take n list)
            (cons (drop n list) nil))))
+
+(def null? {x | (is? x js/null)})
+
+(def zero? {x | (is? x 0)})
