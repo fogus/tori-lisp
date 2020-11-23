@@ -124,3 +124,16 @@
 
 (def odd?  {n | (is? (mod n 2) 1)})
 (def even? (comp not odd?))
+
+(def Y
+  (λ (f)
+     ({x | (f (x x))}
+      {x | (f (x x))})))
+
+(def fib0
+  (λ (f)
+     (λ (n)
+        (cond (is? n 0) 1
+              (is? n 1) 1
+              #t (+ (f (- n 1))
+                    (f (- n 2)))))))
