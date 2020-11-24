@@ -50,7 +50,7 @@
 
 (def reverse
   (λ (list)
-    (reduce {a x | (cons x a)} nil list)))
+    (reduce {acc x | (cons x acc)} nil list)))
 
 (def member
   (λ (test? list)
