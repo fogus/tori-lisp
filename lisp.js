@@ -636,7 +636,8 @@
     "'push":        _push,
     "'pop":         _pop,
     "'sort":        _sort,
-    "'doc":         (obj) => obj[DOC_KEY]
+    "'doc":         (obj) => obj[DOC_KEY],
+    "'type":        garner_type
   };
 
   /* Lisp reader */
@@ -774,7 +775,7 @@
   }
   
   exports.lisp = {
-    VERSION: "0.4.8",
+    VERSION: "0.4.9",
     read: _read,
     evil: _eval,
     Rdr: Rdr,

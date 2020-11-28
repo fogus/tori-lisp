@@ -582,6 +582,13 @@ predefined functions.  Here are a few of the simpler ones.
 	        (cons (first list) (filter fn (rest list)))
 	        (filter fn (rest list))))))
 
+These definitions are taken from core.lisp. As its name suggests,
+reading that file is a good way to learn more about both TL and
+functional programming techniques. Nothing in it is used before it's
+defined; it is an exercise in building the part of the language
+written in TL up from the "axioms" defined in lisp.js. I hoped this
+would yield a simple language.
+
 
 
     鳥> 

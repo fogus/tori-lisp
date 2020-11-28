@@ -57,21 +57,24 @@
      (cond
        (no list) undefined
        (test? (first list)) (first list)
-       #t (member test? (rest list)))))
+       #t (member test? (rest list))))
+  "Checks a list given a test function and returns the first element that matches.")
 
 (def union
   (λ (l r)
      (cond
        (no l) r
        (member (eqv? (first l)) r) (union (rest l) r)
-       #t (cons (first l) (union (rest l) r)))))
+       #t (cons (first l) (union (rest l) r))))
+  "Set union of two lists.")
 
 (def intersection
   (λ (l r)
      (cond
        (no l) nil
        (member (eqv? (first l)) r) (cons (first l) (intersection (rest l) r))
-       #t (intersection (rest l) r))))
+       #t (intersection (rest l) r)))
+  "Set intersection of two lists.")
 
 (def second (comp first rest))
 (def third  (-> rest rest first))
@@ -86,7 +89,8 @@
   (λ (condition body)
     (if (condition)
       (body)
-      nil)))
+      nil))
+  "Takes two functions and returns the result of the second when the first returns a truthy value.")
 
 (def abs {n | (if (< n 0) (- 0 n) n)})
 
@@ -96,20 +100,23 @@
        nil
        (do
          (body!)
-         (repeat (dec times) body!)))))
+         (repeat (dec times) body!))))
+  "Takes a number and a function and executes the functions the given number of times.")
 
 (def take
   (λ (n list)
      (if (<= n 0)
        nil
        (cons (first list)
-             (take (dec n) (rest list))))))
+             (take (dec n) (rest list)))))
+  "Returns the first n number of elements from a given list.")
 
 (def drop
   (λ (n list)
      (if (<= n 0)
        list
-       (drop (dec n) (rest list)))))
+       (drop (dec n) (rest list))))
+  "Removes the first n number of elements from a given list.")
 
 (def split
   (λ (n list)
