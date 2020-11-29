@@ -587,7 +587,25 @@ reading that file is a good way to learn more about both TL and
 functional programming techniques. Nothing in it is used before it's
 defined; it is an exercise in building the part of the language
 written in TL up from the "axioms" defined in lisp.js. I hoped this
-would yield a simple language.
+would yield a simple language. The definitions in core.lisp are also 
+an experiment in another way. They are the language spec.
+
+It may sound rather dubious to say that the only spec for something
+is its implementation.  It sounds like the sort of thing one might
+say about C++, or the Common Lisp loop macro.  But that's also how
+math works.  If the implementation is sufficiently abstract, it
+starts to be a good idea to make specification and implementation
+identical.
+
+I agree with Abelson and Sussman that programs should be written
+primarily for people to read rather than machines to execute.  The
+Lisp defined as a model of computation in McCarthy's original paper
+was.  It seems worth trying to preserve this as you grow Lisp into
+a language for everyday use.
+
+Notes
+=====
+
 
 
 
