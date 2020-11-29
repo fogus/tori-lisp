@@ -641,7 +641,7 @@
   };
 
   /* Lisp reader */
-  
+  /* TODO: Add list literal support */
   var Rdr = function(str = null) {
     this.raw = str;
     this.index = 0;
