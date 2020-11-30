@@ -127,6 +127,17 @@ returning a list of the first element:
     鳥>  (head '(a b c))
     ;;=> [ "'a" ]
 
+To create a list with many elements you can use the `list` function:
+
+    鳥>  (list 'a 1 "foo" '(b))
+	;;=> [ "'a", 1, 'foo', [ "'b" ] ]
+
+However, TL also provides a list literal syntax using elements placed
+between square brackets:
+
+    鳥>  ['a 1 "foo" ['b]]
+	;;=> [ "'a", 1, 'foo', [ "'b" ] ]
+
 We've already seen some functions: `+`, `cons`, `first`, `rest`, and `head`.  
 You can define new ones with def, which takes a symbol to use as the name, a 
 list of symbols representing the parameters, and then zero or more expressions 
