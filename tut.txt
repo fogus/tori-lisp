@@ -336,7 +336,7 @@ same characters.
 	;;=> true
 	鳥>  (let (x ['a]) (is? x x))
 	;;=> true
-	鳥>  (is? '(a) '(a))
+	鳥>  (is? ['a] ['a])
     ;;=> false
 
 Note that is returns false for two lists with the same elements.
