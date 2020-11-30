@@ -1,6 +1,6 @@
-[This is a brief tutorial on Tori-Lisp, an ersatz Lisp for little
+*This is a brief tutorial on Tori-Lisp, an ersatz Lisp for little
 birds. A passing familiarity with Lisp and Lisp-like languages is
-presumed.]
+presumed.*
 
 TL programs consist of expressions. The simplest expressions are
 things like numbers and strings, which evaluate to themselves.
@@ -342,7 +342,7 @@ same characters.
 Note that is returns false for two lists with the same elements.
 There's another operator for that, `eqv?` (from equivalent).
 
-    鳥>  (eqv? '(a) '(a))
+    鳥>  (eqv? ['a] ['a])
 	;;=> true
 	
 If you want to test whether something is one of several alternatives,
