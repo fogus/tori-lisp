@@ -10,6 +10,10 @@
     return Array.prototype.slice.call(arr, from || 0);
   };
 
+  var _list = function() {
+    return _array(arguments);
+  };
+  
   var garner_params = function(fn) {  
     return (fn + '')
       .replace(/[/][/].*$/mg,'') // strip single-line comments
@@ -570,6 +574,8 @@
             .replace(/\)/g, ' ) ')
             .replace(/\{/g, ' { ')
             .replace(/\}/g, ' } ')
+            .replace(/\[/g, ' [ ')
+            .replace(/\]/g, ' ] ')
             .replace(/\|/g, ' | ')
             .replace(/\'/g, " ' ");
         } else { // in string
@@ -637,22 +643,19 @@
     "'pop":         _pop,
     "'sort":        _sort,
     "'doc":         (obj) => obj[DOC_KEY],
-    "'type":        garner_type
+    "'type":        garner_type,
+    "'list":        _list
   };
 
   /* Lisp reader */
   /* TODO: Add list literal support */
-  var Rdr = function(str = null) {
-    this.raw = str;
+  var Rdr = function(context = {}) {
+    this.raw = null;
     this.index = 0;
     this.length = 0;
     this.sexpr = [];
-    this.SPECIAL = ['(', ')', '{', '}'];
-    this.CONTEXT = {};
-
-    if (str) {
-      this.sexpr = this.read_sexpr();
-    }
+    this.SPECIAL = ['(', ')', '{', '}', '[', ']'];
+    this.CONTEXT = context;
   };
 
   Rdr.prototype.read_sexpr = function(src=null) {
@@ -665,7 +668,7 @@
     var token = this.read_token();
     var expr = null;
 
-    if ((token === ')') || (token === '}')) {
+    if ((token === ')') || (token === '}') || (token === ']')) {
       throw new Error("Unexpected closing bracket '" + token + "'");
     }
 
@@ -681,6 +684,29 @@
 	}
 	else if (token === null) {
 	  throw new Error("Invalid end of s-expression!");
+	}
+	else {
+	  this.prev();
+	  expr.push(this.read_sexpr());
+	}
+
+	token = this.read_token();
+      }
+
+      return expr;
+    }
+    if (token === '[') {
+      expr = ["'list"];
+
+      token = this.read_token();
+
+      while (token !== ']') {
+	if ((token === '[') || (token === '(')) {
+	  this.prev();
+	  expr.push(this.read_sexpr());
+	}
+	else if (token === null) {
+	  throw new Error("Invalid end of list literal!");
 	}
 	else {
 	  this.prev();
@@ -775,7 +801,7 @@
   }
   
   exports.lisp = {
-    VERSION: "0.4.9",
+    VERSION: "0.5.0",
     read: _read,
     evil: _eval,
     Rdr: Rdr,
