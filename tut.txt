@@ -334,7 +334,7 @@ same characters.
 	;;=> true
 	鳥>  (is? "foo" "foo")
 	;;=> true
-	鳥>  (let (x '(a)) (is? x x))
+	鳥>  (let (x ['a]) (is? x x))
 	;;=> true
 	鳥>  (is? '(a) '(a))
     ;;=> false
