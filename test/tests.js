@@ -1,5 +1,6 @@
 QUnit.test( "read forms", function(assert) {
-  assert.deepEqual(lisp.read("25"), 25, "number");
+  assert.deepEqual(lisp.read("25"), 25, "int number");
+  assert.deepEqual(lisp.read("0.5"), 0.5, "decimal number");
   assert.deepEqual(lisp.read("\"foo\""), 'foo', "string");
   assert.deepEqual(lisp.read("a"), "'a", "symbols");
   assert.deepEqual(lisp.read("()"), [], "empty array");
@@ -17,4 +18,8 @@ QUnit.test( "read forms", function(assert) {
 QUnit.test( "math", function(assert) {
   assert.deepEqual(lisp.evil("(+ 1 2)"), 3, "simple add");
   assert.deepEqual(lisp.evil("(+ (+ 1 2) (+ 3 (+ 4 5)))"), 15, "nested add");
+  assert.throws(() => lisp.evil("(+ 1 2 3)"), Error, "wrong add args count");
+  assert.deepEqual(lisp.evil("(- 1 2)"), -1, "simple sub");
+  assert.deepEqual(lisp.evil("(* 100 2)"), 200, "simple mult");
+  assert.deepEqual(lisp.evil("(/ 1 2)"), 0.5, "simple div");
 });
