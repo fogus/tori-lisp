@@ -612,7 +612,7 @@
     "'undefined":   undefined,
     "'js/null":     null,
     "'out":    	    _out,
-    "'<c>":    	    process.stdout.write.bind(process.stdout),
+    "'<c>":    	    ((typeof process !== 'undefined') ? process.stdout.write.bind(process.stdout) : console.log),
     "'crlf":   	    CRLF,
     "'+":      	    _plus,
     "'-":      	    _minus,
