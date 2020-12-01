@@ -29,6 +29,22 @@ QUnit.test( "curried functions", function(assert) {
 
   assert.ok((typeof curriedAdd) === 'function');
   assert.equal(curriedAdd(2), 3);
+
+  var avg = lisp.evil("(def average {x y | (/ (+ x y) 2)})");
+  assert.ok((typeof avg) === 'function');
+  assert.equal(avg(2, 4), 3);
+
+  var curriedAvg = avg(2);
+  assert.ok((typeof curriedAvg) === 'function');
+  assert.equal(curriedAvg(4), 3);
+});
+
+QUnit.test( "function meta", function(assert) {
+  var avg = lisp.evil("(def average {x y | (/ (+ x y) 2)})");
+  assert.ok((typeof avg) === 'function');
+
+  assert.deepEqual(lisp.evil("(meta/body average)"), [ [ "'/", [ "'+", "'x", "'y" ], 2 ] ], "function body");
+  assert.deepEqual(lisp.evil("(meta/params average)"), [ "'x", "'y" ], "function params");
 });
 
 QUnit.test( "def", function(assert) {
