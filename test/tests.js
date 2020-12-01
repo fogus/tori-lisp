@@ -34,8 +34,21 @@ QUnit.test( "curried functions", function(assert) {
 QUnit.test( "def", function(assert) {
   assert.ok(lisp.evil("(def foo 13)"));
   assert.equal(lisp.evil("foo"), 13);
+
+  assert.ok(lisp.evil("(def x '(a b))"));
+  assert.ok(lisp.evil("(cons 'f x)"));
+  assert.deepEqual(lisp.evil("x"), ["'a", "'b"], "list unchanged");
 });
 
 QUnit.test( "quote", function(assert) {
   assert.equal(lisp.evil("'foo"), "'foo");
+});
+
+QUnit.test( "lists", function(assert) {
+  assert.deepEqual(lisp.evil("(cons 'a nil)"), ["'a"]);
+  assert.deepEqual(lisp.evil("(first '(a b c))"), "'a");
+  assert.deepEqual(lisp.evil("(rest '(a b c))"), ["'b", "'c"]);
+  assert.deepEqual(lisp.evil("(head '(a b c))"), ["'a"]);
+  assert.deepEqual(lisp.evil("(list 'a 1 \"foo\" '(b))"), [ "'a", 1, 'foo', [ "'b" ] ]);
+  assert.deepEqual(lisp.evil("['a 1 \"foo\" ['b]]"), [ "'a", 1, 'foo', [ "'b" ] ]);
 });
