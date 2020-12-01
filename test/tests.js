@@ -77,3 +77,8 @@ QUnit.test( "strings as functions", function(assert) {
   assert.equal(lisp.evil("(\"foo\" 0)"), 'f', "one arg");
   assert.equal(lisp.evil("(\"foo\" 0 2)"), 'fo', "two args");
 });
+
+QUnit.test( "let", function(assert) {
+  assert.equal(lisp.evil("(let (x 1) (+ x (* x 2)))"), 3, "let w/ one bind");
+  assert.equal(lisp.evil("(let (x 3 y 4) (+ (* x 2) (* y 2)))"), 14, "let w/ two binds");
+});
