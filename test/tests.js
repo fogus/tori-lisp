@@ -23,3 +23,19 @@ QUnit.test( "math", function(assert) {
   assert.deepEqual(lisp.evil("(* 100 2)"), 200, "simple mult");
   assert.deepEqual(lisp.evil("(/ 1 2)"), 0.5, "simple div");
 });
+
+QUnit.test( "curried functions", function(assert) {
+  var curriedAdd = lisp.evil("(+ 1)");
+
+  assert.ok((typeof curriedAdd) === 'function');
+  assert.equal(curriedAdd(2), 3);
+});
+
+QUnit.test( "def", function(assert) {
+  assert.ok(lisp.evil("(def foo 13)"));
+  assert.equal(lisp.evil("foo"), 13);
+});
+
+QUnit.test( "quote", function(assert) {
+  assert.equal(lisp.evil("'foo"), "'foo");
+});
