@@ -24,6 +24,10 @@ QUnit.test( "math", function(assert) {
   assert.deepEqual(lisp.evil("(/ 1 2)"), 0.5, "simple div");
 });
 
+QUnit.test( "function literals", function(assert) {
+  assert.equal(lisp.evil("({x y | (/ (+ x y) 2)} 2 4)"), 3);
+});
+
 QUnit.test( "curried functions", function(assert) {
   var curriedAdd = lisp.evil("(+ 1)");
 
@@ -67,4 +71,9 @@ QUnit.test( "lists", function(assert) {
   assert.deepEqual(lisp.evil("(head '(a b c))"), ["'a"]);
   assert.deepEqual(lisp.evil("(list 'a 1 \"foo\" '(b))"), [ "'a", 1, 'foo', [ "'b" ] ]);
   assert.deepEqual(lisp.evil("['a 1 \"foo\" ['b]]"), [ "'a", 1, 'foo', [ "'b" ] ]);
+});
+
+QUnit.test( "strings as functions", function(assert) {
+  assert.equal(lisp.evil("(\"foo\" 0)"), 'f', "one arg");
+  assert.equal(lisp.evil("(\"foo\" 0 2)"), 'fo', "two args");
 });
