@@ -11,14 +11,14 @@ console.log("Starting tori-lisp v" + 鳥.VERSION + "...");
 process.argv.slice(2).forEach(function(infile) {
   var src = fs.readFileSync(infile, "utf8");
   console.log("...loading " + infile);
-  鳥.evil(鳥.core, rdr.read_sexpr("(do " + src + ")"));
+  鳥.evil("(do " + src + ")");
 });
 console.log("done\n");
 
 repl.start({
   prompt: "鳥>  ",
   eval: function(cmd, context, filename, callback) {
-    var ret = 鳥.evil(鳥.core, rdr.read_sexpr(cmd));
+    var ret = 鳥.evil(cmd);
     callback(null, ret);
   },
   writer: writer

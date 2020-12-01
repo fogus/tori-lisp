@@ -16,4 +16,5 @@ QUnit.test( "read forms", function(assert) {
 
 QUnit.test( "math", function(assert) {
   assert.deepEqual(lisp.evil("(+ 1 2)"), 3, "simple add");
+  assert.deepEqual(lisp.evil("(+ (+ 1 2) (+ 3 (+ 4 5)))"), 15, "nested add");
 });
