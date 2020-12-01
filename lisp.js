@@ -803,7 +803,7 @@
   exports.lisp = {
     VERSION: "0.5.0",
     read: _read,
-    evil: _eval,
+    evil: (str) => _eval(CORE, _read(str)),
     Rdr: Rdr,
     core: CORE,
   };
