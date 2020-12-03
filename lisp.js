@@ -370,6 +370,8 @@
   var existy = function(val) { return val != null; };
   
   var truthy = function(val) {
+    if (val === "") return true;
+    
     return (val !== false) && existy(val) && (val.length !== 0);
   }
   

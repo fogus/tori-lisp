@@ -92,4 +92,13 @@ QUnit.test( "if", function(assert) {
   assert.equal(lisp.evil("(if true 'a 'b)"), "'a");
   assert.equal(lisp.evil("(if #f 'a 'b)"), "'b");
   assert.equal(lisp.evil("(if false 'a 'b)"), "'b");
+  assert.equal(lisp.evil("(if [1 2 3] 'a 'b)"), "'a");
+  assert.equal(lisp.evil("(if 1 'a 'b)"), "'a");
+  assert.equal(lisp.evil("(if 0 'a 'b)"), "'a");
+  assert.equal(lisp.evil("(if -1 'a 'b)"), "'a");
+  assert.equal(lisp.evil("(if (hash 'a 1) 'a 'b)"), "'a");
+  assert.equal(lisp.evil("(if \"a\" 'a 'b)"), "'a");
+  assert.equal(lisp.evil("(if 'truthy 'a 'b)"), "'a");
+  assert.equal(lisp.evil("(if null 'a 'b)"), "'b");
+  assert.equal(lisp.evil("(if \"\" 'a 'b)"), "'a");
 });
