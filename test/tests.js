@@ -99,6 +99,6 @@ QUnit.test( "if", function(assert) {
   assert.equal(lisp.evil("(if (hash 'a 1) 'a 'b)"), "'a");
   assert.equal(lisp.evil("(if \"a\" 'a 'b)"), "'a");
   assert.equal(lisp.evil("(if 'truthy 'a 'b)"), "'a");
-  assert.equal(lisp.evil("(if null 'a 'b)"), "'b");
   assert.equal(lisp.evil("(if \"\" 'a 'b)"), "'a");
+  assert.throws(() => lisp.evil("(if doesnetexist 'a 'b)"), Error, "non-bound var");
 });

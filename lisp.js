@@ -364,7 +364,7 @@
     } else if (PARENT_ID in env) {
       return lookup(env[PARENT_ID], id);
     }
-    console.log(id + " not set in " + Object.keys(env));
+    throw new Error(id + " not set in " + Object.keys(env));
   };
 
   var existy = function(val) { return val != null; };
