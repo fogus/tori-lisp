@@ -113,3 +113,15 @@ QUnit.test( "len", function(assert) {
   assert.equal(lisp.evil("(len {})"), 0);
   assert.equal(lisp.evil("(len +)"), 2);
 });
+
+QUnit.test( "is?", function(assert) {
+  assert.ok(lisp.evil("(is? 'a 'a)"));
+  assert.ok(lisp.evil("(is? \"foo\" \"foo\")"));
+  assert.ok(lisp.evil("(let (x ['a]) (is? x x))"));
+  assert.ok(lisp.evil("(let (x 'c) (or (is? x 'a) (is? x 'b) (is? x 'c)))"));
+  assert.notOk(lisp.evil("(is? ['a] ['a])"));
+});
+
+QUnit.test( "eqv?", function(assert) {
+  assert.ok(lisp.evil("(eqv? ['a] ['a])"));
+});
