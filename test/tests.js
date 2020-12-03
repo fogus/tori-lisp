@@ -82,3 +82,14 @@ QUnit.test( "let", function(assert) {
   assert.equal(lisp.evil("(let (x 1) (+ x (* x 2)))"), 3, "let w/ one bind");
   assert.equal(lisp.evil("(let (x 3 y 4) (+ (* x 2) (* y 2)))"), 14, "let w/ two binds");
 });
+
+QUnit.test( "if", function(assert) {
+  assert.equal(lisp.evil("(if (odd? 1) 'a 'b)"), "'a");
+  assert.equal(lisp.evil("(if (even? 1) 'a 'b)"), "'b");
+  assert.equal(lisp.evil("(if nil 'a 'b)"), "'b");
+  assert.equal(lisp.evil("(if undefined 'a 'b)"), "'b");
+  assert.equal(lisp.evil("(if #t 'a 'b)"), "'a");
+  assert.equal(lisp.evil("(if true 'a 'b)"), "'a");
+  assert.equal(lisp.evil("(if #f 'a 'b)"), "'b");
+  assert.equal(lisp.evil("(if false 'a 'b)"), "'b");
+});
