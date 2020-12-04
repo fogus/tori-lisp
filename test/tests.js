@@ -154,3 +154,13 @@ QUnit.test( "lists as stacks", function(assert) {
   assert.deepEqual(lisp.evil("(push x 'f)"), [ "'f", "'c", "'a", "'b" ]);
   assert.deepEqual(lisp.evil("x"), [ "'c", "'a", "'b" ]);
 });
+
+QUnit.test( "apply", function(assert) {
+  assert.equal(lisp.evil("(apply + '(1 2))"), 3);
+
+  var p1 = lisp.evil("(apply + '(1))");
+  assert.ok((typeof p1) === 'function');
+
+  assert.equal(p1(2), 3);
+  assert.equal(lisp.evil("((apply + '(1)) 2)"), 3);
+});
