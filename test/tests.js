@@ -71,6 +71,10 @@ QUnit.test( "lists", function(assert) {
   assert.deepEqual(lisp.evil("(head '(a b c))"), ["'a"]);
   assert.deepEqual(lisp.evil("(list 'a 1 \"foo\" '(b))"), [ "'a", 1, 'foo', [ "'b" ] ]);
   assert.deepEqual(lisp.evil("['a 1 \"foo\" ['b]]"), [ "'a", 1, 'foo', [ "'b" ] ]);
+
+  assert.deepEqual(lisp.evil("(sort < '(2 9 3 7 5 1))"), [ 1, 2, 3, 5, 7, 9 ], "sorting a list <");
+  assert.deepEqual(lisp.evil("(sort {l r | (< (len l) (len r))} '(\"orange\" \"pea\" \"apricot\" \"apple\"))"), [ 'pea', 'apple', 'orange', 'apricot' ], "sorting a list w/ a custon function");
+  assert.deepEqual(lisp.evil("(sort {l r | (< (len l) (len r))} '(\"aa\" \"bb\" \"cc\"))"), [ 'aa', 'bb', 'cc' ], "stable sorting");
 });
 
 QUnit.test( "strings", function(assert) {
@@ -143,3 +147,10 @@ QUnit.test( "hash maps", function(assert) {
   assert.deepEqual(lisp.evil("(pairs codes)"), [ [ 'Boston', "'bos" ], [ 'San Francisco', "'sfo" ], [ 'Paris', "'cdg" ] ]);
 });
 
+QUnit.test( "lists as stacks", function(assert) {
+  lisp.evil("(def x '(c a b))");
+  assert.deepEqual(lisp.evil("(pop x)"), [ "'a", "'b" ]);
+  assert.deepEqual(lisp.evil("x"), [ "'c", "'a", "'b" ]);
+  assert.deepEqual(lisp.evil("(push x 'f)"), [ "'f", "'c", "'a", "'b" ]);
+  assert.deepEqual(lisp.evil("x"), [ "'c", "'a", "'b" ]);
+});
