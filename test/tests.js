@@ -73,9 +73,10 @@ QUnit.test( "lists", function(assert) {
   assert.deepEqual(lisp.evil("['a 1 \"foo\" ['b]]"), [ "'a", 1, 'foo', [ "'b" ] ]);
 });
 
-QUnit.test( "strings as functions", function(assert) {
+QUnit.test( "strings", function(assert) {
   assert.equal(lisp.evil("(\"foo\" 0)"), 'f', "one arg");
   assert.equal(lisp.evil("(\"foo\" 0 2)"), 'fo', "two args");
+  assert.equal(lisp.evil("(str 99 \" bottles of \" 'bee ['r])"), '99 bottles of bee[r]');
 });
 
 QUnit.test( "let", function(assert) {
@@ -125,3 +126,20 @@ QUnit.test( "is?", function(assert) {
 QUnit.test( "eqv?", function(assert) {
   assert.ok(lisp.evil("(eqv? ['a] ['a])"));
 });
+
+QUnit.test( "comp, juxt, ->", function(assert) {
+  assert.deepEqual(lisp.evil("((comp first rest) '(1 2 3))"), 2);
+  assert.deepEqual(lisp.evil("((juxt first rest) '(1 2 3))"), [ 1, [ 2, 3 ] ]);
+});
+
+QUnit.test( "hash maps", function(assert) {
+  assert.deepEqual(lisp.evil("(hash 'x 1 'y 2)"), new Map([["'x", 1], ["'y", 2]]));
+  assert.deepEqual(lisp.evil("(let (m (hash 'x 1 'y 2)) (get m 'x))"), 1);
+  assert.deepEqual(lisp.evil("(let (m (hash 'x 1 'y 2)) (get m 'a))"), undefined);
+  assert.deepEqual(lisp.evil("(let (m (hash 'x 1 'y 2)) (m 'x))"), 1);
+
+  lisp.evil("(def codes (hash \"Boston\" 'bos \"San Francisco\" 'sfo \"Paris\" 'cdg))");
+  assert.deepEqual(lisp.evil("(keys codes)"), [ 'Boston', 'San Francisco', 'Paris' ]);
+  assert.deepEqual(lisp.evil("(pairs codes)"), [ [ 'Boston', "'bos" ], [ 'San Francisco', "'sfo" ], [ 'Paris', "'cdg" ] ]);
+});
+
