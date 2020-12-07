@@ -14,6 +14,15 @@
     return _array(arguments);
   };
 
+  var garner_name = function(fn) {
+    if (fn.name != undefined) return fn.name;
+    
+    var ret = fn.toString();
+    ret = ret.substr('function '.length);
+    ret = ret.substr(0, ret.indexOf('('));
+    return ret;
+  };
+  
   var garner_params = function(fn) {  
     return (fn + '')
       .replace(/[/][/].*$/mg,'') // strip single-line comments
@@ -153,6 +162,7 @@
         }
       };
 
+      if (body.name != undefined) ret.name = body.name;
       ret.body   = body;
       ret.params = params; // TODO: calculate the remaining args and only return those.
       return ret;
@@ -219,7 +229,7 @@
   var _oddp  = function(n) { return (n % 2) > 0 };
   var _evenp = function(n) { return (n % 2) === 0 };
 
-  var _isp = auto_curry(function(l, r) {
+  var _isp = auto_curry(function is(l, r) {
     return l === r;
   }, 2);
   
@@ -328,8 +338,8 @@
   }
 
   /** Test functions **/
-  var _check = function(assertion, msg) {
-    console.assert(assertion(), msg + ": %s", _body(assertion));
+  var _check = function(assertion, checker, expect, msg) {
+    console.assert(checker(assertion(), expect), msg + ": %s", " UNEXPECTED: " + toS(expect));
   };
   
   var part = function(n, array) {
@@ -428,9 +438,15 @@
 
       var val  = _eval(env, _second(bind));
 
-      if (_len(bind) === 3) {
-	if (is_string({}, _last(bind))) {
-	  val[DOC_KEY] = _last(bind);
+      if (is_fun(env, val)) {
+	if (_len(bind) === 3) {
+	  if (is_string({}, _last(bind))) {
+	    val[DOC_KEY] = _last(bind);
+	  }
+	}
+
+	if (val.name == undefined) {
+	  val.name = name;
 	}
       }
 
