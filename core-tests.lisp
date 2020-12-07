@@ -8,7 +8,6 @@
 (check {(mylen '(a b c))} is? 3 "Testing that mylen of a list is 3")
 (check {(mylen [1 2 3])}  is? 3 "Testing that mylen of a list literal is 3")
 
-
 (def translate 
   (λ (sym)
      (cond
@@ -16,5 +15,10 @@
        (is? sym 'onion) 'cipolla
        #t 'che?)))
 
-(check {(translate 'apple)} is?  'mela "Testing that translate works.")
+(check {(translate 'apple)}  is? 'mela "Testing that translate works.")
 (check {(translate 'syzygy)} is? 'che? "Testing that translate works.")
+
+
+(check {(map (+ 10) '(1 2 3))} eqv? [ 11, 12, 13 ] "Testing that a curried function works with map.")
+(check {(map (comp first rest) '((a b) (c d) (e f)))} eqv? [ 'b 'd 'f ] "Testing that a composed function works with map.")
+(check {(map (comp not odd?) '(1 2 3 4 5 6))} eqv? [ #f #t #f #t #f #t ] "Testing that a composed function works with map and not.")
