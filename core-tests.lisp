@@ -16,4 +16,5 @@
        (is? sym 'onion) 'cipolla
        #t 'che?)))
 
-(check {(translate 'apple)} is? 'mela "Testing that translate works.")
+(check {(translate 'apple)} is?  'mela "Testing that translate works.")
+(check {(translate 'syzygy)} is? 'che? "Testing that translate works.")
