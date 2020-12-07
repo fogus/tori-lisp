@@ -13,7 +13,7 @@
   var _list = function() {
     return _array(arguments);
   };
-  
+
   var garner_params = function(fn) {  
     return (fn + '')
       .replace(/[/][/].*$/mg,'') // strip single-line comments
@@ -327,6 +327,11 @@
     return fn.params;
   }
 
+  /** Test functions **/
+  var _check = function(assertion, msg) {
+    console.assert(assertion(), msg + ": %s", _body(assertion));
+  };
+  
   var part = function(n, array) {
     var i, j;
     var res = [];
@@ -646,7 +651,8 @@
     "'sort":        _sort,
     "'doc":         (obj) => obj[DOC_KEY],
     "'type":        garner_type,
-    "'list":        _list
+    "'list":        _list,
+    "'check":       _check
   };
 
   /* Lisp reader */
