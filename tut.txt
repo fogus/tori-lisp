@@ -415,7 +415,7 @@ hash tables.
 
     鳥>  (def airports (hash))
 	;;=> Map {}
-    鳥>  (def airports2 (set airport "Boston" 'bos))
+    鳥>  (def airports2 (set airports "Boston" 'bos))
 	;;=> Map { 'Boston' => "'bos" }
     鳥>  airports
     ;;=> Map {}
@@ -433,40 +433,40 @@ Retrieving items from a hash map is done via the `get` function.
 
     鳥>  (let (m (hash 'x 1 'y 2)) 
 	       (get m 'x))
-	;;=> 1
-	鳥>  (let (m (hash 'x 1 'y 2))
-	       (get m 'a))
-	;;=> undefined
+    ;;=> 1
+    鳥>  (let (m (hash 'x 1 'y 2))
+           (get m 'a))
+    ;;=> undefined
 
 Like strings, hash tables can be used wherever functions are.
 
-	鳥>  (let (m (hash 'x 1 'y 2)) 
-	       (m 'x))
-	;;=> 1
+    鳥>  (let (m (hash 'x 1 'y 2)) 
+           (m 'x))
+    ;;=> 1
 
     鳥>  (def codes (hash "Boston" 'bos "San Francisco" 'sfo "Paris" 'cdg))
-	;;=> Map {'Boston' => "'bos", 'San Francisco' => "'sfo", 'Paris' => "'cdg" }
+    ;;=> Map {'Boston' => "'bos", 'San Francisco' => "'sfo", 'Paris' => "'cdg" }
 	
-	鳥>  (map codes '("Paris" "Boston" "San Francisco"))
-	;;=> [ "'cdg", "'bos", "'sfo"
+    鳥>  (map codes '("Paris" "Boston" "San Francisco"))
+    ;;=> [ "'cdg", "'bos", "'sfo" ]
 
 The function `keys` returns the keys in a hash table, `vals` returns
 the values, and `pairs` returns an array of the key/value pairs in the
 hash.
 
-	鳥>  (keys codes)
-	;;=> [ 'Boston', 'San Francisco', 'Paris' ]
-	鳥>  (vals codes)
+    鳥>  (keys codes)
+    ;;=> [ 'Boston', 'San Francisco', 'Paris' ]
+    鳥>  (vals codes)
     ;;=> [ "'bos", "'sfo", "'cdg" ]
-	鳥>  (pairs codes)
+    鳥>  (pairs codes)
     ;;=> [ [ 'Boston', "'bos" ], [ 'San Francisco', "'sfo" ], [ 'Paris', "'cdg" ] ]
 
 
 The most general way to build strings is `str`, which takes any number of 
 arguments and mushes them into a string:
 
-	鳥>  (str 99 " bottles of " 'bee ['r])
-	;;=> '99 bottles of bee[r]'
+    鳥>  (str 99 " bottles of " 'bee ['r])
+    ;;=> '99 bottles of bee[r]'
 
 The `push` and `pop` operators treat lists as stacks, pushing a new
 element on the front and popping one off respectively but in a 

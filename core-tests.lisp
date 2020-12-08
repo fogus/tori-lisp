@@ -25,3 +25,13 @@
 
 (check {(filter odd? '(1 2 3 4 5 6 7))} eqv? [1 3 5 7] "Testing filter.")
 (check {(remove odd? '(1 2 3 4 5 6 7))} eqv? [2 4 6] "Testing remove.")
+
+
+(def airports (hash))
+(check {airports} eqv? (hash) "Testing empty mapness")
+(def airports2 (set airports "Boston" 'bos))
+(check {airports} eqv? (hash) "Testing that map is unchanged after set")
+
+(def codes (hash "Boston" 'bos "San Francisco" 'sfo "Paris" 'cdg))
+(check {(map codes '("Paris" "Boston" "San Francisco"))} eqv? ['cdg 'bos 'sfo])
+(check {(keys codes)} eqv? [ "Boston" "San Francisco" "Paris" ])
