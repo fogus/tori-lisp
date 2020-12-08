@@ -35,5 +35,9 @@
 (def codes (hash "Boston" 'bos "San Francisco" 'sfo "Paris" 'cdg))
 (check {(map codes '("Paris" "Boston" "San Francisco"))} eqv? ['cdg 'bos 'sfo])
 
-
+(check {(when {#f} {42})} eqv? [] "testing false when")
+(check {(when {undefined} {42})} eqv? [] "testing undefined when")
+(check {(when {nil} {42})} eqv? [] "testing nil when")
+(check {(when {#t} {42})} is?  42 "testing true when")
+(check {(when {1} {42})} is?  42 "testing truthy when")
 
