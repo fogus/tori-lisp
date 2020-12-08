@@ -34,6 +34,6 @@
 
 (def codes (hash "Boston" 'bos "San Francisco" 'sfo "Paris" 'cdg))
 (check {(map codes '("Paris" "Boston" "San Francisco"))} eqv? ['cdg 'bos 'sfo])
-(check {(keys codes)} eqv? [ "Boston" "San Francisco" "Paris" ])
-(check {(vals codes)} eqv? ['bos 'sfo 'cdg])
+
+
 

@@ -494,13 +494,13 @@ numbers.  More often you'll need to sort things according to some
 property other than their value, e.g.
 
     鳥>  (sort {l r | (< (len l) (len r))} '("orange" "pea" "apricot" "apple"))
-	;;=> [ 'pea', 'apple', 'orange', 'apricot' ]
+    ;;=> [ 'pea', 'apple', 'orange', 'apricot' ]
 
 TL's sort is stable, meaning the relative positions of elements
 judged equal by the comparison function won't change:
 
     鳥>  (sort {l r | (< (len l) (len r))} '("aa" "bb" "cc"))
-	;;=> [ 'aa', 'bb', 'cc' ]
+    ;;=> [ 'aa', 'bb', 'cc' ]
 	
 To supply a list of arguments to a function, use `apply`:
 
@@ -510,10 +510,10 @@ To supply a list of arguments to a function, use `apply`:
 As will all functions, supplying fewer arguments than a function 
 expects using `apply` will return a curried function.
 
-	鳥>  (apply + '(1))
-	;;=> { [Function: curried] body: [Function: curried], params: [] }
-	鳥>  ((apply + '(1)) 2)
-	;;=> 3
+    鳥>  (apply + '(1))
+    ;;=> { [Function: curried] body: [Function: curried], params: [] }
+    鳥>  ((apply + '(1)) 2)
+    ;;=> 3
 
 Let's take a moment to talk about macros as most Lisps have them. 
 Macros are basically functions that generate code. The code generated 
@@ -530,25 +530,25 @@ typically implemented as a macro in most Lisps.
 	       (out <c> "hello" crlf) 
 		   2
 		   })
-	hello
-	;;=> 2
+    hello
+    ;;=> 2
 	
 The implementation of `when` is pretty simple:
 
     (def when
-	  (λ (condition body)
-	    (if (condition)
-	      (body)
-	      nil)))
+      (λ (condition body)
+        (if (condition)
+          (body)
+          nil)))
 
 The use of the bracketed function syntax allows the deferal of the 
 body of `when` until the conditional part evaluates as truthy.
 
     鳥>  (when {#f} {
-	       (out <c> "hello" crlf) 
-		   2
-		   })
-	;;=> []
+           (out <c> "hello" crlf) 
+    	   2
+   	   })
+    ;;=> []
 
 We now know enough TL to read the definitions of some of the
 predefined functions.  Here are a few of the simpler ones.
