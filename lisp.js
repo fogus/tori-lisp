@@ -337,6 +337,20 @@
     return fn.params;
   }
 
+  /** Ref functions **/
+
+  var Ref = function(init, validator) {
+    if (validator && !validator(init))
+      throw new Error("Attempted to set invalid value " + init + " in reference initialization.");
+
+    this._value = init;
+    this._validator = validator;
+  };
+  
+  var _ref = function(val, checker) {
+    return new Ref(val, checker);
+  }
+  
   /** Test functions **/
   var _check = function(assertion, checker, expect, msg) {
     console.assert(checker(assertion(), expect), msg + ": %s", " UNEXPECTED: " + toS(expect));
@@ -668,7 +682,8 @@
     "'doc":         (obj) => obj[DOC_KEY],
     "'type":        garner_type,
     "'list":        _list,
-    "'check":       _check
+    "'check":       _check,
+    "'ref":         _ref
   };
 
   /* Lisp reader */
