@@ -363,6 +363,16 @@
     var args = Array.prototype.slice.call(arguments);
     return this.setVal(fun.apply(this, _cons(this._value, _rest(args))));
   };
+
+  Ref.prototype.compareAndSwap = function compareAndSwap(oldVal, f) {
+    if (this._value === oldVal) {
+      this.setVal(f(this._value));
+      return this._value;
+    }
+    else {
+      return void 0;
+    }
+  };
   
   var _ref = function(val, checker) {
     return new Ref(val, checker);
@@ -371,6 +381,11 @@
   var _swap = function(ref) {
     var args = Array.prototype.slice.call(arguments);
     return ref.swap.apply(ref, _rest(args));
+  };
+
+  var _cas = function(ref) {
+    var args = Array.prototype.slice.call(arguments);
+    return ref.compareAndSwap.apply(ref, _rest(args));
   };
   
   /** Test functions **/
@@ -706,7 +721,8 @@
     "'list":        _list,
     "'check":       _check,
     "'ref":         _ref,
-    "'swap!":       _swap
+    "'swap!":       _swap,
+    "'cas!":        _cas
   };
 
   /* Lisp reader */
