@@ -346,10 +346,32 @@
     this._value = init;
     this._validator = validator;
   };
+
+  Ref.prototype.setVal = function setValue(newVal) {
+    var validate = this._validator;
+    var oldVal   = this._value;
+
+    if (validate)
+      if (!validate(newVal))
+        throw new Error("Attempted to set invalid value " + newVal);
+
+    this._value = newVal;
+    return this._value;
+  };
+
+  Ref.prototype.swap = function swap(fun /* , args... */) {
+    var args = Array.prototype.slice.call(arguments);
+    return this.setVal(fun.apply(this, _cons(this._value, _rest(args))));
+  };
   
   var _ref = function(val, checker) {
     return new Ref(val, checker);
-  }
+  };
+
+  var _swap = function(ref) {
+    var args = Array.prototype.slice.call(arguments);
+    return ref.swap.apply(ref, _rest(args));
+  };
   
   /** Test functions **/
   var _check = function(assertion, checker, expect, msg) {
@@ -683,7 +705,8 @@
     "'type":        garner_type,
     "'list":        _list,
     "'check":       _check,
-    "'ref":         _ref
+    "'ref":         _ref,
+    "'swap!":       _swap
   };
 
   /* Lisp reader */
