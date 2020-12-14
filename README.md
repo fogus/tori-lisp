@@ -12,7 +12,7 @@ An alternative to solving jigsaw puzzles.
 
 Run the ToriLisp REPL in a command shell with:
 
-    node repl.js core.lisp
+    node repl.js core.lisp core-test.lisp
 
 ToriLisp (TL) programs consists of expressions. The simplest expressions 
 are things like numbers and strings, which evaluate to themselves.
@@ -32,4 +32,6 @@ The seeds of ToriLisp come from Mary Rose Cook's lovely
 [Little Lisp](https://github.com/maryrosecook/littlelisp) and takes
 the MIT license from it.
 
-
+At the moment symbols are encoded as strings containing a single quote
+followed by the lexematic representation of the symbol. This encoding
+may change and should be relied on to remain stable.
