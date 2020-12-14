@@ -365,7 +365,7 @@
   };
 
   Ref.prototype.compareAndSwap = function compareAndSwap(oldVal, f) {
-    if (this._value === oldVal) {
+    if (_eqv(this._value, oldVal)) {
       this.setVal(f(this._value));
       return this._value;
     }
@@ -387,6 +387,10 @@
     var args = Array.prototype.slice.call(arguments);
     return ref.compareAndSwap.apply(ref, _rest(args));
   };
+
+  var _snap = function(ref) {
+    return ref._value;
+  }
   
   /** Test functions **/
   var _check = function(assertion, checker, expect, msg) {
@@ -722,7 +726,8 @@
     "'check":       _check,
     "'ref":         _ref,
     "'swap!":       _swap,
-    "'cas!":        _cas
+    "'cas!":        _cas,
+    "'snap":        _snap
   };
 
   /* Lisp reader */
