@@ -10,6 +10,10 @@
 ** DONE Implement ~{a | ...}~ reader that creates a ~["'fn" ["'a"] ...]~ structure.
 ** DONE Create a simple test framework to test core.lisp implementations.
 ** TODO Explore ML refs
+*** DONE Implement ~ref~, ~swap!~, ~cas!~, and ~snap~
+*** TODO Test implementation
+*** TODO Add ref discussion to tut.txt (with validator)
+*** TODO Add counter closure example and tests.
 ** TODO Migrate appropriate functions to ~() =>~ form.
 ** TODO Add commentary to lisp.js
 ** TODO Implement ~eval~
