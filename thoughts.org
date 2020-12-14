@@ -1,9 +1,9 @@
 * Goals
 
-- To create a Misp-like language hosted on JavaScript
-- Data is JSON
+- To create a [[https://web.archive.org/web/20111109113907/http://cubiclemuses.com/cm/blog/2007/misp_final.html?showcomments=yes][Misp-like]] language hosted on JavaScript
+- Forms bottom-out in JavaScript data
 - Auto-currying
-- Some Clojure-esque syntax adoption
+- Lightweight syntactic forms
 
 * TODOs
 ** DONE Create currying machinery and wire into namespace
