@@ -138,7 +138,7 @@ between square brackets:
     鳥>  ['a 1 "foo" ['b]]
 	;;=> [ "'a", 1, 'foo', [ "'b" ] ]
 
-We've already seen some functions: `+`, `cons`, `first`, `rest`, and `head`.  
+We've already seen some functions: `+`, `cons`, `first`, `rest`, and `head`.
 You can define new ones with def, which takes a symbol to use as the name, a 
 list of symbols representing the parameters, and then zero or more expressions 
 called the body.  When the function is called, those expressions will be 
@@ -482,6 +482,49 @@ non-destructive way.
     ;;=> [ "'f", "'c", "'a", "'b" ]
     鳥>  x
     ;;=> [ "'c", "'a", "'b" ]
+
+While managing stacks non-destructively is a powerful technique, there
+are circumstances where you might want to manipulate a stack in 
+place. While lists cannot be changed by the TL mechanisms, there is 
+a way to model imperative change via the `ref` type. A `ref` is
+analogous to a bucket that holds a value. While the value in the 
+bucket does not itself change, we can change what's in the bucket
+by applying functions to it and storing the result in the bucket 
+instead.
+
+    鳥>  (def stack (ref '(c a b)))
+    ;;=> Ref { _value: [ "'c", "'a", "'b" ], _validator: undefined }
+
+The `ref` named `stack` now holds the list that you'd like to 
+manipulate. However, trying to pop the `ref` directly will not
+work. Instead, TL provides a couple of functions that will 
+manipulate the contents of the `ref` -- namely `swap!` and `cas!`.
+The `swap!` function takes the ref that you want to change, a
+function to apply to the value in the `ref` and any additional 
+arguments that the function needs to perform its action:
+
+    鳥>  (swap! stack pop)
+    ;;=> [ "'a", "'b" ]
+    鳥>  (swap! stack push 'f)
+    ;;=> [ "'f", "'a", "'b" ]
+    鳥>  stack
+    ;;=> Ref { _value: [ "'f", "'a", "'b" ], _validator: undefined }
+
+The `cas!` function works similarly except that it takes an
+additional value that denotes the value that you expect should
+be in the `ref` before the given function is applied. If the 
+expected value does not match the actual value then the change
+fails.
+
+    鳥>  (cas! stack '(f a b) pop)
+    ;;=> [ "'a", "'b" ]
+    鳥>  stack
+    ;;=> Ref { _value: [ "'a", "'b" ], _validator: undefined }
+
+To get the value out of a `ref` the function `snap` is used.
+
+    鳥>  (snap stack)
+    ;;=> [ "'a", "'b" ]
 
 The `sort` function returns a copy of a sequence sorted according to
 the function given as the first argument.
