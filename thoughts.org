@@ -16,7 +16,7 @@
 *** DONE Add counter closure example and tests.
 ** TODO Migrate appropriate functions to ~() =>~ form.
 ** TODO Add commentary to lisp.js
-** TODO Implement ~eval~
 ** TODO Write blog post (credit Mary RC and Tay)
 ** TODO Explore Scheme-48 modules
 ** TODO Explore "tables" and the queries around them
+** TODO Implement ~eval~

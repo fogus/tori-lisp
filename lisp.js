@@ -535,7 +535,7 @@
 	ret = _eval(env, args[i]);
 	if (!truthy(ret)) return ret;
       }
-	
+      
       return ret;
     },
     "'or": function(env, form) {
@@ -546,7 +546,7 @@
 	ret = _eval(env, args[i]);
 	if (truthy(ret)) return ret;
       }
-	
+      
       return ret;
     }      
   };
