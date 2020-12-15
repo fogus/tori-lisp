@@ -58,7 +58,8 @@ symbols.  We've already seen one: `+` is a symbol.  Symbols don't
 evaluate to themselves the way numbers and strings do.  They return
 whatever value they've been assigned.
 
-If we give foo the value 13, it will return 13 when evaluated:
+If we give `foo` the value 13 in the global scope, it will return 
+13 when evaluated:
 
     鳥>  (def foo 13)
 	;;=> 13
