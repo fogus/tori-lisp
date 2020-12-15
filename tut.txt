@@ -665,10 +665,22 @@ ubitquitous counter.
 
     (let (counter (ref 0))
       (def new-id   {(swap! counter (+ 1))})
-      (def reset-id {(swap! counter {0)}))
+      (def reset-id {(swap! counter {0})}))
+
+Its use being:
+
+    鳥>  (new-id)
+	;;=> 1
+    鳥>  (new-id)
+	;;=> 2
+    鳥>  (reset-id)
+	;;=> 0
 
 
-    鳥> 
+
+
+
+
     鳥> 
     鳥> 
     鳥> 
