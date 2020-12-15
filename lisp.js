@@ -365,7 +365,7 @@
   };
 
   Ref.prototype.compareAndSwap = function compareAndSwap(oldVal, f) {
-    if (_eqv(this._value, oldVal)) {
+    if (_eqvp(this._value, oldVal)) {
       this.setVal(f(this._value));
       return this._value;
     }

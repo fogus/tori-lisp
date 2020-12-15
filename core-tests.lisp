@@ -41,3 +41,10 @@
 (check {(when {#t} {42})} is?  42 "testing true when")
 (check {(when {1} {42})} is?  42 "testing truthy when")
 
+(def avar (ref 1))
+(check {(swap! avar + 1)}    is? 2 "testing swap return with function and arg")
+(check {(snap avar)}         is? 2 "testing swap worked")
+(check {(swap! avar (+ 1))}  is? 3 "testing swap return with curried function")
+(check {(snap avar)}         is? 3 "testing swap worked")
+(check {(cas! avar 3 (+ 1))} is? 4 "testing cas return with curried function")
+(check {(snap avar)}         is? 4 "testing cas worked")
