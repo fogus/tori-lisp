@@ -487,7 +487,14 @@
         return acc;
       }, {"'_PARENT": env});
 
-      return _eval(scope, form[2]); // TODO doify 
+      var body = form.slice(2);
+      var ret  = undefined;
+
+      for (var i = 0; i < body.length; i++) {
+	ret = _eval(scope, body[i]);
+      }
+      
+      return ret;
     },
     "'def": function(env, form) {
       var bind = _rest(form);
@@ -509,7 +516,7 @@
 	}
       }
 
-      env[name] = val;
+      CORE[name] = val;
       return val;
     },
     "'λ": function(env, form) {

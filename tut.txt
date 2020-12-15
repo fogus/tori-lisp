@@ -521,7 +521,7 @@ fails.
     鳥>  stack
     ;;=> Ref { _value: [ "'a", "'b" ], _validator: undefined }
 
-To get the value out of a `ref` the function `snap` is used.
+To get the value out of a `ref` the function `snap` is used. [^1]
 
     鳥>  (snap stack)
     ;;=> [ "'a", "'b" ]
@@ -660,7 +660,12 @@ a language for everyday use.
 Notes
 =====
 
+[^1]: The `ref` type is how one would implement something like the
+ubitquitous counter.
 
+    (let (counter (ref 0))
+      (def new-id   {(swap! counter (+ 1))})
+      (def reset-id {(swap! counter {0)}))
 
 
     鳥> 
