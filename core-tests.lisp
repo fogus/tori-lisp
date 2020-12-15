@@ -48,3 +48,8 @@
 (check {(snap avar)}         is? 3 "testing swap worked")
 (check {(cas! avar 3 (+ 1))} is? 4 "testing cas return with curried function")
 (check {(snap avar)}         is? 4 "testing cas worked")
+
+(def bvar (ref 1 pos?))
+(check {(swap! bvar + 1)}    is? 2 "testing swap return with function and arg")
+(check {(snap bvar)}         is? 2 "testing swap worked")
+(check {(swap! bvar + -10)}  is? undefined "testing swap return with function and arg")

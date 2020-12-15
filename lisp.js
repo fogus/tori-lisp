@@ -341,7 +341,7 @@
 
   var Ref = function(init, validator) {
     if (validator && !validator(init))
-      throw new Error("Attempted to set invalid value " + init + " in reference initialization.");
+      throw new Error("Attempted to set invalid value " + init + " in ref initialization.");
 
     this._value = init;
     this._validator = validator;
@@ -351,9 +351,12 @@
     var validate = this._validator;
     var oldVal   = this._value;
 
-    if (validate)
-      if (!validate(newVal))
-        throw new Error("Attempted to set invalid value " + newVal);
+    if (validate) {
+      if (!validate(newVal)) {
+        //throw new Error("Attempted to set invalid value " + newVal);
+	return undefined;
+      }
+    }
 
     this._value = newVal;
     return this._value;
@@ -394,7 +397,8 @@
   
   /** Test functions **/
   var _check = function(assertion, checker, expect, msg) {
-    console.assert(checker(assertion(), expect), msg + ": %s", " UNEXPECTED: " + toS(expect));
+    var res = assertion();
+    console.assert(checker(res, expect), msg + ": %s", " UNEXPECTED: " + toS(res));
   };
   
   var part = function(n, array) {
