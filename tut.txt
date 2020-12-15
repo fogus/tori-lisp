@@ -502,7 +502,7 @@ work. Instead, TL provides a couple of functions that will
 manipulate the contents of the `ref` -- namely `swap!` and `cas!`.
 The `swap!` function takes the ref that you want to change, a
 function to apply to the value in the `ref` and any additional 
-arguments that the function needs to perform its action:
+arguments that the function needs to perform its action: [^1]
 
     鳥>  (swap! stack pop)
     ;;=> [ "'a", "'b" ]
@@ -522,7 +522,7 @@ fails.
     鳥>  stack
     ;;=> Ref { _value: [ "'a", "'b" ], _validator: undefined }
 
-To get the value out of a `ref` the function `snap` is used. [^1]
+To get the value out of a `ref` the function `snap` is used. [^2]
 
     鳥>  (snap stack)
     ;;=> [ "'a", "'b" ]
@@ -677,14 +677,22 @@ Its use being:
     鳥>  (reset-id)
 	;;=> 0
 
+[^2]: The `ref` function also accepts an optional *validation* function
+that verifies that every change to the `ref` adheres to the function.
+If the value in the `ref` falses a validation check then the value
+`undefined` is returned and the value in the `ref` remains unchanged.
+
+    鳥>  (def bad (ref 1 pos?))
+	;;=> Ref { _value: 1, _validator: [Function: function...] }
+    鳥>  (swap! bad + -10)
+	;;=> undefined
+    鳥>  (snap bad)
+	;;=> 1
 
 
 
 
 
-    鳥> 
-    鳥> 
-    鳥> 
     鳥> 
     鳥> 
     鳥> 

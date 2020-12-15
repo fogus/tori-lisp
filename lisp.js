@@ -895,7 +895,7 @@
   }
   
   exports.lisp = {
-    VERSION: "0.5.0",
+    VERSION: "0.5.5",
     read: _read,
     evil: (str) => _eval(CORE, _read(str)),
     Rdr: Rdr,

@@ -53,3 +53,4 @@
 (check {(swap! bvar + 1)}    is? 2 "testing swap return with function and arg")
 (check {(snap bvar)}         is? 2 "testing swap worked")
 (check {(swap! bvar + -10)}  is? undefined "testing swap return with function and arg")
+(check {(snap bvar)}         is? 2 "testing swap failed, after validation failure")
