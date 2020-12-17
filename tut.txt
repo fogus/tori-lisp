@@ -1,3 +1,5 @@
+-*- mode: markdown -*-
+
 *This is a brief tutorial on Tori-Lisp, an ersatz Lisp for little
 birds. A passing familiarity with Lisp and Lisp-like languages is
 presumed.*
