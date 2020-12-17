@@ -38,6 +38,7 @@ may change and should be relied on to remain stable.
 
 ## References
 
+- [Equal Rights for Functional Objects or, The More Things Change, The More They Are the Same](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.23.9999) by Henry Baker
 - [LISP 1.5 Programmer's Manual](http://www.softwarepreservation.org/projects/LISP/book/LISP%201.5%20Programmers%20Manual.pdf/view) by McCarthy, et al.
 - [Misp Chronicles, The](https://web.archive.org/web/20111109113907/http://cubiclemuses.com/cm/blog/2007/misp_final.html?showcomments=yes) by William Taysom
 - [ML for the Working Programmer](https://www.amazon.com/ML-Working-Programmer-2nd-Paulson/dp/052156543X/?tag=fogus-20) by L.C. Paulson

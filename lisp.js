@@ -28,11 +28,10 @@
       .split(',').filter(Boolean); // split & filter [""]
   }
 
-  /** egal **/
+  /** Ostrich functional equality **/
   
   var _egal = function(l, r) {
     if (Array.isArray(l) && Array.isArray(r)) {
-      // a man's array does not look like a girl's array
       if (l.length !== r.length) return false
     }
 
@@ -41,50 +40,48 @@
       const key = keys[i]
       if (Array.isArray(l[key])) {
 	if (Array.isArray(r[key])) {
-          // a man has an array, a girl has a different array
           if (!_eqvp(l[key], r[key])) return false
-          // a man may share an array with a girl
+
           continue
 	}
-	// a man has an array, a girl does not
+
 	return false
       }
 
-      // account for date objects
       if (l[key] instanceof Date) {
 	if (r[key] instanceof Date) {
           if (l[key].valueOf() !== r[key].valueOf()) return false
           continue
 	}
+
 	return false
       }
 
-      // account for regexp
       if (l[key] instanceof RegExp) {
 	if (r[key] instanceof RegExp) {
           if (l[key].toString() !== r[key].toString()) return false
           continue
 	}
+
 	return false
       }
 
       if (typeof l[key] === 'object') {
 	if (typeof r[key] === 'object' && !Array.isArray(r[key])) {
-          // a man has an object, a girl has a different object
           if (!_compare(l[key], r[key])) return false
           continue
 	}
-	// a man has an object, a girl does not
+
 	return false
       }
-      // a man has values that a girl does not share
+
       if (l[key] !== r[key]) return false
     }
 
     return true
   }
   
-  var flip = function(fn) {
+  var _flip = function(fn) {
     return function(first, second) {
       var rest = [].slice.call(arguments, 2)
       return fn.apply(null, [second, first].concat(rest))
@@ -691,7 +688,7 @@
     "'meta/body"  : _body,
     "'meta/params": _params,    
     "'read":   	    _read,
-    "'eval":   	    flip(_eval),
+    "'eval":   	    _flip(_eval),
     "'nil":         [],
     "'true":        true,
     "'false":       false,
