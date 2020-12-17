@@ -1,19 +1,14 @@
 ;(function(exports) {
-  var sym = function(token) {
-    return "'" + token;
-  }
+  var sym = (token) => "'" + token;
 
   var CRLF = sym("crlf");
   var DOC_KEY = sym("__docstring__");
   
-  var _array = function(arr, from) {
-    return Array.prototype.slice.call(arr, from || 0);
-  };
+  var _array = (arr, from) => Array.prototype.slice.call(arr, from || 0);
+  var _list  = (...args)   => _array(args);
 
-  var _list = function() {
-    return _array(arguments);
-  };
-
+  /** Function meta utilities **/
+  
   var garner_name = function(fn) {
     if (fn.name != undefined) return fn.name;
     
@@ -33,7 +28,9 @@
       .split(',').filter(Boolean); // split & filter [""]
   }
 
-  var compareObjects = function(l, r) {
+  /** egal **/
+  
+  var _egal = function(l, r) {
     if (Array.isArray(l) && Array.isArray(r)) {
       // a man's array does not look like a girl's array
       if (l.length !== r.length) return false
@@ -175,7 +172,7 @@
 
   var _eqvp = auto_curry(function(l, r) {
     if (l && r && ((Array.isArray(l) && Array.isArray(r)) || (typeof l === 'object' && typeof r === 'object')) && (l.length === r.length)) {
-      return compareObjects(l, r)
+      return _egal(l, r)
     }
 
     return l === r;

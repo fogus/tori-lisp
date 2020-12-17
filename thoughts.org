@@ -16,7 +16,8 @@
 *** DONE Add counter closure example and tests.
 ** TODO Migrate appropriate functions to ~() =>~ form.
 ** TODO Add commentary to lisp.js
-** TODO Write blog post (credit Mary RC and Tay)
+** TODO Write blog post (credit Mary RC, [[http://www.arclanguage.org/tut.txt][pg]], and Tay)
 ** TODO Explore Scheme-48 modules
 ** TODO Explore "tables" and the queries around them
+** TODO Explore in-browser REPL, listener, editor, etc., a la XLISP-STAT
 ** TODO Implement ~eval~
