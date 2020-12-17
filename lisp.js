@@ -81,31 +81,6 @@
     return true
   }
   
-  var _flip = function(fn) {
-    return function(first, second) {
-      var rest = [].slice.call(arguments, 2)
-      return fn.apply(null, [second, first].concat(rest))
-    }
-  }
-  
-  var mangle = function(token) {
-    if (!isNaN(parseFloat(token))) {
-      return parseFloat(token);
-    }
-    else if (token[0] === '"' && token.slice(-1) === '"') {
-      return token.slice(1, -1);
-    }
-    else if (token == "#t") {
-      return true;
-    }
-    else if (token == "#f") {
-      return false;
-    }
-    else {
-      return sym(token);
-    }
-  }
-
   var procedure = function(env, params, body) {
     var fn = function() {
       var args = arguments;
@@ -285,6 +260,13 @@
   var _comp = (...fns) => x => fns.reduceRight((v, f) => f(v), x);
   var _juxt = (...fns) => x => fns.map((f) => f(x));
   var _pipe = (...fns) => x => fns.reduce((v, f) => f(v), x);
+
+  var _flip = function(fn) {
+    return function(first, second) {
+      var rest = [].slice.call(arguments, 2)
+      return fn.apply(null, [second, first].concat(rest))
+    }
+  }
   
   /** Array manipulation **/
 
@@ -736,7 +718,27 @@
   };
 
   /* Lisp reader */
-  /* TODO: Add list literal support */
+
+  /** special reader entity mangling **/
+  
+  var mangle = function(token) {
+    if (!isNaN(parseFloat(token))) {
+      return parseFloat(token);
+    }
+    else if (token[0] === '"' && token.slice(-1) === '"') {
+      return token.slice(1, -1);
+    }
+    else if (token == "#t") {
+      return true;
+    }
+    else if (token == "#f") {
+      return false;
+    }
+    else {
+      return sym(token);
+    }
+  }
+
   var Rdr = function(context = {}) {
     this.raw = null;
     this.index = 0;
