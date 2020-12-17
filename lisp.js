@@ -1,8 +1,9 @@
 ;(function(exports) {
   var sym = (token) => "'" + token;
 
-  var CRLF = sym("crlf");
-  var DOC_KEY = sym("__docstring__");
+  var CRLF       = sym("crlf");
+  var DOC_KEY    = sym("__docstring__");
+  var PARENT_KEY = sym("_PARENT");
   
   var _array = (arr, from) => Array.prototype.slice.call(arr, from || 0);
   var _list  = (...args)   => _array(args);
@@ -93,7 +94,7 @@
 	return ctx;
       }, {});
       
-      context[PARENT_ID] = env;
+      context[PARENT_KEY] = env;
       return _eval(context, body);
     }
 
@@ -396,6 +397,8 @@
     var res = assertion();
     console.assert(checker(res, expect), msg + ": %s", " UNEXPECTED: " + toS(res));
   };
+
+  /* Bindings utils */
   
   var part = function(n, array) {
     var i, j;
@@ -425,14 +428,12 @@
   var doify = function(form) {
     return _cons("'do", form);
   }
-  
-  var PARENT_ID = "'_PARENT";
-  
+   
   var lookup = function(env, id) {
     if (id in env) {
       return env[id];
-    } else if (PARENT_ID in env) {
-      return lookup(env[PARENT_ID], id);
+    } else if (PARENT_KEY in env) {
+      return lookup(env[PARENT_KEY], id);
     }
     throw new Error(id + " not set in " + Object.keys(env));
   };
