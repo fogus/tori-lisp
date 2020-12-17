@@ -80,7 +80,11 @@
 
     return true
   }
+
+  /* Function implementation */
   
+  /** builds a ToriLisp function from a JavaScript function and 
+      augments it with useful metadata **/
   var procedure = function(env, params, body) {
     var fn = function() {
       var args = arguments;
@@ -98,7 +102,9 @@
 
     return fn;
   }
-  
+
+  /** ToriLisp functions are curried by default whenever they receive
+      fewer arguments than expected.**/
   var auto_curry = (function () {
     var curry = function curry(fn /* variadic number of args */) {
       var args = _array(arguments, 1);
@@ -138,10 +144,18 @@
     };
   }());
 
+  /* Core functions */
+  
   var _apply  = auto_curry(function(fn, args) {
     return fn.apply(null, args);
   }, 2);
 
+  /** identity, equivalence, comparison, and existence **/
+  
+  var _isp = auto_curry(function is(l, r) {
+    return l === r;
+  }, 2);
+ 
   var _eqvp = auto_curry(function(l, r) {
     if (l && r && ((Array.isArray(l) && Array.isArray(r)) || (typeof l === 'object' && typeof r === 'object')) && (l.length === r.length)) {
       return _egal(l, r)
@@ -149,6 +163,26 @@
 
     return l === r;
   }, 2);
+
+  var comparator = function(pred) {
+    return function(l, r) {
+      if (pred(l, r)) return -1;
+
+      return 1;
+    };
+  }
+
+  var _no    = function(thing) {
+    if (existy(thing) && existy(thing.length)) {
+      return thing.length === 0;
+    }
+
+    if (is_bool(null, thing)) return !thing;
+
+    return false;
+  };
+
+  /** list functions **/
   
   var _first  = function(seq) { return seq[0] };
   var _second = function(seq) { return seq[1] };
@@ -159,6 +193,8 @@
     return [elem].concat(seq);
   }, 2);
 
+  /** basic math **/
+  
   var _plus = auto_curry(function(l, r) {
     return l + r;
   }, 2);
@@ -178,6 +214,8 @@
   var _mod = auto_curry(function(l, r) {
     return l % r;
   }, 2);
+
+  /** comparators **/
   
   var _lt = auto_curry(function(l, r) {
     return l < r;
@@ -198,9 +236,7 @@
   var _oddp  = function(n) { return (n % 2) > 0 };
   var _evenp = function(n) { return (n % 2) === 0 };
 
-  var _isp = auto_curry(function is(l, r) {
-    return l === r;
-  }, 2);
+  /** lengthness **/
   
   var _len   = function(thing) {
     if (existy(thing)) {
@@ -209,17 +245,8 @@
 
     return undefined;
   }
-
-  var comparator = function(pred) {
-    return function(l, r) {
-      if (pred(l, r)) return -1;
-
-      return 1;
-    };
-  }
   
   var _sort = auto_curry(function(pred, ary) {
-    
     var ret = ary.slice(0).sort(comparator(pred));
     return ret;
   }, 2);
@@ -227,18 +254,9 @@
   var _str   = function() {
     return Array.from(arguments).map(e => toS(e)).join("");
   }
-  
-  var _no    = function(thing) {
-    if (existy(thing) && existy(thing.length)) {
-      return thing.length === 0;
-    }
-
-    if (is_bool(null, thing)) return !thing;
-
-    return false;
-  };
-  
+    
   /** I/O functions **/
+  
   var _out = function(to) {
     var rest = [].slice.call(arguments, 1);
     var ret = true;
@@ -255,7 +273,7 @@
     return ret;
   }
 
-  /** Combinators **/
+  /** combinators **/
   
   var _comp = (...fns) => x => fns.reduceRight((v, f) => f(v), x);
   var _juxt = (...fns) => x => fns.map((f) => f(x));
@@ -268,7 +286,7 @@
     }
   }
   
-  /** Array manipulation **/
+  /** stack manipulation **/
 
   var _push = auto_curry(function(ary, elem) {
     return _cons(elem, ary);
@@ -278,7 +296,7 @@
     return _rest(ary);
   };
   
-  /** Hash Maps **/
+  /** hash maps **/
 
   var _hash = function(...elems) {
     var pairs = part(2, elems);
@@ -304,7 +322,8 @@
   var _vals  = (hash) => Array.from(hash.values());
   var _pairs = (hash) => Array.from(hash.entries());
   
-  /** Meta functions **/
+  /** meta functions **/
+
   var _body = function(fn) {
     return _rest(fn.body);
   }
@@ -313,7 +332,7 @@
     return fn.params;
   }
 
-  /** Ref functions **/
+  /** Refs **/
 
   var Ref = function(init, validator) {
     if (validator && !validator(init))
@@ -371,7 +390,8 @@
     return ref._value;
   }
   
-  /** Test functions **/
+  /** test functions **/
+  
   var _check = function(assertion, checker, expect, msg) {
     var res = assertion();
     console.assert(checker(res, expect), msg + ": %s", " UNEXPECTED: " + toS(res));
