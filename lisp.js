@@ -8,6 +8,14 @@
   var _array = (arr, from) => Array.prototype.slice.call(arr, from || 0);
   var _list  = (...args)   => _array(args);
 
+  var existy = (val) => (val != null);
+  
+  var truthy = function(val) {
+    if (val === "") return true;
+    
+    return (val !== false) && existy(val) && (val.length !== 0);
+  }
+  
   /** Function meta utilities **/
   
   var garner_name = function(fn) {
@@ -398,7 +406,9 @@
     console.assert(checker(res, expect), msg + ": %s", " UNEXPECTED: " + toS(res));
   };
 
-  /* Bindings utils */
+  /* Internals */
+  
+  /** bindings utils **/
   
   var part = function(n, array) {
     var i, j;
@@ -428,7 +438,9 @@
   var doify = function(form) {
     return _cons("'do", form);
   }
-   
+
+  /** environment utils **/
+  
   var lookup = function(env, id) {
     if (id in env) {
       return env[id];
@@ -438,18 +450,11 @@
     throw new Error(id + " not set in " + Object.keys(env));
   };
 
-  var existy = function(val) { return val != null; };
-  
-  var truthy = function(val) {
-    if (val === "") return true;
-    
-    return (val !== false) && existy(val) && (val.length !== 0);
-  }
+  /** special forms **/
   
   var SPECIAL_FORMS = {
-    "'quote": function(env, form) {
-      return _second(form);
-    },
+    "'quote": (_, form) => _second(form),
+    
     "'do": function(env, form) {
       var ret = null;
       var body = _rest(form);
@@ -460,9 +465,9 @@
 
       return ret;
     },
-    "'if": function(env, form) {
-      return truthy(_eval(env, form[1])) ? _eval(env, form[2]) : _eval(env, form[3]);
-    },
+
+    "'if": (env, form) => (truthy(_eval(env, form[1])) ? _eval(env, form[2]) : _eval(env, form[3])),
+    
     "'cond": function(env, form) {
       var pairs = part(2, _rest(form));
       if (pairs[pairs.length - 1].length === 1) throw new Error("cond expects an even number of condition pairs");
@@ -476,6 +481,7 @@
       
       return null;
     },
+
     "'let": function(env, form) {
       var binds = part(2, form[1]);
 
@@ -493,6 +499,7 @@
       
       return ret;
     },
+
     "'def": function(env, form) {
       var bind = _rest(form);
       var name = _first(bind);
@@ -516,6 +523,7 @@
       CORE[name] = val;
       return val;
     },
+
     "'λ": function(env, form) {
       var params = garner_bindings(env, _second(form));
       var body   = doify(_rest(_rest(form)));
@@ -524,6 +532,7 @@
 
       return auto_curry(procedure(env, params, body), params.length);
     },
+
     "'and": function(env, form) {
       var args = _rest(form);
       var ret = true;
@@ -535,6 +544,7 @@
       
       return ret;
     },
+
     "'or": function(env, form) {
       var args = _rest(form);
       var ret = false;
@@ -547,9 +557,11 @@
       return ret;
     }      
   };
-  
+
   var toString = Object.prototype.toString;
 
+  /** type predicates **/
+  
   var garner_type = function(obj) {
     return toString.call(obj);
   };
@@ -593,11 +605,13 @@
       || is_bool(env, form);
   }
 
+  /** EVIL **/
+  
   var evlis = function(env, form) {
-    var op = form[0];
+    var op = _first(form);
 
     if ((form.length > 0) && (op in SPECIAL_FORMS)) {
-      return SPECIAL_FORMS[form[0]](env, form);
+      return SPECIAL_FORMS[op](env, form);
     }
     else if (!is_symbol(env,op) && is_string(env, op)) {
       var args = _rest(form);
