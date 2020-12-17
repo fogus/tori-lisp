@@ -15,6 +15,18 @@
     
     return (val !== false) && existy(val) && (val.length !== 0);
   }
+
+  var toS = function(obj) {
+    if (is_seq({}, obj)) {
+      return "[" + obj.map(toS) + "]";
+    }
+    else if (is_symbol({}, obj)) {
+      return obj.substring(1);
+    }
+    else {
+      return "" + obj;
+    }
+  }
   
   /** Function meta utilities **/
   
@@ -616,10 +628,11 @@
     else if (!is_symbol(env,op) && is_string(env, op)) {
       var args = _rest(form);
 
-      if (args.length === 1) 
+      if (args.length === 1) {
 	return op.charAt(_second(form));
-      else
-	return op.slice.apply(op, args);
+      }
+      
+      return op.slice.apply(op, args);
     }
     else {
       var callable = _eval(env, op);
@@ -653,19 +666,12 @@
       return evlis(env, form);
     }
   }
-  
-  var toS = function(obj) {
-    if (is_seq({}, obj)) {
-      return "[" + obj.map(toS) + "]";
-    }
-    else if (is_symbol({}, obj)) {
-      return obj.substring(1);
-    }
-    else {
-      return "" + obj;
-    }
-  }
 
+  /** READER 
+      tokenization is borrowed from MRC's littlelisp as it's a clear way to 
+      simplify the token stream for the reader.
+   **/
+  
   var tokenize = function(input) {
     return input.split('"')
       .map(function(x, i) {
@@ -690,72 +696,6 @@
       });
   };
 
-  var _read = function(s) {
-    var rdr = new Rdr();
-    return rdr.read_sexpr(s);
-  };
-
-  var CORE = {
-    "'apply":       _apply,
-    "'first":  	    _first,
-    "'rest":   	    _rest,
-    "'head":   	    _head,
-    "'last":        _last,
-    "'cons":   	    _cons,
-    "'meta/body"  : _body,
-    "'meta/params": _params,    
-    "'read":   	    _read,
-    "'eval":   	    _flip(_eval),
-    "'nil":         [],
-    "'true":        true,
-    "'false":       false,
-    "'undefined":   undefined,
-    "'js/null":     null,
-    "'out":    	    _out,
-    "'<c>":    	    ((typeof process !== 'undefined') ? process.stdout.write.bind(process.stdout) : console.log),
-    "'crlf":   	    CRLF,
-    "'+":      	    _plus,
-    "'-":      	    _minus,
-    "'*":      	    _mult,    
-    "'/":      	    _div,
-    "'mod":         _mod,
-    "'<":      	    _lt,
-    "'>":      	    _gt,
-    "'<=":     	    _lte,
-    "'>=":          _gte,
-    "'even?":  	    _evenp,
-    "'odd?":   	    _oddp,
-    "'len":         _len,
-    "'no":          _no,
-    "'is?":         _isp,
-    "'eqv?":        _eqvp,
-    "'comp":        _comp,
-    "'juxt":        _juxt,
-    "'->":          _pipe,
-    "'hash":        _hash,
-    "'set":         _set,
-    "'get":         _get,
-    "'keys":        _keys,
-    "'vals":        _vals,
-    "'pairs":       _pairs,
-    "'str":         _str,
-    "'push":        _push,
-    "'pop":         _pop,
-    "'sort":        _sort,
-    "'doc":         (obj) => obj[DOC_KEY],
-    "'type":        garner_type,
-    "'list":        _list,
-    "'check":       _check,
-    "'ref":         _ref,
-    "'swap!":       _swap,
-    "'cas!":        _cas,
-    "'snap":        _snap
-  };
-
-  /* Lisp reader */
-
-  /** special reader entity mangling **/
-  
   var mangle = function(token) {
     if (!isNaN(parseFloat(token))) {
       return parseFloat(token);
@@ -925,6 +865,70 @@
     return this.index -= 1;
   }
   
+  var _read = function(s) {
+    var rdr = new Rdr();
+    return rdr.read_sexpr(s);
+  };
+
+  /* ToriLisp global environment */
+  
+  var CORE = {
+    "'apply":       _apply,
+    "'first":  	    _first,
+    "'rest":   	    _rest,
+    "'head":   	    _head,
+    "'last":        _last,
+    "'cons":   	    _cons,
+    "'meta/body"  : _body,
+    "'meta/params": _params,    
+    "'read":   	    _read,
+    "'eval":   	    _flip(_eval),
+    "'nil":         [],
+    "'true":        true,
+    "'false":       false,
+    "'undefined":   undefined,
+    "'js/null":     null,
+    "'out":    	    _out,
+    "'<c>":    	    ((typeof process !== 'undefined') ? process.stdout.write.bind(process.stdout) : console.log),
+    "'crlf":   	    CRLF,
+    "'+":      	    _plus,
+    "'-":      	    _minus,
+    "'*":      	    _mult,    
+    "'/":      	    _div,
+    "'mod":         _mod,
+    "'<":      	    _lt,
+    "'>":      	    _gt,
+    "'<=":     	    _lte,
+    "'>=":          _gte,
+    "'even?":  	    _evenp,
+    "'odd?":   	    _oddp,
+    "'len":         _len,
+    "'no":          _no,
+    "'is?":         _isp,
+    "'eqv?":        _eqvp,
+    "'comp":        _comp,
+    "'juxt":        _juxt,
+    "'->":          _pipe,
+    "'hash":        _hash,
+    "'set":         _set,
+    "'get":         _get,
+    "'keys":        _keys,
+    "'vals":        _vals,
+    "'pairs":       _pairs,
+    "'str":         _str,
+    "'push":        _push,
+    "'pop":         _pop,
+    "'sort":        _sort,
+    "'doc":         (obj) => obj[DOC_KEY],
+    "'type":        garner_type,
+    "'list":        _list,
+    "'check":       _check,
+    "'ref":         _ref,
+    "'swap!":       _swap,
+    "'cas!":        _cas,
+    "'snap":        _snap
+  };
+
   exports.lisp = {
     VERSION: "0.5.5",
     read: _read,
