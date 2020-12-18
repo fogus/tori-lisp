@@ -16,7 +16,7 @@
 *** DONE Add counter closure example and tests.
 ** DONE Migrate appropriate functions to ~() =>~ form.
 ** DONE Add commentary to lisp.js
-** TODO Write blog post (credit Mary RC, [[http://www.arclanguage.org/tut.txt][pg]], and Tay), mention lemonad
+** DONE Write blog post (credit Mary RC, [[http://www.arclanguage.org/tut.txt][pg]], and Tay), mention lemonad
 ** TODO Expose `part` as curried function
 ** TODO Port environments to Maps
 ** TODO Explore pulling in more of lemonad
