@@ -19,6 +19,8 @@
 ** DONE Write blog post (credit Mary RC, [[http://www.arclanguage.org/tut.txt][pg]], and Tay), mention lemonad
 ** TODO Expose `part` as curried function
 ** TODO Port environments to Maps
+** TODO microKanren
+** TODO Explore Symbols instead of encoded strings for symbols
 ** TODO Explore pulling in more of lemonad
 ** TODO Explore Scheme-48 modules
 ** TODO Explore "tables" and the queries around them
