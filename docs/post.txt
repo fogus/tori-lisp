@@ -31,6 +31,11 @@ Here's a very small sample of the language:
     ;;=> 1
     鳥>  (len +)
     ;;=> 2
+    
+    鳥>  (read "(push [] 'foo)")
+    ;;=> [ "'push", [ "'list" ], [ "'quote", "'foo" ] ]
+    鳥>  (eval (read "(push [] 'foo)"))
+    ;;=> [ "'foo" ]  
 
 If I wanted to present a list of features then the following list would	work:[^mac]
 
@@ -44,7 +49,7 @@ If I wanted to present a list of features then the following list would	work:[^m
 
 If you're interested in checking out the language then the [ToriLisp Github repository](https://github.com/fogus/tori-lisp) has a quick start, test suite, and its own tut.txt. 
 
-[^dustbin]: Though the implementations did not make the Internet Archive it seems. I reached out to Mr. Taysom years ago and he was kind enough to send me the code but I hesitate to share them publically without
+[^dustbin]: Though the implementations did not make the Internet Archive it seems. I reached out to Mr. Taysom years ago and he was kind enough to send me the code but I hesitate to share it publically without
 his approval.
 
 [^readme]: Consider this a form of [README-driven language development](https://tom.preston-werner.com/2010/08/23/readme-driven-development.html).
