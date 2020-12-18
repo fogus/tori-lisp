@@ -1,6 +1,8 @@
 -*- mode: markdown -*-
 
+When deciding to work on a side-project three factors are needed to transition from fancy to application: goal, motivation, and time.
 
+Time is usually the biggest sticking point for me personally but with COVID most of what I may have spent my time on this year was cancelled. However, motivation was still a huge sticking point until I came across a couple of projects that helped propel me forward. First, I spent some time ealrier this year combing over [Mary Rose Cook](https://twitter.com/maryrosecook)'s lovely [Little Lisp](https://github.com/maryrosecook/littlelisp) interpreter code. Given what I knew about Mary's previous projects it was no surprise that the Little Lisp implementation was simple and elegant. However, what I wasn't prepared for was that hacking on the interprter turned out to be straight-forward and addictive. However, it wasn't until I re-discovered [William Taysom](https://twitter.com/wtaysom)'s old Scheme-like language [Misp](https://web.archive.org/web/20090625142941/http://moonbase.rydia.net/mental/blog/programming/misp-is-a-lisp) that I had a form for the interpreter in mind. At the time of William's original blog posts about Misp I was drawn to his passion and enjoyed the implementations of the language that he posted.[^dustbin] Around the same time I found Paul Graham's original Arc tutorial [tut.txt](http://www.arclanguage.org/tut.txt) and used it extensively to guide me in what to implement next.[^readme]
 
 <center>ToriLisp = Litle Lisp + Misp + tut.txt + Lemonad + underscore-contrib</center>
 
