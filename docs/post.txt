@@ -1,0 +1,44 @@
+-*- mode: markdown -*-
+
+
+
+<center>ToriLisp = Litle Lisp + Misp + tut.txt + Lemonad + underscore-contrib</center>
+
+Here's a very small sample of the language:
+
+    鳥>  (let (x 3 y 4)
+           (+ (* x 2) (* y 2)))
+    ;;=> 14
+
+    (def map
+      (λ (fn list)
+        (if (no list)
+          list
+          (cons (fn (first list))
+                (map fn (rest list))))))
+
+    鳥>  (map (+ 10) '(1 2 3))
+    ;;=> [ 11, 12, 13 ]
+
+    鳥>  ({x y | (/ (+ x y) 2)} 2 4)
+    ;;=> 3
+
+    鳥>  (len "abc")
+    ;;=> 3
+    鳥>  (len {a | a})
+    ;;=> 1
+    鳥>  (len +)
+    ;;=> 2
+
+If I wanted to present a list of features then the following list would	work:
+
+ - Functional
+ - Immutable access to JavaScript arrays and hash-maps.
+ - function auto-currying
+ -
+
+[^dustbin]: Though the implementations did not make the Internet Archive it seems. I reached out to Mr. Taysom years ago and he was kind enough to send me the code but I hesitate to share them publically without
+his approval.
+
+[^readme]: Consider this a form of [README-driven language development](https://tom.preston-werner.com/2010/08/23/readme-driven-development.html).
+
