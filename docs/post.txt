@@ -32,10 +32,10 @@ Here's a very small sample of the language:
     鳥>  (len +)
     ;;=> 2
     
-    鳥>  (read "(push [] 'foo)")
-    ;;=> [ "'push", [ "'list" ], [ "'quote", "'foo" ] ]
-    鳥>  (eval (read "(push [] 'foo)"))
-    ;;=> [ "'foo" ]  
+    鳥>  (read "(push [1 2] 'foo)")
+    ;;=> [ "'push", [ "'list", 1, 2 ], [ "'quote", "'foo" ] ]
+    鳥>  (eval (read "(push [1 2] 'foo)"))
+    ;;=> [ "'foo", 1, 2 ]  
 
 If I wanted to present a list of features then the following list would	work:[^mac]
 
