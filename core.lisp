@@ -4,6 +4,8 @@
 (def dec {n | (- n 1)})
 (def inc (+ 1))
 
+(def always {e | {e}})
+
 (def map 
   (λ (fn list)
     (if (no list) 
