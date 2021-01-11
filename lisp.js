@@ -879,6 +879,7 @@
     "'head":   	    _head,
     "'last":        _last,
     "'cons":   	    _cons,
+    "'part":        _part,
     "'meta/body"  : _body,
     "'meta/params": _params,    
     "'read":   	    _read,
