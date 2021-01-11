@@ -17,7 +17,7 @@
 ** DONE Migrate appropriate functions to ~() =>~ form.
 ** DONE Add commentary to lisp.js
 ** DONE Write blog post (credit Mary RC, [[http://www.arclanguage.org/tut.txt][pg]], and Tay), mention lemonad
-** TODO Expose `part` as curried function
+** DONE Expose `part` as curried function
 ** TODO Implement John D Cook's minimal math lib https://www.johndcook.com/blog/2021/01/05/bootstrapping-math-library/
 ** TODO Port environments to Maps
 ** TODO microKanren

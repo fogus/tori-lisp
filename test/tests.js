@@ -72,6 +72,11 @@ QUnit.test( "lists", function(assert) {
   assert.deepEqual(lisp.evil("(list 'a 1 \"foo\" '(b))"), [ "'a", 1, 'foo', [ "'b" ] ]);
   assert.deepEqual(lisp.evil("['a 1 \"foo\" ['b]]"), [ "'a", 1, 'foo', [ "'b" ] ]);
 
+  assert.deepEqual(lisp.evil("(part 2 [1 2 3 4 5 6])"), [ [1, 2], [3, 4], [5, 6] ]);
+  assert.deepEqual(lisp.evil("(part 2 [1 2 3 4 5])"), [ [1, 2], [3, 4], [5] ]);
+  assert.deepEqual(lisp.evil("(part 3 [1 2 3 4 5 6])"), [ [1, 2, 3], [4, 5, 6] ]);
+  assert.deepEqual(lisp.evil("(part 3 [1 2 3 4])"), [ [1, 2, 3], [4] ]);
+
   assert.deepEqual(lisp.evil("(sort < '(2 9 3 7 5 1))"), [ 1, 2, 3, 5, 7, 9 ], "sorting a list <");
   assert.deepEqual(lisp.evil("(sort {l r | (< (len l) (len r))} '(\"orange\" \"pea\" \"apricot\" \"apple\"))"), [ 'pea', 'apple', 'orange', 'apricot' ], "sorting a list w/ a custon function");
   assert.deepEqual(lisp.evil("(sort {l r | (< (len l) (len r))} '(\"aa\" \"bb\" \"cc\"))"), [ 'aa', 'bb', 'cc' ], "stable sorting");
