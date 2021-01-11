@@ -214,6 +214,17 @@
     return [elem].concat(seq);
   }, 2);
 
+  var _part = auto_curry(function(n, array) {
+    var i, j;
+    var res = [];
+    
+    for (i = 0, j = array.length; i < j; i += n) {
+      res.push(array.slice(i, i+n));
+    }
+
+    return res;
+  }, 2);
+  
   /** basic math **/
   
   var _plus = auto_curry(function(l, r) {
@@ -320,7 +331,7 @@
   /** hash maps **/
 
   var _hash = function(...elems) {
-    var pairs = part(2, elems);
+    var pairs = _part(2, elems);
     var last  = _last(pairs);
 
     if (!existy(last)) return new Map();
@@ -422,17 +433,6 @@
   
   /** bindings utils **/
   
-  var part = function(n, array) {
-    var i, j;
-    var res = [];
-    
-    for (i = 0, j = array.length; i < j; i += n) {
-      res.push(array.slice(i, i+n));
-    }
-
-    return res;
-  }
-
   var garner_bindings = function(env, binds) {
     if (is_seq(env, binds)) {
       return binds;
@@ -481,7 +481,7 @@
     "'if": (env, form) => (truthy(_eval(env, form[1])) ? _eval(env, form[2]) : _eval(env, form[3])),
     
     "'cond": function(env, form) {
-      var pairs = part(2, _rest(form));
+      var pairs = _part(2, _rest(form));
       if (pairs[pairs.length - 1].length === 1) throw new Error("cond expects an even number of condition pairs");
 
       for (var i = 0; i < pairs.length; i++) {
@@ -495,7 +495,7 @@
     },
 
     "'let": function(env, form) {
-      var binds = part(2, form[1]);
+      var binds = _part(2, form[1]);
 
       var scope = binds.reduce(function (acc, pair) {
         acc[pair[0]] = _eval(env, pair[1]);
