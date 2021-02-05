@@ -34,7 +34,7 @@ the MIT license from it.
 
 At the moment symbols are encoded as strings containing a single quote
 followed by the lexematic representation of the symbol. This encoding
-may change and should be relied on to remain stable.
+may change and should not be relied on to remain stable.
 
 ## References
 
