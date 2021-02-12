@@ -429,6 +429,32 @@
     console.assert(checker(res, expect), msg + ": %s", " UNEXPECTED: " + toS(res));
   };
 
+  /** Math core **/
+
+  var _sine = function(n) {
+    return Math.sin(n);
+  }; 
+
+  var _cos = function(n) {
+    return Math.cos(n);
+  }; 
+
+  var _atan = function(n) {
+    return Math.atan(n);
+  }; 
+
+  var _log = function(n) {
+    return Math.log(n);
+  };
+
+  var _exp = function(n) {
+    return Math.exp(n);
+  };
+
+  var _sqrt = function(n) {
+    return Math.sqrt(n);
+  };
+  
   /* Internals */
   
   /** bindings utils **/
@@ -927,7 +953,15 @@
     "'ref":         _ref,
     "'swap!":       _swap,
     "'cas!":        _cas,
-    "'snap":        _snap
+    "'snap":        _snap,
+    "'math/PI":     Math.PI,
+    "'math/E":      Math.E,    
+    "'math/sine":   _sine,
+    "'math/cos":    _cos,
+    "'math/atan":   _atan,
+    "'math/log":    _log,
+    "'math/exp":    _exp,
+    "'math/sqrt":   _sqrt    
   };
 
   exports.lisp = {
