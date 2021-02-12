@@ -54,3 +54,10 @@
 (check {(snap bvar)}         is? 2 "testing swap worked")
 (check {(swap! bvar + -10)}  is? undefined "testing swap return with function and arg")
 (check {(snap bvar)}         is? 2 "testing swap failed, after validation failure")
+
+(def hypo
+  (λ (a b)
+    (math/sqrt (+ (* a a) (* b b)))))
+
+(check {(hypo 3 4)}          is? 5 "test math/sqrt")
+(check {(hypo 0 0)}          is? 0 "test math/sqrt")
