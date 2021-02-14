@@ -134,6 +134,8 @@
 (def odd?  {n | (is? (mod n 2) 1)})
 (def even? (comp not odd?))
 
+(def math/pow {x y | (math/exp (* y (math/log x)))})
+
 (def Y
   (λ (f)
      ({x | (f (x x))}
@@ -146,3 +148,4 @@
               (is? n 1) 1
               #t (+ (f (- n 1))
                     (f (- n 2)))))))
+
