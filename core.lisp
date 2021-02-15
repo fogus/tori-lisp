@@ -134,12 +134,16 @@
 (def odd?  {n | (is? (mod n 2) 1)})
 (def even? (comp not odd?))
 
+(def math/logn {n base | (/ (math/log n) (math/log base))})
+
 (def math/pow {x y | (math/exp (* y (math/log x)))})
 
 (def math/sec {x | (/ 1 (math/cos x))})
 (def math/csc {x | (/ 1 (math/sine x))})
 (def math/tan {x | (/ (math/sine x) (math/cos x))})
 (def math/cot {x | (/ (math/cos x) (math/sine x))})
+
+
 
 (def Y
   (λ (f)
