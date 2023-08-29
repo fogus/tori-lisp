@@ -34,14 +34,14 @@ programs can be as complex as you want:
 
 Unlike many Lisps, TL functions always expect a fixed number of 
 arguments. For example, the `+` function shown above expects to
-receive 2 arguments and if it receives too many then and error
+receive 2 arguments and if it receives too many then an error
 occurs:
 
     鳥>  (+ 1 2 3)
     ;;=> Error: Too many arguments to function: expected 2, got 3
 
 However, if you supply fewer arguments than a function expects then
-a new function will be reurned:
+a new function will be returned:
 
     鳥>  (+ 1)
     ;;=> [Function: curried]
@@ -49,7 +49,7 @@ a new function will be reurned:
 Functions in TL are "curried" by default. This means that when a 
 function is called it might return another function that expects to 
 receive the remainder of its expected arguments. Once all of the 
-expected arguments are recieved the function is executed and a 
+expected arguments are received the function is executed and a 
 result returned.
 
     鳥>  ((+ 1) 2)
@@ -342,7 +342,7 @@ same characters.
 	鳥>  (is? ['a] ['a])
     ;;=> false
 
-Note that is returns false for two lists with the same elements.
+Note that it returns false for two lists with the same elements.
 There's another operator for that, `eqv?` (from equivalent).
 
     鳥>  (eqv? ['a] ['a])
@@ -553,7 +553,7 @@ To supply a list of arguments to a function, use `apply`:
     鳥>  (apply + '(1 2))
     ;;=> 3
 
-As will all functions, supplying fewer arguments than a function 
+As with all functions, supplying fewer arguments than a function 
 expects using `apply` will return a curried function.
 
     鳥>  (apply + '(1))
