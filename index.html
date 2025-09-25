@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tori-Lisp</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            backdrop-filter: blur(10px);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2a5298;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .version {
+            font-size: 0.4em;
+            color: #666;
+            font-weight: normal;
+            vertical-align: top;
+            margin-left: 10px;
+            text-shadow: none;
+        }
+        
+        .repl-section {
+            margin-bottom: 25px;
+        }
+        
+        .repl-section h2 {
+            color: #1e3c72;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        #input {
+            width: 100%;
+            height: 150px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 14px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            resize: vertical;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            line-height: 1.5;
+        }
+        
+        #input:focus {
+            outline: none;
+            border-color: #2a5298;
+            box-shadow: 0 0 10px rgba(42, 82, 152, 0.3);
+            background: white;
+        }
+        
+        .button-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        #evalBtn {
+            background: linear-gradient(45deg, #2a5298, #1e3c72);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(42, 82, 152, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        #evalBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(42, 82, 152, 0.4);
+        }
+        
+        #evalBtn:active {
+            transform: translateY(0);
+        }
+        
+        #output {
+            width: 100%;
+            height: 200px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 14px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background: #f1f3f4;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+        
+        .examples {
+            background: rgba(42, 82, 152, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 25px;
+        }
+        
+        .examples h3 {
+            color: #1e3c72;
+            margin-top: 0;
+        }
+        
+        .example {
+            background: white;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border-left: 4px solid #2a5298;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 13px;
+        }
+        
+        .example:hover {
+            background: #f8f9fa;
+            transform: translateX(5px);
+        }
+        
+        .error {
+            color: #d32f2f;
+            background: rgba(211, 47, 47, 0.1);
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 4px solid #d32f2f;
+        }
+        
+        .success {
+            color: #2e7d32;
+        }
+        
+        .clear-btn {
+            background: #666;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-left: 10px;
+            transition: background 0.3s ease;
+        }
+        
+        .clear-btn:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tori-Lisp<span class="version" id="version"></span></h1>
+        
+        <div class="repl-section">
+            <h2>Input Expression</h2>
+            <textarea id="input" placeholder="Enter your Tori-Lisp expression here...
+Example: (+ 1 2 3)"></textarea>
+        </div>
+        
+        <div class="button-container">
+            <button id="evalBtn">Eval</button>
+            <button id="clearBtn" class="clear-btn">Clear All</button>
+        </div>
+        
+        <div class="repl-section">
+            <h2>Listener</h2>
+            <div id="output">Ready to evaluate Tori-Lisp expressions...</div>
+        </div>
+        
+        <div class="examples">
+            <h3>Examples (click to paste fragment):</h3>
+            <div class="example" onclick="loadExample('(+ 1 2)')">(+ 1 2) - Basic arithmetic</div>
+	    <div class="example" onclick="loadExample('(+ 1)')">(+ 1) - Return curried function</div>
+            <div class="example" onclick="loadExample('(* (+ 2 3) 4)')">(* (+ 2 3) 4) - Nested operations</div>
+            <div class="example" onclick="loadExample('[1 2 3 4 5]')">[1 2 3 4 5] - List literal</div>
+            <div class="example" onclick="loadExample('(first [1 2 3])')">(first [1 2 3]) - Get first element</div>
+            <div class="example" onclick="loadExample('(rest [1 2 3 4])')">(rest [1 2 3 4]) - Get rest of list</div>
+            <div class="example" onclick="loadExample('(cons 0 [1 2 3])')">(cons 0 [1 2 3]) - Add to front</div>
+            <div class="example" onclick="loadExample('(def square {x | (* x x)})')">(def square {x | (* x x)}) - Define function</div>
+	    <div class="example" onclick="loadExample('(map (+ 10) [1 2 3])')">(map (+ 10) [1 2 3])</div>
+	    <div class="example" onclick="loadExample('(fib0 5)')">TODO: Fix (fib0 5)</div>
+	    <div class="example" onclick="">TODO: Reset builds a new environment. Save the old one?</div>
+        </div>
+    </div>
+
+    <script src="lisp.js"></script>
+    <script>
+        const input = document.getElementById('input');
+        const output = document.getElementById('output');
+        const evalBtn = document.getElementById('evalBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        
+        let history = [];
+        
+        function evaluate() {
+            const code = input.value.trim();
+            if (!code) {
+                updateOutput('Please enter a Tori-Lisp expression', 'error');
+                return;
+            }
+            
+            try {
+                const result = lisp.evil(code);
+                const resultStr = formatResult(result);
+                history.push({ input: code, output: resultStr, success: true });
+                updateOutput(`> ${code}\n${resultStr}`, 'success');
+            } catch (error) {
+                const errorMsg = `Error: ${error.message}`;
+                history.push({ input: code, output: errorMsg, success: false });
+                updateOutput(`> ${code}\n${errorMsg}`, 'error');
+            }
+        }
+        
+        function formatResult(result) {
+            if (result === undefined) return 'undefined';
+            if (result === null) return 'null';
+            if (typeof result === 'string') return `"${result}"`;
+            if (Array.isArray(result)) {
+                return '[' + result.map(formatResult).join(' ') + ']';
+            }
+            if (result instanceof Map) {
+                const entries = Array.from(result.entries());
+                const formatted = entries.map(([k, v]) => `${formatResult(k)} ${formatResult(v)}`).join(' ');
+                return `{${formatted}}`;
+            }
+            if (typeof result === 'function') {
+                return `#<function:${result.name || 'anonymous'}>`;
+            }
+            return String(result);
+        }
+        
+        function updateOutput(text, type = '') {
+            output.textContent = text;
+            output.className = type;
+            output.scrollTop = output.scrollHeight;
+        }
+        
+        function loadExample(example) {
+            input.value = example;
+            input.focus();
+        }
+        
+        function clearAll() {
+            input.value = '';
+            output.textContent = 'Ready to evaluate Tori-Lisp expressions...';
+            output.className = '';
+            history = [];
+            input.focus();
+        }
+        
+        function loadCoreLibrary() {
+            fetch('core.lisp')
+                .then(response => {
+                    if (!response.ok) {
+                        updateOutput('Warning: core.lisp not found - running without base library', 'error');
+                        return null;
+                    }
+                    return response.text();
+                })
+                .then(coreCode => {
+                    if (coreCode) {
+                        try {
+                          lisp.evil("(do " + coreCode +")");
+                            updateOutput('Core library loaded successfully', 'success');
+                        } catch (error) {
+                            updateOutput(`Error loading core library: ${error.message}`, 'error');
+                        }
+                    }
+                })
+                .catch(error => {
+                    updateOutput(`Failed to load core.lisp: ${error.message}`, 'error');
+                });
+        }
+        
+        // Event listeners
+        evalBtn.addEventListener('click', evaluate);
+        clearBtn.addEventListener('click', clearAll);
+        
+        // Allow Ctrl+Enter to evaluate
+        input.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'Enter') {
+                e.preventDefault();
+                evaluate();
+            }
+        });
+        
+        // Focus input on page load
+        input.focus();
+        
+        // Display version number
+        document.getElementById('version').textContent = `v${lisp.VERSION}`;
+        
+        // Load core.lisp library
+        loadCoreLibrary();
+        
+        // Auto-resize textarea
+        input.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.max(150, this.scrollHeight) + 'px';
+        });
+    </script>
+</body>
+</html>

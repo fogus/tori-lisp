@@ -143,18 +143,16 @@
 (def math/tan {x | (/ (math/sine x) (math/cos x))})
 (def math/cot {x | (/ (math/cos x) (math/sine x))})
 
-
-
 (def Y
   (λ (f)
-     ({x | (f (x x))}
-      {x | (f (x x))})))
+     ({g | (g g)}
+      {g | (f {args | (apply (g g) args)})))
 
 (def fib0
-  (λ (f)
-     (λ (n)
-        (cond (is? n 0) 1
-              (is? n 1) 1
-              #t (+ (f (- n 1))
-                    (f (- n 2)))))))
+  (Y (λ (f)
+	(λ (n)
+           (cond (is? n 0) 1
+		 (is? n 1) 1
+		 #t (+ (f (- n 1))
+                       (f (- n 2))))))))
 

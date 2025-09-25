@@ -36,6 +36,14 @@ At the moment symbols are encoded as strings containing a single quote
 followed by the lexematic representation of the symbol. This encoding
 may change and should be relied on to remain stable.
 
+## Dev
+
+Make changes and then try them out in node or in the index.html, but run the following first:
+
+    python3 -m http.server 8888
+
+And then visit <http://localhost:8888/index.html>.
+
 ## References
 
 - [Arc tutorial](http://www.arclanguage.org/tut.txt)
