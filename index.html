@@ -175,9 +175,49 @@
         .clear-btn:hover {
             background: #555;
         }
+        
+        .github-link {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+        
+        .github-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .footer {
+            margin-top: 40px;
+            padding: 20px 0;
+            border-top: 1px solid #e0e0e0;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+        }
+        
+        .footer a {
+            color: #2a5298;
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
+    <a href="https://github.com/fogus/tori-lisp" class="github-link" target="_blank">GitHub</a>
+    
     <div class="container">
         <h1>Tori-Lisp<span class="version" id="version"></span></h1>
         
@@ -210,6 +250,13 @@ Example: (+ 1 2 3)"></textarea>
 	    <div class="example" onclick="loadExample('(map (+ 10) [1 2 3])')">(map (+ 10) [1 2 3])</div>
 	    <div class="example" onclick="loadExample('(fib0 5)')">TODO: Fix (fib0 5)</div>
 	    <div class="example" onclick="">TODO: Reset builds a new environment. Save the old one?</div>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; 2025 Michael Fogus. All rights reserved.</p>
+            <p>Created with λove by <a href="https://www.fogus.me">Fogus</a> | 
+               <a href="https://github.com/fogus/tori-lisp/blob/main/LICENSE">MIT License</a> | 
+               <a href="https://github.com/fogus/tori-lisp/issues">Report Issues</a></p>
         </div>
     </div>
 
