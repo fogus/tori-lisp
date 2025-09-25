@@ -146,7 +146,7 @@
 (def Y
   (λ (f)
      ({g | (g g)}
-      {g | (f {args | (apply (g g) args)})))
+      {g | (f {args | (apply (g g) args)})})))
 
 (def fib0
   (Y (λ (f)
