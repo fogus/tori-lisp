@@ -4,7 +4,7 @@
  "author":      "fogus",
  "version":     "0.0.1",
  "dependencies": {
-   "immutable": "4.0.0-rc.9"
+   "immutable": "4.3.8"
  }
 }
 
